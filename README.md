@@ -3,6 +3,11 @@
 **Repo-skelett v0.3**  
 **ITSX26 Kurs 1: Grunder i IT och cybersäkerhet**  
 **Syfte:** Ge en praktisk, defensiv och pedagogisk introduktion till DevSecOps, säkerhetskontroller, dokumentation och ansvarsfull AI-användning.
+---
+
+## Vem är jag?
+
+Jag heter Jesper Thomsen, jag går i ITSX26, datumet är 28/8 och jag har valt denna utbildningen för att bli den skarpaste säkerhetsteknikern! Jag tycker att cybersäkerhet är otroligt intressant och är säker på att jag kommer att lära mig otroligt mycket under vägen! 
 
 ---
 
