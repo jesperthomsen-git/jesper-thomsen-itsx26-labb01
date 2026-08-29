@@ -4,7 +4,7 @@ Ett företag använder e-post, Microsoft 365, mobiltelefoner och ett HR-system
 
 E-post
 
-E-post har vissa svagheter både vid mänsklig faktor men också på nätet. 
+E-post har vissa svagheter både vid mänsklig faktor men också på nätet om man inte är utbildad eller tänker en extra gång om det är värt att öppna det där mailet från den persiska prinsen. Det är därför viktigt att tänka på tillgängligheten samt konfidentialitet som prioritet.
 | Hot: | sårbarheter: | Lösningar: |
 |---|---|---|
 | Target för cyberattacker| Social engineering så som phising eller osäkerhet om autentisitet | Utbilda personal att hot finns både utifrån men också innifrån och att dem bör tänka extra angående filer eller länkar som skickas. |
@@ -14,7 +14,7 @@ E-post har vissa svagheter både vid mänsklig faktor men också på nätet.
 
 Microsoft 365
 
-Microsoft har sina brister ibland och folk som angriper är medvetna om dessa
+Microsoft har sina brister ibland och folk som angriper är medvetna om dessa. Det är därför tillgänglighet och konfidentialitet är viktigt. 
 | Hot: | sårbarheter: | Lösningar: |
 |---|---|---|
 | Hot mot intigritet och viktig data | Autentiserings problem | Behöver uppdateras ofta | Autentiserings problem kan lösas så som med MFA eller något som är kopplat till ens jobbprofil som mobilnummer, jobbprofilens biometrics eller kontonamn för spårbarhet
@@ -23,6 +23,7 @@ Microsoft har sina brister ibland och folk som angriper är medvetna om dessa
 
 
 Mobiltelefoner
+Mobiltelefoner är ett dubbel-eggat svärd, den både hälper med autentisiering via biometri, sms eller lättåtkomlig mail och en stapel inom kommunikation men har sitt pris och kan påverka både tillgänglighet men också konfidentialitet. 
 
 | Hot: | sårbarheter: | Lösningar: |
 |---|---|---|
@@ -33,6 +34,7 @@ Mobiltelefoner
 
    
 HR-system
+HR-System är otroligt viktigt för ett företag där värdefull information om människor sparas och hanteras och måste se till att både tillgänglighet samt riktighet sköts. Detta system är väldigt skör då detta kan påverka människor "på riktigt" både finansiellt men också dess rykte/uppfattning om personen.
 
 | Hot: | sårbarheter: | Lösningar: |
 |---|---|---|
