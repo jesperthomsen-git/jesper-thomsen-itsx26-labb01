@@ -5,22 +5,9 @@
 ##Konfidentialitet, riktighet, tillgänglighet
 
 
-| Observation | Påverkan på CIA | Riskbeskrivning | Föreslagen åtgärd | Prioritet |
-|---|---|---|---|---|
-| Exempel: Använder e-post | Konfidentialitet, tillgänglighet | E-post kan vara lättåtkomligt |  |  |
-|  |  |  |  |  |
+Användning av E-post är en stapel inom kommunikation på företag men kan skapa problem som tidigare nämnt i hotanalys.md där hot kan vara en ständig faktor, i denna analys kommer hotet från Cyberattacker att analyseras.
+
 
 | Observation | Påverkan på CIA | Riskbeskrivning | Föreslagen åtgärd | Prioritet |
 |---|---|---|---|---|
-| Exempel: Microsoft 365 |  |  |  |  |
-|  |  |  |  |  |
-
-| Observation | Påverkan på CIA | Riskbeskrivning | Föreslagen åtgärd | Prioritet |
-|---|---|---|---|---|
-| Exempel: Mobiltelefoner |  |  |  |  |
-|  |  |  |  |  |
-
-| Observation | Påverkan på CIA | Riskbeskrivning | Föreslagen åtgärd | Prioritet |
-|---|---|---|---|---|
-| Exempel: HR-system |  |  |  |  |
-|  |  |  |  |  |
+|  Cyberattacker | Konfidentialitet, tillgänglighet| Åtkomst till viktig information, samt risk att låsa ut en eller delar av ett företag | Möjlighet för att kunna kryptera känslig information som skickas mellan personer så som 2 key enkryption | Hög |
