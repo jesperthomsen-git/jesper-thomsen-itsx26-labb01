@@ -7,19 +7,10 @@ E-post
 E-post har vissa svagheter både vid mänsklig faktor men också på nätet. 
 | Hot: | sårbarheter: | Lösningar: |
 |---|---|---|
-| 1) Target för cyberattacker
-2) Lättåtkomligt lösenord
-3) Kan påverka policys och intigritet |
+| Target för cyberattacker| Social engineering så som phising eller osäkerhet om autentisitet | Utbilda personal att hot finns både utifrån men också innifrån och att dem bör tänka extra angående filer eller länkar som skickas. |
+| Lättåtkomligt lösenord | Konversationer och kännslig information kan läcka ut | Det skall både vara enkelt för personal att komma åt sin mail men svårt för andra att komma åt, MFA är ett bra exempel |
+| Kan påverka policys och intigritet | Som bas, okrypterat | Möjlighet för att kunna kryptera känslig information som skickas mellan personer så som 2 key enkryption |
 
-
-| 1) Social engineering så som phising eller osäkerhet om autentisitet
-2) Konversationer och kännslig information kan läcka ut
-3) Som bas, okrypterat |
-
-
-| 1) Utbilda personal att hot finns både utifrån men också innifrån och att dem bör tänka extra angående filer eller länkar som skickas.
-2) Det skall både vara enkelt för personal att komma åt sin mail men svårt för andra att komma åt, MFA är ett bra exempel
-3) Möjlighet för att kunna kryptera känslig information som skickas mellan personer så som 2 key enkryption |
 
 Microsoft 365
 
