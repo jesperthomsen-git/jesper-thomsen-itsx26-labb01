@@ -2,13 +2,13 @@ Scenario
 -------------------------
 Ett företag använder e-post, Microsoft 365, mobiltelefoner och ett HR-system
 
-##E-post
+E-post
 
 E-post har vissa svagheter både vid mänsklig faktor men också på nätet. 
-|Hot:|
-|1) Target för cyberattacker
+| Hot: |
+1) Target för cyberattacker
 2) Lättåtkomligt lösenord
-3) Kan påverka policys och intigritet|
+3) Kan påverka policys och intigritet
 
 sårbarheter:
 1) Social engineering så som phising eller osäkerhet om autentisitet
@@ -20,7 +20,7 @@ Lösningar:
 2) Det skall både vara enkelt för personal att komma åt sin mail men svårt för andra att komma åt, MFA är ett bra exempel
 3) Möjlighet för att kunna kryptera känslig information som skickas mellan personer så som 2 key enkryption
 
-##Microsoft 365
+Microsoft 365
 
 Microsoft har sina brister ibland och folk som angriper är medvetna om dessa
 Hot som jag tänker på är:
@@ -38,7 +38,7 @@ Lösningar:
 2) Data breach kan oftast lösas med att ge personen det dem behöver åtkomst till men inte mer än det. Årlig omcertifiering kan tänkas vara ett alternativ, men skall inte kännas som en omväg eller omständighet för personal
 3) Uppdateringar kan oftast automatiseras och man kan få AI agenter till att hålla detta igång och skapa enkla patches som fixar sårbarheter på utdaterade maskiner
 
-##Mobiltelefoner
+Mobiltelefoner
 Hot: 
 1)  
 2) Känslig mot attacker om hen är outbildad
@@ -52,8 +52,8 @@ Lösningar:
 1) Utbilda personer om hot som kan uppstå
 2) Ge personen en jobb telefon endast gjord för MFA, biometrics
 3) Utbildning om säker surfning, vikten med säkert wifi och att inte koppla in på öppna nätverk som inte är statliga
-
-##HR-system
+   
+HR-system
 hot:
 1) Autentiserings problem
 2) Data breach som nämnt ovan på Microsoft
