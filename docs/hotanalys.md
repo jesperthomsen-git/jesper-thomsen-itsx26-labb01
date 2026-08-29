@@ -15,21 +15,16 @@ E-post har vissa svagheter både vid mänsklig faktor men också på nätet.
 Microsoft 365
 
 Microsoft har sina brister ibland och folk som angriper är medvetna om dessa
-Hot som jag tänker på är:
-1) Hot mot intigritet och viktig data
-2) Data breach, när jag säger data breach tänker jag direkt på möjligheten att fel personer finns på fel ställen och kan skapa problem både oavsiktligt eller avsikligt som kan kosta både tid och pengar för att få tillbaka
-3) Ransomware
-
-sårbarheter:
-1) Autentiserings problem
-2) Behöver uppdateras ofta
-3) Kan ha buggar som kan exploiteras av hackare som är medvetna om svagheterna
+| Hot: | sårbarheter: | Lösningar: |
+|---|---|---|
+| Hot mot intigritet och viktig data | Autentiserings problem | Behöver uppdateras ofta | Autentiserings problem kan lösas så som med MFA eller något som är kopplat till ens jobbprofil som mobilnummer, jobbprofilens biometrics eller kontonamn för spårbarhet
+| Data breach, när jag säger data breach tänker jag direkt på möjligheten att fel personer finns på fel ställen och kan skapa problem både oavsiktligt eller avsikligt som kan kosta både tid och pengar för att få tillbaka | Data breach kan oftast lösas med att ge personen det dem behöver åtkomst till men inte mer än det. Årlig omcertifiering kan tänkas vara ett alternativ, men skall inte kännas som en omväg eller omständighet för personal |
+| Ransomware | Kan ha buggar som kan exploiteras av hackare som är medvetna om svagheterna | Uppdateringar kan oftast automatiseras och man kan få AI agenter till att hålla detta igång och skapa enkla patches som fixar sårbarheter på utdaterade maskiner |
 
 Lösningar:
-1) Autentiserings problem kan lösas så som med MFA eller något som är kopplat till ens jobbprofil som mobilnummer, jobbprofilens biometrics eller kontonamn för spårbarhet
-2) Data breach kan oftast lösas med att ge personen det dem behöver åtkomst till men inte mer än det. Årlig omcertifiering kan tänkas vara ett alternativ, men skall inte kännas som en omväg eller omständighet för personal
-3) Uppdateringar kan oftast automatiseras och man kan få AI agenter till att hålla detta igång och skapa enkla patches som fixar sårbarheter på utdaterade maskiner
-
+1) 
+2) 
+3) 
 Mobiltelefoner
 Hot: 
 1)  
