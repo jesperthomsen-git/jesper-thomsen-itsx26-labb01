@@ -2,6 +2,7 @@
 
 ##template tagen från 01-riskbedomning.md
 
+##Konfidentialitet, riktighet, tillgänglighet
 
 
 | Observation | Påverkan på CIA | Riskbeskrivning | Föreslagen åtgärd | Prioritet |
