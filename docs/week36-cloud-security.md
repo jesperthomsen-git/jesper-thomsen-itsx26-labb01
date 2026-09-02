@@ -14,6 +14,7 @@ Här är en screenshot på min compartment och vad som finns i jesperthomsen (ro
 
 Här är en bild på att min VM är uppe och kör:
 ![alt text](Screenshots/v36/itsx26-vm.png)
+
 ---
 ## 2. Linux-kommandon
 | Kommando | Vad visar det? | CIA-koppling |
