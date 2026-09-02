@@ -9,6 +9,8 @@ Besvara frågorna:
 3. Vilka delar av CIA-triaden kan påverkas?
 4. Vad tror du en IT- och cybersäkerhetstekniker behöver tänka på i ett DevSecOps-flöde?
 
+
+
 ## Slutreflektion
 
 Fylls i efter labb 7.
