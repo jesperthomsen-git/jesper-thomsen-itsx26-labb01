@@ -29,7 +29,7 @@ Här är en bild på att min VM är uppe och kör:
 ## 4 utforska Linux
 
 | kommandon: | Vad kommandot gör | Vad resultatet betyder | Vilken del av CIA-triaden det kan kopplas till |
-|-----------|-----------|-----------|-----------|-----------|
+|-----------|-----------|-----------|-----------|
 | ls -la | Skapar en lista på allt innehåll | Resultatet visar allt som finns i ett directory | (konfidentialitet / riktighet) |
 | date | Visar dagens datum & tid | --|-- | (riktighet) Hur jag resonerar runt riktighet är att om nätverket eller din VM är attackerad så kan attackeraren ändra loggar eller ändra datum och tid så informationen sparas fel|
 | id | Skriver användare & grupp info| Detta betyder att den som skriver in detta kan se vem användaren är samt vilken grupp användaren tillhör samt dess sekondära grupper| (Konfidentialitet) Detta scenario är väldigt lik whoami där informationen som visar här kan skapa sårbarheter där attackeraren kan se ännu mer information som kan utnyttjas än whoami där information visar tillhörigheter både vart den huvudsaklgen tillhör ochhar rättigheter men också andra grupped den har rättigheter i|
