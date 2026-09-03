@@ -40,9 +40,13 @@ Här är en bild på att min VM är uppe och kör:
 ## 5. Hardening
 | Kontroll | Risk | Vad gjorde jag? | Hur verifierade jag? | CIA |
 |-----------|-----------|-----------|-----------|-----------|
-|  |  |  |  |  |
+| whoami && id && groups | ubunutu är root och sudo rättigheter | Konsolen verifierar att detta input är korrekt |  |  |
 
-Kontroll 1 
+Kontroll 1:
+![alt text](Screenshots/v36/whoami.png)
+Ubuntu är användaren
+Användaren tillhör adm, cdrom, sudo, dip & lxd
+Administrativa rättigheter kan skapa stora problem om syntaxen eller kommandot är felskrivet
 
 
 ---
