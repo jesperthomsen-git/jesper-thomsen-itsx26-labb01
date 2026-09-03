@@ -41,8 +41,8 @@ Här är en bild på att min VM är uppe och kör:
 | Kontroll | Risk | Vad gjorde jag? | Hur verifierade jag? | CIA |
 |-----------|-----------|-----------|-----------|-----------|
 | whoami && id && groups | ubunutu är root och sudo rättigheter | Konsolen verifierar att detta input är korrekt | konfidentialitet |
-|  |  |  |  |
-|  |  |  |  |
+| chmod 600 | Kan låsa andra ute som behöver åtkomst | skapade en fil och ändrade rättigheter | (Tillgänglighet) Kan låsa andra ute som behöver åtkomst till en specifik fil eller mapp|
+| sudo apt update | risk för attacker utan regelbunden uppdatering | uppdaterade min VM till senaste verionen | (Tillgängligher, Konfidentialitet) |
 
 Kontroll 1:
 ![alt text](Screenshots/v36/whoami.png)
@@ -51,8 +51,21 @@ Användaren tillhör adm, cdrom, sudo, dip & lxd
 Administrativa rättigheter kan skapa stora problem om syntaxen eller kommandot är felskrivet
 
 Kontroll 2:
+![alt text](Screenshots/v36/testtxt.png)
 
+Vem får läsa filen?
+Chmod 600 ändrar så bara ägaren får läsa filen.
 
+Vem får ändra filen?
+Endast ägaren.
+
+Kontroll 3:
+
+Varför är uppdateringar viktiga?
+Att uppdatera regelbundet skapar en säkrare miljö där mjukvara kan exploiteras
+Vilken del av CIA påverkas?
+
+Att uppdatera sin miljö regelbundet påverkar både användarens tillgänglighet då större uppdateringar kan ta längre tid och konfidentialiteten behålls säkert då uppdateringen kan minska risken för attacker. 
 
 ---
 
