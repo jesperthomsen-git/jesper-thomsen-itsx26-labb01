@@ -9,10 +9,10 @@
 - Shape (Hårdvara, gäller alla): VM.Standard.E2.1.Micro
 - Inloggningsmetod: SSH med nyckel
 
-Här är en screenshot på min compartment och vad som finns i jesperthomsen (root):
+Här är en screenshot på min compartment och vad som finns i jesperthomsen (root):<p>
 ![Compartments](Screenshots/v36/Compartments.png)
 
-Här är en bild på att min VM är uppe och kör:
+Här är en bild på att min VM är uppe och kör:<p>
 ![alt text](Screenshots/v36/itsx26-vm.png)
 
 ---
@@ -44,13 +44,13 @@ Här är en bild på att min VM är uppe och kör:
 | chmod 600 | Kan låsa andra ute som behöver åtkomst | skapade en fil och ändrade rättigheter | (Tillgänglighet) Kan låsa andra ute som behöver åtkomst till en specifik fil eller mapp|
 | sudo apt update | risk för attacker utan regelbunden uppdatering | uppdaterade min VM till senaste verionen | (Tillgängligher, Konfidentialitet) |
 
-Kontroll 1:
+Kontroll 1:<p>
 ![alt text](Screenshots/v36/whoami.png)
 Ubuntu är användaren
 Användaren tillhör adm, cdrom, sudo, dip & lxd
 Administrativa rättigheter kan skapa stora problem om syntaxen eller kommandot är felskrivet
 
-Kontroll 2:
+Kontroll 2:<p>
 ![alt text](Screenshots/v36/testtxt.png)
 
 Vem får läsa filen?
