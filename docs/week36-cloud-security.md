@@ -41,6 +41,10 @@ Här är en bild på att min VM är uppe och kör:
 | Kontroll | Risk | Vad gjorde jag? | Hur verifierade jag? | CIA |
 |-----------|-----------|-----------|-----------|-----------|
 |  |  |  |  |  |
+
+Kontroll 1 
+
+
 ---
 
 ## 4. Recovery-plan
