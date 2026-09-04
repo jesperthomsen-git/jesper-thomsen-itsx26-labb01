@@ -22,7 +22,7 @@ Här är en bild på att min VM är uppe och kör:<p>
 
 | Kommando | Vad visar det? | CIA-koppling |
 |-----------|-----------|-----------|
-| whoami | inloggad som ubuntu | (Konfidentialitet) Visar användaren som är inloggad och visar vem det är som skriver kommandot. Detta visar hur enkelt det är att få tag på namnet på en användare och se dens rättigheter |
+| whoami | inloggad som ubuntu | (Konfidentialitet) Visar användaren som är inloggad och visar vem det är som skriver kommandot. Detta visar hur enkelt det är att få tag på namnet på en användare och se dens rättigheter. |
 | hostname | servern heter instance-20260901-1629 | (Konfidentialitet) Att detta kommando visar namnet på datorn eller namnet som tillgets i nätverket kan skapa problem som ingående attacker som kan se nätverket. |
 | pwd | /home/ubuntu | (Konfidentialitet/ Riktighet) Då detta visar innehåll i mappen man kör kommandot kan detta skapa frågor kring riktigheten i mappen om det skulle vara så att andra har tillgång till din användar mapp och behöver då ta extra steg för att försäkra sig att informationen som du äger är riktig. |
 | uname -a |OS som körs är Linux instance-20260901-1629 7.0.0-1009-oracle #9-Ubuntu SMP PREEMPT Thu Jul 23 02:43:14 UTC 2026 x86_64 GNU/Linux | (Konfidentialitet) Då -a gör att du får en hel överblick på datorn eller nätverket kan detta visa sårbarheter så som versionsnummer, maskin namn, samt på vilken OS den kör kan detta. |
@@ -34,17 +34,17 @@ Här är en bild på att min VM är uppe och kör:<p>
 |-----------|-----------|-----------|-----------|
 | ls -la | Skapar en lista på allt innehåll | Resultatet visar allt som finns i ett directory | (konfidentialitet / riktighet) Attackeraren får en helhetsbild på vad dem kan göra på din användare, vilka rättigheter på vilka filer som finns samt om det finns svagheter i systemet som kan exploiteras. |
 | date | Fri Sep  4 14:32:08 UTC 2026 | Visar datum och tid | (riktighet) Hur jag resonerar runt riktighet är att om nätverket eller din VM är attackerad så kan attackeraren ändra loggar eller ändra datum och tid så informationen sparas fel. |
-| id | Skriver användare & grupp info| Detta betyder att den som skriver in detta kan se vem användaren är samt vilken grupp användaren tillhör samt dess sekondära grupper| (Konfidentialitet) Detta scenario är väldigt lik whoami där informationen som visar här kan skapa sårbarheter där attackeraren kan se ännu mer information som kan utnyttjas än whoami där information visar tillhörigheter både vart den huvudsakligen tillhör och har rättigheter men också andra grupper den har rättigheter som har tilldelats från andra håll. |
-| groups | Visar vilken grupp användaren tillhör | Visar endast primära grupper som användaren tillhör | (konfidentialitet) Även om detta är ett lindrigare kommando än id så visar denna kod återigen känslig information om tillhörande och rättigheter som användaren är anknyten till|
-| ps aux I head | Visar 10 processer | visar alla processer för alla användare, visar ägandeskap samt processer som ej är kopplade till terminalen. Head visar de 10 första högst krävande processerna | (Konfidentialitet, tillgänglighet) ps aux visar alla processer oberoende på användare och kan visa känslig information kopplade till oilka användare och med rätt kommandon kan ett angrepp enkelt slå av viktiga processer som är aktiva i systemet. |
+| id | Skriver användare & grupp info| Detta betyder att den som skriver in detta kan se vem användaren är samt vilken grupp användaren tillhör samt dess sekondära grupper. | (Konfidentialitet) Detta scenario är väldigt lik whoami där informationen som visar här kan skapa sårbarheter där attackeraren kan se ännu mer information som kan utnyttjas än whoami där information visar tillhörigheter både vart den huvudsakligen tillhör och har rättigheter men också andra grupper den har rättigheter som har tilldelats från andra håll. |
+| groups | Visar vilken grupp användaren tillhör. | Visar endast primära grupper som användaren tillhör | (konfidentialitet) Även om detta är ett lindrigare kommando än id så visar denna kod återigen känslig information om tillhörande och rättigheter som användaren är anknyten till. |
+| ps aux I head | Visar 10 processer | visar alla processer för alla användare, visar ägandeskap samt processer som ej är kopplade till terminalen. Head visar de 10 första högst krävande processerna. | (Konfidentialitet, tillgänglighet) ps aux visar alla processer oberoende på användare och kan visa känslig information kopplade till oilka användare och med rätt kommandon kan ett angrepp enkelt slå av viktiga processer som är aktiva i systemet. |
 
 ---
 ## 5. Hardening
 | Kontroll | Risk | Vad gjorde jag? | Hur verifierade jag? | CIA |
 |-----------|-----------|-----------|-----------|-----------|
-| whoami && id && groups | Användare har sudo rättigheter vilket kan skapa problem om syntaxer eller kommandon är fel skrivna. | skapade en lista på vem som är användare, vilka rättigheter och grupper den tillhör | Ubunutu är root och har sudo rättigheter genom id kommandot som visar rättigheter | konfidentialitet |
+| whoami && id && groups | Användare har sudo rättigheter vilket kan skapa problem om syntaxer eller kommandon är fel skrivna. | skapade en lista på vem som är användare, vilka rättigheter och grupper den tillhör. | Ubunutu är root och har sudo rättigheter genom id kommandot som visar rättigheter. | konfidentialitet |
 | chmod 600 | Kan låsa andra ute som behöver åtkomst till en specifik fil eller mapp | skapade en fil och ändrade rättigheter | ls -la visar rättigheterna för filen | Tillgänglighet |
-| sudo apt update | risk för attacker utan regelbunden uppdatering | uppdaterade min VM till senaste verionen |  | Tillgängligher, Konfidentialitet |
+| sudo apt update | risk för attacker utan regelbunden uppdatering | uppdaterade min VM till senaste verionen | lsb_release -a && grep VERSION_ID /etc/os-release | Tillgängligher, Konfidentialitet |
 | SSH | ogiltig nyckel | Återskapade VM via snapshot eller ange ny nyckel via Auth_Keys| Genom att kontrollera att min nyckel i Auth_keys stämmer överens med min publika nyckel lokalt | Tillgänglighet |
 
 ### Kontroll 1:<p>
