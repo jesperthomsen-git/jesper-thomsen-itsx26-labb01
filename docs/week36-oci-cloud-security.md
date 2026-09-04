@@ -118,17 +118,20 @@ Om det skulle vara att det skulle vara problem med min nyckel kan jag enkelt lä
 ## 7. Backup
 
 ### Vad händer om VM:n försvinner?
-    Om en snapshot inte tagits på en längre tid så förlorar man tyvärr allt som man har sparat eller gjort i sin VM från senaste sparade versionen.
+
+    Om en snapshot inte tagits på en längre tid så förlorar man tyvärr allt som man har sparat eller gjort i sin VM från senaste sparade versionen. Alternativt om hela VM:et är helt borta behöver man tyvärr återskapa en ny VM från grunden.
 
 ### Vad finns i GitHub?
+
     Om man lyckas att spara sin snapshot eller filer direkt till Github och haft som vana att commit & pusha så bör allt ligga kvar. 
 
 ### Vad kan återskapas?
+
     Din senaste snapshot
 
 ### Vad går förlorat?
-    Det du inte har laddat upp på Github eller från senaste snapshot.
 
+    Det du inte har laddat upp på Github eller från senaste snapshot
 
 ---
 
@@ -138,28 +141,46 @@ Om det skulle vara att det skulle vara problem med min nyckel kan jag enkelt lä
 
     itsx26-Jesper-vm 
 <p>
+
 ![alt text](Screenshots/v36/instances.png)
 <p>
 
 ### Diskar
+
     instance-20260901-1629 (Boot Volume) 50GB
+![alt text](Screenshots/v36/Bootsvolume.png)
+<p>
 
 ### Backuper<p>
+
+    Snapshot-0409
 ![alt text](Screenshots/v36/snapshots.png) 
 <p>
+    Äldre snapshot från screenshot är borttagen
 
 ### Publika IP-adresser
 
+    0.0.0.0:80
+    0.0.0.0:443
+
 ### GitHub-evidens
+
+    Kopplade aldrig Github
+
 
 ### För OCI: Hur vet du att du inte har lämnat kvar resurser som kostar pengar?
 
+    Man kan enkelt få en överblick om det du använder överskrider free-tier genom att lägga till funktionen "Cost Analysis" på den Home page.
+
 ---
+
 ## 7. CIA-reflektion
 ### Konfidentialitet
 ### Integritet
 ### Tillgänglighet
+
 ---
+
 ## 8. Reflektion
 ### Vad fungerade bra?
 ### Vad var svårt?
