@@ -42,10 +42,10 @@ Här är en bild på att min VM är uppe och kör:<p>
 ## 5. Hardening
 | Kontroll | Risk | Vad gjorde jag? | Hur verifierade jag? | CIA |
 |-----------|-----------|-----------|-----------|-----------|
-| whoami && id && groups | Användare har sudo rättigheter vilket kan skapa problem om syntaxer eller kommandon är fel skrivna. | skapade en lista på vem som är användare, vilka rättigheter och grupper den tillhör. | Ubunutu är root och har sudo rättigheter genom id kommandot som visar rättigheter. | konfidentialitet |
-| chmod 600 | Kan låsa andra ute som behöver åtkomst till en specifik fil eller mapp | skapade en fil och ändrade rättigheter | ls -la visar rättigheterna för filen | Tillgänglighet |
-| sudo apt update | risk för attacker utan regelbunden uppdatering | uppdaterade min VM till senaste verionen | lsb_release -a && grep VERSION_ID /etc/os-release | Tillgängligher, Konfidentialitet |
-| SSH | ogiltig nyckel | Återskapade VM via snapshot eller ange ny nyckel via Auth_Keys| Genom att kontrollera att min nyckel i Auth_keys stämmer överens med min publika nyckel lokalt | Tillgänglighet |
+| whoami && id && groups | Användare har sudo rättigheter vilket kan skapa problem om syntaxer eller kommandon är fel skrivna. | skapade en lista på vem som är användare, vilka rättigheter och grupper den tillhör. | Ubunutu är root och har sudo rättigheter genom id kommandot som visar rättigheter. | Konfidentialitet |
+| chmod 600 | Kan låsa andra ute som behöver åtkomst till en specifik fil eller mapp | Skapade en fil och ändrade rättigheter | ls -la visar rättigheterna för filen | Tillgänglighet |
+| sudo apt update | Risk för attacker utan regelbunden uppdatering | Uppdaterade min VM till senaste verionen | lsb_release -a && grep VERSION_ID /etc/os-release | Tillgänglighet, Konfidentialitet |
+| SSH | Ogiltig nyckel | Återskapade VM via snapshot eller ange ny nyckel via Auth_Keys| Genom att kontrollera att min nyckel i Auth_keys stämmer överens med min publika nyckel lokalt | Tillgänglighet |
 
 ### Kontroll 1:<p>
 ![alt text](Screenshots/v36/whoami.png) <p>
@@ -69,6 +69,13 @@ Att uppdatera regelbundet skapar en säkrare miljö där mjukvara kan exploitera
 Vilken del av CIA påverkas?
 
 Att uppdatera sin miljö regelbundet påverkar både användarens tillgänglighet då större uppdateringar kan ta längre tid och konfidentialiteten behålls säkert då uppdateringen kan minska risken för attacker. 
+
+Hur verifierade jag? 
+Jag körde "lsb_release -a && grep VERSION_ID /etc/os-release" som ger mig både all information om Ubuntu versionen jag kör samt dens specifika version
+<p>
+
+![alt text](Screenshots/v36/Versionandrelease.png) 
+<p>
 
 ### Kontroll 4:
 
