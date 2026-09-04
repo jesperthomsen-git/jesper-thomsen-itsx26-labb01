@@ -165,7 +165,9 @@ Om det skulle vara att det skulle vara problem med min nyckel kan jag enkelt lä
     0.0.0.0:80
     0.0.0.0:443 
 <p>
+
 ![alt text](Screenshots/v36/Ingressrules.png)
+
 <p>
 
 ### GitHub-evidens
@@ -183,12 +185,18 @@ Om det skulle vara att det skulle vara problem med min nyckel kan jag enkelt lä
 
 ### Konfidentialitet
 
+Konfidentialitet är en av de tre staplarna som bygger CIA triaden och har hjälpt mig skapa en uppfattning om vikten av säkerhet och hur många aspekter man behöver ha en förståele för. Även om alla aspekter av triaden har lika mycket vikt känner jag personligen att jag har lärt mig mest utav att jobba med konfidentialitet och hur man både reflekterar och argumenterar mot best practice och zero-trust.
+
 
 ### Integritet
 
+Integritet tycker jag är väldigt intressant där man behöver tänka på hur, vad och när man behöver att gå den extra milen för att se till att all information är intakt och ante ändrat på ett sätt som anses som en attack.
+
+Att integritet har en sådan vikt i triaden är en självklarhet och får en att tänka om på ett sätt som om man själv vore attackeraren
 
 ### Tillgänglighet
 
+Jag tycker att tillgänglighet är ett intressant ämne som självklart har sin plats i triaden där otillgänglighet eller downtime kan skapa stora problem i den dagliga driften. Att den dagliga driften blir rubbad kan göra att företaget går i förlust och att göra att tillgängligheten en viktig del av triaden involverar inte bara downtimes, eller uppdatering av servrar men också användare om deras tillgänglighet till driften så som försvårad åtkomst, stora omvägar i omcertifieringen, ändring av lösenord eller krav på olika lösenord på olika ställen kan skapa mer problem än vad som gör nytta.
 
 ---
 
@@ -196,9 +204,13 @@ Om det skulle vara att det skulle vara problem med min nyckel kan jag enkelt lä
 
 ### Vad fungerade bra?
 
+Att portalen på Oracle var smidig och strukturerad när man väl började förstå hur dem hade lagt upp det gjorde många moment inom cloud, SSh och hur man tänker kring säkerhet ett väldigt bra moment  
 
 ### Vad var svårt?
+
+Att jobba i en cloud tjänst är helt nytt för mig och kändes som en djungel av menyer och inställningar som inte var särskilt användarvänligt. Även om jag trodde att jag var rätt var jag alltid i fel meny på något magiskt sätt. Detta i sin tur påverkade mina studier negativt.
 
 
 ### Vad lärde jag mig?
 
+Det jag tar med mig från detta är hur man arbetar i cloud på basnivå men också ssh. Jag har lärt mig hur man säkert använder sig av säkerhetsnycklar, hur man genererar en nyckel samt hur man behöver tänka både som administratör för ditt nätverk men också som användare från utsidan som vill komma åt ditt nätverk eller maskin som är kopplat till nätet.
