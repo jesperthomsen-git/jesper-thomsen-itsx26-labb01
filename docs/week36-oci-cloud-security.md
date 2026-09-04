@@ -36,16 +36,16 @@ Här är en bild på att min VM är uppe och kör:<p>
 | date | Fri Sep  4 14:32:08 UTC 2026 | Visar datum och tid | (riktighet) Hur jag resonerar runt riktighet är att om nätverket eller din VM är attackerad så kan attackeraren ändra loggar eller ändra datum och tid så informationen sparas fel. |
 | id | Skriver användare & grupp info| Detta betyder att den som skriver in detta kan se vem användaren är samt vilken grupp användaren tillhör samt dess sekondära grupper| (Konfidentialitet) Detta scenario är väldigt lik whoami där informationen som visar här kan skapa sårbarheter där attackeraren kan se ännu mer information som kan utnyttjas än whoami där information visar tillhörigheter både vart den huvudsakligen tillhör och har rättigheter men också andra grupper den har rättigheter som har tilldelats från andra håll. |
 | groups | Visar vilken grupp användaren tillhör | Visar endast primära grupper som användaren tillhör | (konfidentialitet) Även om detta är ett lindrigare kommando än id så visar denna kod återigen känslig information om tillhörande och rättigheter som användaren är anknyten till|
-| ps aux I head | Visar 10 processer | visar alla processer för alla användare, visar ägandeskap samt processer som ej är kopplade till terminalen. Head visar de 10 första högst krävande processerna | (Konfidentialitet, tillgänglighet) ps aux visar alla processer oberoende på användare och kan visa känslig information kopplade till oilka användare och med rätt kommandon kan ett angrepp enkelt slå av viktiga processer som är aktiva|
+| ps aux I head | Visar 10 processer | visar alla processer för alla användare, visar ägandeskap samt processer som ej är kopplade till terminalen. Head visar de 10 första högst krävande processerna | (Konfidentialitet, tillgänglighet) ps aux visar alla processer oberoende på användare och kan visa känslig information kopplade till oilka användare och med rätt kommandon kan ett angrepp enkelt slå av viktiga processer som är aktiva i systemet. |
 
 ---
 ## 5. Hardening
 | Kontroll | Risk | Vad gjorde jag? | Hur verifierade jag? | CIA |
 |-----------|-----------|-----------|-----------|-----------|
-| whoami && id && groups | ubunutu är root och sudo rättigheter | Konsolen verifierar att detta input är korrekt | konfidentialitet |
-| chmod 600 | Kan låsa andra ute som behöver åtkomst | skapade en fil och ändrade rättigheter | (Tillgänglighet) Kan låsa andra ute som behöver åtkomst till en specifik fil eller mapp|
-| sudo apt update | risk för attacker utan regelbunden uppdatering | uppdaterade min VM till senaste verionen | (Tillgängligher, Konfidentialitet) |
-| SSH | ogiltig nyckel | Återskapade VM via snapshot eller ange ny nyckel via Auth_Keys| Genom att kontrollera att min nyckel i Auth_keys stämmer överens med min publika nyckel lokalt | (Tillgänglighet) |
+| whoami && id && groups | Användare har sudo rättigheter vilket kan skapa problem om syntaxer eller kommandon är fel skrivna |ubunutu är root och har sudo rättigheter. | skapade en lista på vem som är användare, vilka rättigheter och grupper den tillhör | id kommandot visar rättigheter | konfidentialitet |
+| chmod 600 | Kan låsa andra ute som behöver åtkomst till en specifik fil eller mapp | skapade en fil och ändrade rättigheter | ls -la visar rättigheterna för filen | Tillgänglighet |
+| sudo apt update | risk för attacker utan regelbunden uppdatering | uppdaterade min VM till senaste verionen |  | Tillgängligher, Konfidentialitet |
+| SSH | ogiltig nyckel | Återskapade VM via snapshot eller ange ny nyckel via Auth_Keys| Genom att kontrollera att min nyckel i Auth_keys stämmer överens med min publika nyckel lokalt | Tillgänglighet |
 
 ### Kontroll 1:<p>
 ![alt text](Screenshots/v36/whoami.png) <p>
