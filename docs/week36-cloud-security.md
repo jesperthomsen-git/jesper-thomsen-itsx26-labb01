@@ -43,14 +43,15 @@ Här är en bild på att min VM är uppe och kör:<p>
 | whoami && id && groups | ubunutu är root och sudo rättigheter | Konsolen verifierar att detta input är korrekt | konfidentialitet |
 | chmod 600 | Kan låsa andra ute som behöver åtkomst | skapade en fil och ändrade rättigheter | (Tillgänglighet) Kan låsa andra ute som behöver åtkomst till en specifik fil eller mapp|
 | sudo apt update | risk för attacker utan regelbunden uppdatering | uppdaterade min VM till senaste verionen | (Tillgängligher, Konfidentialitet) |
+| SSH | ogiltig nyckel | Återskapade VM via snapshot eller ange ny nyckel via Auth_Keys| Genom att kontrollera att min nyckel i Auth_keys stämmer överens med min publika nyckel lokalt | (Tillgänglighet) |
 
-Kontroll 1:<p>
+### Kontroll 1:<p>
 ![alt text](Screenshots/v36/whoami.png)
 Ubuntu är användaren
 Användaren tillhör adm, cdrom, sudo, dip & lxd
 Administrativa rättigheter kan skapa stora problem om syntaxen eller kommandot är felskrivet
 
-Kontroll 2:<p>
+### Kontroll 2:<p>
 ![alt text](Screenshots/v36/testtxt.png)
 
 Vem får läsa filen?
@@ -59,7 +60,7 @@ Chmod 600 ändrar så bara ägaren får läsa filen.
 Vem får ändra filen?
 Endast ägaren.
 
-Kontroll 3:
+### Kontroll 3:
 
 Varför är uppdateringar viktiga?
 Att uppdatera regelbundet skapar en säkrare miljö där mjukvara kan exploiteras
@@ -67,27 +68,88 @@ Vilken del av CIA påverkas?
 
 Att uppdatera sin miljö regelbundet påverkar både användarens tillgänglighet då större uppdateringar kan ta längre tid och konfidentialiteten behålls säkert då uppdateringen kan minska risken för attacker. 
 
+### Kontroll 4:
+
+Hur loggade du in?
+Jag loggade in med SSH till min OCI VM
+
+Varför används SSH?
+SSH är en säker metod för att få åtkomst till ett nätverk eller VM som en form av authentifiering. Jag ger min VM mitt pass, den kontrollerar så allt är OK och släpper igenom mig men om någon har ett pass som inte känns igen får dem inte åtkomst vilket skapar en säkrare miljö.
+
+Vad skulle du göra om SSH slutade fungera?
+Om min SSH skulle sluta att fungera behöver jag skapa antingen återskapa den från en tidigare snapshot eller undersöka /.ssh mappen om något har hänt med Authorized_keys filen. Om integriteten har kompromissats kan det vara att maskinen har blivit attackerad under natten. 
+
+Om det skulle vara att det skulle vara problem med min nyckel kan jag enkelt lägga till min nya publika nyckel i Authorized_keys genom Vim och spara den nya nyckeln på en ny rad.
+
 ---
 
-## 4. Recovery-plan
-### Vad kan gå fel?
-### Hur upptäcker jag problemet?
-### Vad kontrollerar jag först?
-### Hur återställer jag åtkomst?
-### När behöver jag hjälp?
+## 6. Recovery-plan
+
+### Hur du upptäcker problemet
+
+    Problemet kan upptäckas tidigt antingen via översikts menyn där man kan se aktivitet eller om du inte kan logga in till din VM via SSH
+
+### Vad du kontrollerar först
+
+    Jag kontrollerar först om min VM är på, Logga in med SSH och om detta inte fungerar går jag sedan till aktiviteter, eller kontrollerar min nyckel i Authorized_Keys för att stämma av att min nyckel är identisk.  
+
+### Vilken information du behöver samla in
+
+    * Kan jag logga in först och främst?
+    * Om inte:
+      * Kontroll att min SSH nyckel är identisk eller om den har blivit ändrad sedan sista sessionen.
+      * Informationen jag behöver samla in är ls -la för att se att alla filer är kvar. 
+      * Kollar "history" i konsollen
+      * Kollar om "sar -u" har ytterligare information om aktivitet
+      * Göra en enkel verifierings genom "whoami && id" för att se om mina rättigheter har ändrats. 
+      
+
+### Hur du skulle få hjälp
+
+    Om jag skulle be om hjälp skulle jag fört gera min research om vad som behöver åtgärdas, sedan från en proffessionell om frågor som jag inte kan lösa själv. Om AI tas till hjälp dokumenteras detta.
+
+### Hur du skulle kunna återskapa miljön
+
+    Om VM:en ej går att rädda behöver jag återskapa den från en snapshot från tidigare datum eller tid där jag är säker att den inte var attackerad och säkerställer att mina harderning rutiner förbättras till nästa gång och loggar vad som hänt.
+
+
 ---
-## 5. Backup
-### Vad har jag sparat?
+
+## 7. Backup
+
+### Vad händer om VM:n försvinner?
+    Om en snapshot inte tagits på en längre tid så förlorar man tyvärr allt som man har sparat eller gjort i sin VM från senaste sparade versionen.
+
 ### Vad finns i GitHub?
+    Om man lyckas att spara sin snapshot eller filer direkt till Github och haft som vana att commit & pusha så bör allt ligga kvar. 
+
 ### Vad kan återskapas?
-### Vad går inte att återskapa?
+    Din senaste snapshot
+
+### Vad går förlorat?
+    Det du inte har laddat upp på Github eller från senaste snapshot.
+
+
 ---
-## 6. Cleanup
+
+## 8. Cleanup
+
 ### VM-instans
+
+    itsx26-Jesper-vm
+
 ### Diskar
+    instance-20260901-1629 (Boot Volume) 50GB
+
 ### Backuper
+    
+
 ### Publika IP-adresser
+
 ### GitHub-evidens
+
+### För OCI: Hur vet du att du inte har lämnat kvar resurser som kostar pengar?
+
 ---
 ## 7. CIA-reflektion
 ### Konfidentialitet
