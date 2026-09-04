@@ -136,14 +136,17 @@ Om det skulle vara att det skulle vara problem med min nyckel kan jag enkelt lä
 
 ### VM-instans
 
-    itsx26-Jesper-vm
+    itsx26-Jesper-vm 
+<p>
+![alt text](Screenshots/v36/instances.png)
+<p>
 
 ### Diskar
     instance-20260901-1629 (Boot Volume) 50GB
 
 ### Backuper<p>
-![alt text](Screenshots/v36/snapshots.png) <p>
-
+![alt text](Screenshots/v36/snapshots.png) 
+<p>
 
 ### Publika IP-adresser
 
