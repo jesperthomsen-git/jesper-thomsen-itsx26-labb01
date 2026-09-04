@@ -42,7 +42,7 @@ Här är en bild på att min VM är uppe och kör:<p>
 ## 5. Hardening
 | Kontroll | Risk | Vad gjorde jag? | Hur verifierade jag? | CIA |
 |-----------|-----------|-----------|-----------|-----------|
-| whoami && id && groups | Användare har sudo rättigheter vilket kan skapa problem om syntaxer eller kommandon är fel skrivna |ubunutu är root och har sudo rättigheter. | skapade en lista på vem som är användare, vilka rättigheter och grupper den tillhör | id kommandot visar rättigheter | konfidentialitet |
+| whoami && id && groups | Användare har sudo rättigheter vilket kan skapa problem om syntaxer eller kommandon är fel skrivna. | skapade en lista på vem som är användare, vilka rättigheter och grupper den tillhör | Ubunutu är root och har sudo rättigheter genom id kommandot som visar rättigheter | konfidentialitet |
 | chmod 600 | Kan låsa andra ute som behöver åtkomst till en specifik fil eller mapp | skapade en fil och ändrade rättigheter | ls -la visar rättigheterna för filen | Tillgänglighet |
 | sudo apt update | risk för attacker utan regelbunden uppdatering | uppdaterade min VM till senaste verionen |  | Tillgängligher, Konfidentialitet |
 | SSH | ogiltig nyckel | Återskapade VM via snapshot eller ange ny nyckel via Auth_Keys| Genom att kontrollera att min nyckel i Auth_keys stämmer överens med min publika nyckel lokalt | Tillgänglighet |
