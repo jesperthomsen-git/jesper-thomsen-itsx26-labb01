@@ -64,13 +64,14 @@ Endast ägaren.
 
 ### Kontroll 3:
 
-Varför är uppdateringar viktiga?
+Varför är uppdateringar viktiga?<p>
 Att uppdatera regelbundet skapar en säkrare miljö där mjukvara kan exploiteras
-Vilken del av CIA påverkas?
+<p>
+Vilken del av CIA påverkas?<p>
 
 Att uppdatera sin miljö regelbundet påverkar både användarens tillgänglighet då större uppdateringar kan ta längre tid och konfidentialiteten behålls säkert då uppdateringen kan minska risken för attacker. 
 
-Hur verifierade jag? 
+Hur verifierade jag? <p>
 Jag körde "lsb_release -a && grep VERSION_ID /etc/os-release" som ger mig både all information om Ubuntu versionen jag kör samt dens specifika version
 <p>
 
@@ -79,13 +80,13 @@ Jag körde "lsb_release -a && grep VERSION_ID /etc/os-release" som ger mig både
 
 ### Kontroll 4:
 
-Hur loggade du in?
+Hur loggade du in? <p>
 Jag loggade in med SSH till min OCI VM
 
-Varför används SSH?
+Varför används SSH?<p>
 SSH är en säker metod för att få åtkomst till ett nätverk eller VM som en form av authentifiering. Jag ger min VM mitt pass, den kontrollerar så allt är OK och släpper igenom mig men om någon har ett pass som inte känns igen får dem inte åtkomst vilket skapar en säkrare miljö.
 
-Vad skulle du göra om SSH slutade fungera?
+Vad skulle du göra om SSH slutade fungera?<p>
 Om min SSH skulle sluta att fungera behöver jag skapa antingen återskapa den från en tidigare snapshot eller undersöka /.ssh mappen om något har hänt med Authorized_keys filen. Om integriteten har kompromissats kan det vara att maskinen har blivit attackerad under natten. 
 
 Om det skulle vara att det skulle vara problem med min nyckel kan jag enkelt lägga till min nya publika nyckel i Authorized_keys genom Vim och spara den nya nyckeln på en ny rad.
