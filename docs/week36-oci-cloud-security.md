@@ -43,9 +43,9 @@ Här är en bild på att min VM är uppe och kör:<p>
 | Kontroll | Risk | Vad gjorde jag? | Hur verifierade jag? | CIA |
 |-----------|-----------|-----------|-----------|-----------|
 | whoami && id && groups | Användare har sudo rättigheter vilket kan skapa problem om syntaxer eller kommandon är fel skrivna. | skapade en lista på vem som är användare, vilka rättigheter och grupper den tillhör. | Ubunutu är root och har sudo rättigheter genom id kommandot som visar rättigheter. | Konfidentialitet |
-| chmod 600 | Kan låsa andra ute som behöver åtkomst till en specifik fil eller mapp | Skapade en fil och ändrade rättigheter | ls -la visar rättigheterna för filen | Tillgänglighet |
-| sudo apt update | Risk för attacker utan regelbunden uppdatering | Uppdaterade min VM till senaste verionen | lsb_release -a && grep VERSION_ID /etc/os-release | Tillgänglighet, Konfidentialitet |
-| SSH | Ogiltig nyckel | Återskapade VM via snapshot eller ange ny nyckel via Auth_Keys| Genom att kontrollera att min nyckel i Auth_keys stämmer överens med min publika nyckel lokalt | Tillgänglighet |
+| chmod 600 | Kan låsa andra ute som behöver åtkomst till en specifik fil eller mapp. | Skapade en fil och ändrade rättigheter. | ls -la visar rättigheterna för filen | Tillgänglighet |
+| sudo apt update | Risk för attacker utan regelbunden uppdatering. | Uppdaterade min VM till senaste verionen. | lsb_release -a && grep VERSION_ID /etc/os-release | Tillgänglighet, Konfidentialitet |
+| SSH | Ogiltig nyckel | Återskapade VM via snapshot eller ange ny nyckel via Auth_Keys.| Genom att kontrollera att min nyckel i Auth_keys stämmer överens med min publika nyckel lokalt. | Tillgänglighet |
 
 ### Kontroll 1:<p>
 ![alt text](Screenshots/v36/whoami.png) <p>
@@ -56,10 +56,10 @@ Administrativa rättigheter kan skapa stora problem om syntaxen eller kommandot 
 ### Kontroll 2:<p>
 ![alt text](Screenshots/v36/testtxt.png)
 
-Vem får läsa filen?
+Vem får läsa filen? <p>
 Chmod 600 ändrar så bara ägaren får läsa filen.
 
-Vem får ändra filen?
+Vem får ändra filen? <p>
 Endast ägaren.
 
 ### Kontroll 3:
@@ -97,30 +97,29 @@ Om det skulle vara att det skulle vara problem med min nyckel kan jag enkelt lä
 
 ### Hur du upptäcker problemet
 
-    Problemet kan upptäckas tidigt antingen via översikts menyn där man kan se aktivitet eller om du inte kan logga in till din VM via SSH
+Problemet kan upptäckas tidigt antingen via översikts menyn där man kan se aktivitet eller om du inte kan logga in till din VM via SSH
 
 ### Vad du kontrollerar först
 
-    Jag kontrollerar först om min VM är på, Logga in med SSH och om detta inte fungerar går jag sedan till aktiviteter, eller kontrollerar min nyckel i Authorized_Keys för att stämma av att min nyckel är identisk.  
+Jag kontrollerar först om min VM är på, Logga in med SSH och om detta inte fungerar går jag sedan till aktiviteter, eller kontrollerar min nyckel i Authorized_Keys för att stämma av att min nyckel är identisk.  
 
 ### Vilken information du behöver samla in
-
-    * Kan jag logga in först och främst?
-    * Om inte:
-      * Kontroll att min SSH nyckel är identisk eller om den har blivit ändrad sedan sista sessionen.
-      * Informationen jag behöver samla in är ls -la för att se att alla filer är kvar. 
-      * Kollar "history" i konsollen
-      * Kollar om "sar -u" har ytterligare information om aktivitet
-      * Göra en enkel verifierings genom "whoami && id" för att se om mina rättigheter har ändrats. 
+* Kan jag logga in först och främst?
+* Om inte:
+* Kontroll att min SSH nyckel är identisk eller om den har blivit ändrad sedan sista sessionen.
+* Informationen jag behöver samla in är ls -la för att se att alla filer är kvar. 
+* Kollar "history" i konsollen
+* Kollar om "sar -u" har ytterligare information om aktivitet
+* Göra en enkel verifierings genom "whoami && id" för att se om mina rättigheter har ändrats. 
       
 
 ### Hur du skulle få hjälp
 
-    Om jag skulle be om hjälp skulle jag fört gera min research om vad som behöver åtgärdas, sedan från en proffessionell om frågor som jag inte kan lösa själv. Om AI tas till hjälp dokumenteras detta.
+Om jag skulle be om hjälp skulle jag fört gera min research om vad som behöver åtgärdas, sedan från en proffessionell om frågor som jag inte kan lösa själv. Om AI tas till hjälp dokumenteras detta.
 
 ### Hur du skulle kunna återskapa miljön
 
-    Om VM:en ej går att rädda behöver jag återskapa den från en snapshot från tidigare datum eller tid där jag är säker att den inte var attackerad och säkerställer att mina harderning rutiner förbättras till nästa gång och loggar vad som hänt.
+Om VM:en ej går att rädda behöver jag återskapa den från en snapshot från tidigare datum eller tid där jag är säker att den inte var attackerad och säkerställer att mina harderning rutiner förbättras till nästa gång och loggar vad som hänt.
 
 
 ---
@@ -129,19 +128,19 @@ Om det skulle vara att det skulle vara problem med min nyckel kan jag enkelt lä
 
 ### Vad händer om VM:n försvinner?
 
-    Om en snapshot inte tagits på en längre tid så förlorar man tyvärr allt som man har sparat eller gjort i sin VM från senaste sparade versionen. Alternativt om hela VM:et är helt borta behöver man tyvärr återskapa en ny VM från grunden.
+Om en snapshot inte tagits på en längre tid så förlorar man tyvärr allt som man har sparat eller gjort i sin VM från senaste sparade versionen. Alternativt om hela VM:et är helt borta behöver man tyvärr återskapa en ny VM från grunden.
 
 ### Vad finns i GitHub?
 
-    Om man lyckas att spara sin snapshot eller filer direkt till Github och haft som vana att commit & pusha så bör allt ligga kvar. 
+Om man lyckas att spara sin snapshot eller filer direkt till Github och haft som vana att commit & pusha så bör allt ligga kvar. 
 
 ### Vad kan återskapas?
 
-    Din senaste snapshot
+Din senaste snapshot
 
 ### Vad går förlorat?
 
-    Det du inte har laddat upp på Github eller från senaste snapshot
+Det du inte har laddat upp på Github eller från senaste snapshot
 
 ---
 
@@ -149,7 +148,7 @@ Om det skulle vara att det skulle vara problem med min nyckel kan jag enkelt lä
 
 ### VM-instans
 
-    itsx26-Jesper-vm 
+itsx26-Jesper-vm 
 <p>
 
 ![alt text](Screenshots/v36/instances.png)
@@ -157,21 +156,21 @@ Om det skulle vara att det skulle vara problem med min nyckel kan jag enkelt lä
 
 ### Diskar
 
-    instance-20260901-1629 (Boot Volume) 50GB
+instance-20260901-1629 (Boot Volume) 50GB
 ![alt text](Screenshots/v36/Bootsvolume.png)
 <p>
 
 ### Backuper<p>
 
-    Snapshot-0409
+Snapshot-0409
 ![alt text](Screenshots/v36/snapshots.png) 
 <p>
     Äldre snapshot från screenshot är borttagen
 
 ### Publika IP-adresser
 
-    0.0.0.0:80
-    0.0.0.0:443 
+0.0.0.0:80
+0.0.0.0:443 
 <p>
 
 ![alt text](Screenshots/v36/Ingressrules.png)
@@ -180,12 +179,12 @@ Om det skulle vara att det skulle vara problem med min nyckel kan jag enkelt lä
 
 ### GitHub-evidens
 
-    Kopplade aldrig Github
+Kopplade aldrig Github
 
 
 ### För OCI: Hur vet du att du inte har lämnat kvar resurser som kostar pengar?
 
-    Man kan enkelt få en överblick om det du använder överskrider free-tier genom att lägga till funktionen "Cost Analysis" på den Home page.
+Man kan enkelt få en överblick om det du använder överskrider free-tier genom att lägga till funktionen "Cost Analysis" på den Home page.
 
 ---
 
