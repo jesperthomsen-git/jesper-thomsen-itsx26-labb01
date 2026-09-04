@@ -26,11 +26,11 @@ Här är en bild på att min VM är uppe och kör:<p>
 | uname -a |OS som körs är Linux instance-20260901-1629 7.0.0-1009-oracle #9-Ubuntu SMP PREEMPT Thu Jul 23 02:43:14 UTC 2026 x86_64 GNU/Linux | (Konfidentialitet) Då -a gör att du får en hel överblick om datorn eller nätverket kan detta visa sårbarheter så som versionsnummer, maskin name, samt på vilken OS den kör kan detta. |
 | uptime | Servern har varit uppe i 19 timmar och 4 minuter, 09:47:01 up 19:04,  1 user,  load average: 0.11, 0.10, 0.09 | (Tillgänglighet) På uptime får man information hur många användare som finns på servern samt hur ansträngd servern är kan detta vara ett bra verktyg för att säkerställa att behöriga som behöver åtkomst kommer in och en översikt så servern inte blir överbelastat. |
 
-## 4 utforska Linux
+## 4 Utforska Linux
 
 | kommandon: | Vad kommandot gör | Vad resultatet betyder | Vilken del av CIA-triaden det kan kopplas till |
 |-----------|-----------|-----------|-----------|
-| ls -la | Skapar en lista på allt innehåll | Resultatet visar allt som finns i ett directory | (konfidentialitet / riktighet) |
+| ls -la | Skapar en lista på allt innehåll | Resultatet visar allt som finns i ett directory | (konfidentialitet / riktighet) Attackeraren får en helhetsbild på vad dem kan göra, vilka rättigheter på vilka filer som finns samt om det finns svagheter i systemet som kan exploiteras. |
 | date | Visar dagens datum & tid | --|-- | (riktighet) Hur jag resonerar runt riktighet är att om nätverket eller din VM är attackerad så kan attackeraren ändra loggar eller ändra datum och tid så informationen sparas fel|
 | id | Skriver användare & grupp info| Detta betyder att den som skriver in detta kan se vem användaren är samt vilken grupp användaren tillhör samt dess sekondära grupper| (Konfidentialitet) Detta scenario är väldigt lik whoami där informationen som visar här kan skapa sårbarheter där attackeraren kan se ännu mer information som kan utnyttjas än whoami där information visar tillhörigheter både vart den huvudsaklgen tillhör ochhar rättigheter men också andra grupped den har rättigheter i|
 | groups | Visar vilken grupp användaren tillhör | Visar endast primära grupper som användaren tillhör | (konfidentialitet) Även om detta är ett lindrigare kommando än id så visar denna kod återigen känslig information om tillhörande och rättigheter som användaren är anknyten till|
@@ -46,7 +46,7 @@ Här är en bild på att min VM är uppe och kör:<p>
 | SSH | ogiltig nyckel | Återskapade VM via snapshot eller ange ny nyckel via Auth_Keys| Genom att kontrollera att min nyckel i Auth_keys stämmer överens med min publika nyckel lokalt | (Tillgänglighet) |
 
 ### Kontroll 1:<p>
-![alt text](Screenshots/v36/whoami.png)
+![alt text](Screenshots/v36/whoami.png) <p>
 Ubuntu är användaren
 Användaren tillhör adm, cdrom, sudo, dip & lxd
 Administrativa rättigheter kan skapa stora problem om syntaxen eller kommandot är felskrivet
@@ -175,13 +175,25 @@ Om det skulle vara att det skulle vara problem med min nyckel kan jag enkelt lä
 ---
 
 ## 7. CIA-reflektion
+
 ### Konfidentialitet
+
+
 ### Integritet
+
+
 ### Tillgänglighet
+
 
 ---
 
 ## 8. Reflektion
+
 ### Vad fungerade bra?
+
+
 ### Vad var svårt?
+
+
 ### Vad lärde jag mig?
+
