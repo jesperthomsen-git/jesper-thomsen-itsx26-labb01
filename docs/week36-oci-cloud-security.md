@@ -1,5 +1,5 @@
 # Week 36 OCI Cloud Security Lab
-## - [x] Delvis klar
+## - [x] Klar
 
 ## 1 & 2 Min OCI-miljö/Min lokala Linux-miljö/Min lokala WSL-miljö
 - Tenancy (N/A): jesperthomsen
