@@ -1,4 +1,6 @@
 # Week 36 OCI Cloud Security Lab
+## - [x] Delvis klar
+
 ## 1 & 2 Min OCI-miljö/Min lokala Linux-miljö/Min lokala WSL-miljö
 - Tenancy (N/A): jesperthomsen
 - Compartment (Endast OCI): jesperthomsen (root)
@@ -161,7 +163,10 @@ Om det skulle vara att det skulle vara problem med min nyckel kan jag enkelt lä
 ### Publika IP-adresser
 
     0.0.0.0:80
-    0.0.0.0:443
+    0.0.0.0:443 
+<p>
+![alt text](Screenshots/v36/Ingressrules.png)
+<p>
 
 ### GitHub-evidens
 
