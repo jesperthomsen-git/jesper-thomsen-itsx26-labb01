@@ -1,43 +1,67 @@
-#!/usr/bin/env bash
 
-#Kommentar som beskriver syfte och säkerhetsavgränsning.
-#• Minst tre variabler.
-#• Minst två funktioner, varav en används för loggning eller statusutskrift.
-#• Minst två if-villkor.
-#• Minst en loop över en liten, uttryckligen definierad lista med säkra kontroller.
-#• Minst en kontroll av tomt eller ogiltigt värde.
-#• Tydliga statusar, exempelvis INFO, OK, WARN och FAIL.
-#• Tidsstämplad loggfil i en katalog som studenten får skriva till.
-#• Begripliga exitkoder.
-#• Citerade variabler och inga hårdkodade lösenord, nycklar eller tokens.
-#• Ett cleanup-beteende som stoppar egen testtjänst eller tar bort temporära filer när det behövs.
+harden() { #skapar snabbt rättigheter på mappen & filen readme
+        chmod 700 "$evidence" &&
+        chmod 700 "$readme"
+}
 
-#Obligatoriska funktioner
-#-------------------------------------
-#funktioner            | krav
-#Miljööversikt         | Visa eller logga adressinformation och default route.
-#DNS-kontroll          | Kontrollera ett säkert, godkänt domännamn och avgör om uppslaget lyckas.
-#Lokal tjänstekontroll | Kontrollera localhost och en lokal testport. Det är tillåtet att starta en lokal, tillfällig webbserver.
-#Portöversikt          | Sammanfatta lokalt lyssnande portar. Ingen extern portskanning.
-#Slutsammanfattning    | Visa hur många kontroller som lyck
+
+log() { #skapar en funktion som lagrar loggen mot README.md med en enkel seperation för datum + kommentaren jag kör log mot
+        printf '%s | %s\n' "$(date '+%T')" "$*" |
+        tee -a "$readme"
+}
+
+version() { #skapar en funktion för att skapa en lista av release samt vilken distro min OCI kör
+        lsb_release -a &&
+        grep 'VERSION_ID' /etc/os-release
+}
 
 
 
-readme="$HOME/evidence/README.md"
-evidence="$HOME/evidence"
-makedir=$(mkdir -p "$HOME/evidence") #skapar en mapp
-rights=$(chmod 700 "$evidence" && chmod 700 "$log") #skapar en variabel som både fixar hardening för mapp & evidence
-version=$(lsb_release -a && grep VERSION_ID /etc/os-release) #visar full lista av release och vilken distro som kör
-log="-$(date +"%T") | tee -a $readme)" #skapar en variabel som loggar datum och text skriver detta i evidence
+if [[ ! -d "$evidence" ]]; then #skapar en if check som kollar om evidence mappen finns eller inte
 
-if [[ ! -p "$evidence" ]]; then #skapar en if check som kollar om evidence mappen finns eller inte
-        echo "mappen finns"
-        echo "skapar rättigheter för evidence katalogen $rights $log"
+#om den inte finns:
 
-else
-        echo "Hittade inte mappen, skapar evidence i HOME $makedir $log"
-        echo "skapar rättigheter för evidence katalogen $rights $log"
+        echo "skapar evidence mappen"
+
+        mkdir -p "$evidence" || {
+                        log 'Kunde inte skapa mappen, saknar permissions.' >&2
+                exit 1
+                }
+
+                echo "Lyckades skapa evidence mappen."
+
+        else #om den finns:
+
+                log "Kontrollerar att strukturen finns."
+                log "Mappen evidence finns redan. Hoppar över detta steg."
 
 fi
 
-echo "skapar miljööversikt $version $log"
+if [[ ! -f "$readme" ]]; then #kontrollerar så att README.md finns eller inte
+#om den inte finns:
+
+        echo "Skapar README.md filen"
+
+        touch "$readme" || {
+        log "Kunde inte skapa README.md i evidence directory, saknar permissions."
+        exit 1
+        }
+
+else #om den finns:
+
+        log "README.md finns redan. Hoppar över detta steg."
+
+fi
+
+
+if harden; then #kallar på harden funktionen
+
+        log "Hardening lyckades"
+
+else
+        log "Kunde inte göra hardening på dessa filer. Antingen saknas permissions eller så är dem redan satta."
+        exit 1
+fi
+
+
+log "$(version)"
