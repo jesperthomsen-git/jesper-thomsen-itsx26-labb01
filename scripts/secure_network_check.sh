@@ -65,3 +65,75 @@ fi
 
 
 log "$(version)"
+
+
+
+
+
+
+#NY VERSION: 10-09
+cleanup() { #raderar fil
+        rm network_check_log.txt
+}
+
+function y_n { #skapar en ja eller nej prmpt där ja kallar på cleanup funktionen
+        read -e -p "Ska filen '$logg' raderas [y/n]" val
+
+        if [[ "$val"  == [Yy]* ]]; then
+                log "Raderar filen $logg"
+                cleanup
+        else
+                log "Avbryter raderingen."
+fi
+}
+
+
+mf #kontrollerar om filen finns
+
+if [ "$(grep -c '|' $logg)" -gt 20 ]; then
+
+        log "Filen har för mycket information och bör raderas, fortsätta med raderingen?"
+        y_n
+        mf
+#kallar på funktionen som skapar ny fil eller låter det vara baserat på wordcount i if statementen ovan
+fi
+
+
+
+log "[INFO] kontrollerar hemsida"
+
+target="$1" #target blir den hemsida du skriver utanför skriptet
+
+
+
+if [[ -z "$target" ]]; then #kontroll att skriptet inte körst tomt
+
+        log "[FAIL] fältet $target är tomt, skriv en hemsida med ett mellanslag efter skriptet."
+        exit 1
+
+fi
+
+
+if getent hosts "$target" > /dev/null; then #kontrollerar att hemsidan kan nås
+
+        log "[INFO]kontroll startat"
+        log "[INFO] kollar att $target finns"
+        log "[OK] DNS fungerar."
+
+        else
+        log "[FEL] DNS fungerar inte"
+        exit 1
+
+fi
+
+if ss -tuln | grep 8080 >/dev/null; then #kontrollerar om ens lokala port är öppen eller ej
+
+        log "[INFO] Porten är öppen"
+
+        else
+        log "[FEL] Porten är inte öppen"
+        exit 1
+fi
+
+
+log "[INFO] kontroll avslutad."
