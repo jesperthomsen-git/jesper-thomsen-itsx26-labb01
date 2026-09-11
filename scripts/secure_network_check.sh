@@ -53,44 +53,71 @@ harden() { #skapar snabbt rättigheter på mappen & filen readme
 
 mksetup(){
 
-if [[ ! -f "$readme" ]]; then #kontrollerar så att README.md finns eller inte
+printf '%s | %s\n' "$(date '+%T')" "[INFO] Påbörjar verifiering av directory...(Denna info loggas ej i README.md)" >&2
+
+countdown=("5" "4" "3" "2" "1") #skapar en array som räknar ner innan verifieringen av filerna sker.
         
-        #om den inte finns:
-        echo "[INFO] Skapar README.md filen"
+        for x in "${countdown[@]}"; do
 
-        touch "$readme" || {
-        Fail=$((Fail + 1))
-        log '[FAIL] Kunde inte skapa README.md i evidence directory, saknar permissions.'
-        }
-        Success=$((Success + 1))
-        log "[OK] Lyckades skapa README.md filen."
-else #om den finns:
+                if [[ ! -f "$readme" ]]; then
+                        printf '%s | %s\n' "$(date '+%T')" "$x..." >&2
+                else
+                        log "$x..."
+                fi
+        done
 
-        log '[INFO] README.md finns fortfarande, fortsätter.'
+        for evidence in "$evidence"; do #Skapar en kontrollerad loop som kollar om README.md finns.
 
-fi
+                #Denna loop idé var inspirerad från https://oneuptime.com/blog/post/2026-03-02-how-to-create-loops-for-while-until-in-bash-on-ubuntu/view
+                #Testar en ny metod för att kontrollera om mappen och filen finns.
 
 
-if [[ ! -d "$evidence" ]]; then #skapar en if check som kollar om evidence mappen finns eller inte
-        
-        #om den inte finns:
-        log '[INFO] Skapar evidence mappen'
+    
+                [[ -d "$evidence" ]]  || {
 
-        mkdir -p "$evidence" || {
+                        printf '%s | %s\n' "$(date '+%T')" "[INFO] Hittar inte evidence mappern, skapar den nu.(Denna info loggas ej i README.md)" >&2 
+                #mkdir för att skapa mappen.
+                        mkdir -p "$evidence" || {
 
                         Fail=$((Fail + 1))
                         log '[FAIL] Kunde inte skapa mappen, saknar permissions.' >&2
+                        }
+        
+                        Success=$((Success + 1))
+                        printf '%s | %s\n' "$(date '+%T')" "[OK] Lyckades skapa evidence mappen.(Denna info loggas ej i README.md)" >&2
                 }
+        
+                if [[ ! -f "$readme" ]]; then
+                        printf '%s | %s\n' "$(date '+%T')" "[INFO] Evidence mappen finns redan.(Denna info loggas ej i README.md)" >&2
+                else
+                        log "[INFO] Evidence mappen finns redan."
+                fi
+
+                [[ -f "$readme" ]] ||  {
+                #touch för att skapa filen.
+                        touch "$readme" || {
+        
+                        Fail=$((Fail + 1))
+                        log '[FAIL] Kunde inte skapa README.md i evidence directory, saknar permissions.'
+                        }
+                        printf '%s | %s\n' "$(date '+%T')" "[INFO] Hittar inte README.md, skapar den nu.(Denna info loggas ej i README.md)" >&2 
+
+                        Success=$((Success + 1))
+                        log "[OK] Lyckades skapa README.md filen."
+        
+                } 
+
+                if [[ ! -f "$readme" ]]; then
+                :
+                else
+                        log "[INFO] README.md finns redan, loggningen kommer återupptas."
+                fi
+
                 Success=$((Success + 1))
-                log '[OK] Lyckades skapa evidence mappen.'
+                log "[OK] Verifiering av filerna lyckades."
 
-        else #om den finns:
-
-                log '[INFO] Kontrollerar att strukturen finns.'
-                log '[INFO] Mappen evidence finns redan. Hoppar över detta steg.'
-
-fi
-
+                break #skapar en breakpoint här när kravet möts. 
+        done
 }
 
 version() { #skapar en funktion för att skapa en lista av release samt vilken distro min OCI kör
@@ -112,27 +139,31 @@ fi
 
 
 structurecheck(){ #kallar på funktionen som skapar ny fil eller låter det vara baserat på wordcount i if statementen ovan
-
-        if [ "$(grep -c '|' $readme)" -gt 20 ]; then
-        Warning=$((Warning + 1))
-        log "[WARN] Filen har för mycket information och bör raderas, fortsätta med raderingen?"
-        deletefiles
+       
         mksetup
         harden
-fi
 
-if harden; then #kallar på harden funktionen
-        Success=$((Success + 1))
-        log "[OK] Hardening lyckades"
+        if [ "$(grep -c '|' $readme)" -gt 20 ]; then
+                Warning=$((Warning + 1))
+                log "[WARN] Filen har för mycket information och bör raderas, fortsätta med raderingen?"
 
-else
-        Fail=$((Fail + 1))
-        log "[FAIL] Kunde inte göra hardening på dessa filer. Antingen saknas permissions eller så är dem redan satta."
-fi
+                deletefiles
+                mksetup
+                harden
+        fi
+
+        if harden; then #kallar på harden funktionen
+                Success=$((Success + 1))
+                log "[OK] Hardening lyckades"
+
+        else
+                Fail=$((Fail + 1))
+                log "[FAIL] Kunde inte göra hardening på dessa filer. Antingen saknas permissions eller så är dem redan satta."
+        fi
 
 }
 
-log "[INFO] Kontrollerar loggen och strukturen på filerna."
+printf '%s | %s\n' "$(date '+%T')" "[INFO] Kontrollerar loggen och strukturen på filerna.(Denna info loggas ej i README.md)" >&2
 structurecheck
 
 log "[INFO] Kontrollerar mjukvara:$(version)"
