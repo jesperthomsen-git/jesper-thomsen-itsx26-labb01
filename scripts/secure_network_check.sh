@@ -26,7 +26,9 @@
 #***********************************************************************************************#
 # VIKTIG INFO: HEMSIDAN SKRIVS UTANFÖR SKRIPTET, EXEMPEL: ./secure_network_check.sh example.com #
 #***********************************************************************************************#
-#cat $HOME/evidence/README.md för att se loggen.
+#less $HOME/evidence/README.md för att se kopia på README filen från repot.
+#cat $HOME/evidence/logfile.md för att se loggen.
+
 #nohup python3 -m http.server 8080 >/tmp/http.log 2>&1 & för att starta en lokal testserver från studiematerialet.
 
 #skapar variabler som räknar ihop en sammanfattning i slutet av skriptet.
@@ -34,21 +36,31 @@ Success=0
 Warning=0
 Fail=0
 
+logfile="$HOME/evidence/logfile.md"
 readme="$HOME/evidence/README.md"
 evidence="$HOME/evidence"
 
+
+
+
+
 cleanup() { #raderar fil
-        rm $readme
+        rm $logfile
 }
 
 log() { #skapar en funktion som lagrar loggen mot README.md med en enkel seperation för datum + kommentaren jag kör log mot
+        printf '%s | %s\n' "$(date '+%T')" "$*" |
+        tee -a "$logfile"
+}
+logr() { #skapar en funktion som lagrar loggen mot README.md med en enkel seperation för datum + kommentaren jag kör log mot
         printf '%s | %s\n' "$(date '+%T')" "$*" |
         tee -a "$readme"
 }
 
 harden() { #skapar snabbt rättigheter på mappen & filen readme
         chmod 700 "$evidence" &&
-        chmod 700 "$readme"
+        chmod 700 "$readme" &&
+        chmod 700 "$logfile"
 }
 
 mksetup(){
@@ -93,6 +105,20 @@ countdown=("5" "4" "3" "2" "1") #skapar en array som räknar ner innan verifieri
                         log "[INFO] Evidence mappen finns redan."
                 fi
 
+                [[ -f "$logfile" ]] ||  {
+                #touch för att skapa filen.
+                        touch "$logfile" || {
+        
+                        Fail=$((Fail + 1))
+                        log '[FAIL] Kunde inte skapa logfile.md i evidence directory, saknar permissions.'
+                        }
+                        printf '%s | %s\n' "$(date '+%T')" "[INFO] Hittar inte logfile.md, skapar den nu.(Denna info loggas ej i README.md)" >&2 
+
+                        Success=$((Success + 1))
+                        log "[OK] Lyckades skapa logfile.md filen."
+        
+                }
+
                 [[ -f "$readme" ]] ||  {
                 #touch för att skapa filen.
                         touch "$readme" || {
@@ -105,12 +131,12 @@ countdown=("5" "4" "3" "2" "1") #skapar en array som räknar ner innan verifieri
                         Success=$((Success + 1))
                         log "[OK] Lyckades skapa README.md filen."
         
-                } 
+                }
 
-                if [[ ! -f "$readme" ]]; then
+                if [[ ! -f "$logfile" ]]; then
                 :
                 else
-                        log "[INFO] README.md finns redan, loggningen kommer återupptas."
+                        log "[INFO] logfile.md finns redan, loggningen kommer återupptas."
                 fi
 
                 Success=$((Success + 1))
@@ -126,10 +152,10 @@ version() { #skapar en funktion för att skapa en lista av release samt vilken d
 }
 
 deletefiles() { #skapar en ja eller nej prmpt där ja kallar på cleanup funktionen
-        read -e -p "Ska filen '$readme' raderas [y/n]" val
+        read -e -p "Ska filen '$logfile' raderas [y/n]" val
 
         if [[ "$val"  == [Yy]* ]]; then
-                log "[INFO] Raderar filen $readme"
+                log "[INFO] Raderar filen $logfile"
                 cleanup
         else
                 Success=$((Success + 1))
@@ -143,7 +169,7 @@ structurecheck(){ #kallar på funktionen som skapar ny fil eller låter det vara
         mksetup
         harden
 
-        if [ "$(grep -c '|' $readme)" -gt 20 ]; then
+        if [ "$(grep -c '|' $logfile)" -gt 20 ]; then
                 Warning=$((Warning + 1))
                 log "[WARN] Filen har för mycket information och bör raderas, fortsätta med raderingen?"
 
@@ -229,8 +255,89 @@ while true; do #skapar en loop som kollar om olika portar är öppna eller ej sa
                 break #Skapar en till breakpoint här för att avsluta loopen.
         fi
 done
-
 log "[INFO] kontroll avslutad."
 log "[INFO] Sammanfattning av kontrollerna: $Success lyckades, $Warning varningar, $Fail misslyckanden."
+log "[INFO] Skapar README.md som existerar i repot."
 
-log "[INFO] Loggen finns i $readme"
+logr "##Testing"
+logr "Här kommer skärmdumpar samt reflektion ske vid vissa utfall från skriptet"
+logr "(Dessa är uppladdade i GitHub)."
+logr ""
+logr "##Tester som utförs på skriptet:"
+logr ""
+logr "----------------------------------------------------------------"
+logr ""
+logr "### Normalfall 1"
+logr "Jag har gjort att man skriver en hemsida utanför skriptet utav säkerhetsskäl. I denna kontroll kommer jag använda mig utav google.com"
+logr ""
+logr "![alt text](../docs/Screenshots/v37/dnsfunction.png) "
+logr "Här kan man se att google.com svarar genom loggen [INFO] DNS Fungerar. Förbättring här kunde vara att göra ett OK istället för INFO."
+logr ""
+logr "* Det förväntade resultatet: Jag förväntade mig att genom att skriva ./secure_network_check.sh google.com skulle starta skriptet och ha google.com som variabeln som sparas för sökning i skriptet."
+logr "* faktiska resultatet: Utfärdades som planerat"
+logr "* slutsats: att skapa target=$1 som variabel som kallas utanför skriptet fungerade utmärkt då det kändes lite osäkert i början medans jag byggde upp grunden. Som slutsats fungerade som planerat."
+logr ""
+logr "----------------------------------------------------------------"
+logr ""
+logr ""
+logr "### Normalfall 2"
+logr "I testet för lokala tjänster har jag gjort att om skriptet antingen hittar tjänster som lyssnar eller att specifikt port 8080 är uppe får jag en logg på att den hittar tjänster och räknar upp hur många samt om en lokal server är öppen på port 8080."
+logr ""
+logr "Här visar mitt skript tydligt att port 8080 är öppen:"
+logr "![alt text](../docs/Screenshots/v37/port8080.png)"
+logr ""
+logr "Här visar den hur många lyssnande portar som finns aktiva vid tillfället:"
+logr "![alt text](../docs/Screenshots/v37/listenports.png)"
+logr ""
+logr "* Det förväntade resultatet: Jag förväntade att den skulle kunna hitta en specifik tråd där jag använde mig av grep funktionen."
+logr "* faktiska resultatet: Den hittade porten samt hur många lyssnare som finns genom grep och wc -l som underlättade enormt."
+logr "* slutsats: Att använda grep och wc -l är bra verktyp för att extrahera hård data utan att skapa potentiell exponering av känslig information." 
+logr ""
+logr "----------------------------------------------------------------"
+logr ""
+logr "### Felfall 1"
+logr "Då jag har skapat ett skript som kontrollerar hemsidan utanför skriptet skapar detta en enkel kontroll om hemsidan finns eller inte, samt om skriptet körs utan att skriva något efter du exekverar skriptet:"
+logr ""
+logr "Ogiltig hemsida:"
+logr "![alt text](../docs/Screenshots/v37/dnsoff.png)"
+logr "Här kan man se på ett enkelt sätt att DNS funktionen inte fungerar och visar då att hemsidan man skrev är onåbar."
+logr ""
+logr "![alt text](../docs/Screenshots/v37/emptyadress.png)"
+logr "Jag har också gjort så att om adressfältet är tomt så stoppas skriptet för att se till att man antingen skriver rätt adress man vill kontrollera eller om man helt enkelt glömde att skriva in det till att börja med. "
+logr ""
+logr "* Det förväntade resultatet: Jag hade hoppats att den gav mig något form of felmeddelande som t.ex att den inte hittade DNS servern"
+logr "* faktiska resultatet: Skriptet hittade inte hemsidan som nämnt."
+logr "* slutsats: Jag testade aldrig att skriva fel output som en kombination av bokstäver och nummer, detta är bra då den svarar ändast på existerande hemsidor och skyddar sig mot injecering eller strings som kan utföra skada mot koden."
+logr ""
+logr "* notering: jag skapade också en extra funktion som stoppade skriptet om man lämnade fältet tomt och fungerade utan komplikationer."
+logr "----------------------------------------------------------------"
+logr ""
+logr "### Felfall 2"
+logr ""
+logr "Här visar mitt skript tydligt att port 8080 inte är öppen:"
+logr "![alt text](../docs/Screenshots/v37/port8080closed.png)"
+logr "Här behövde jag stänga ner servern för att kontrollera att skriptet känner igen att porten 8080 är nere ooch fick då ett felmeddelande samt att detta lägger till i summeringen hur många fel det uppstår under skriptets process."
+logr ""
+logr "Här visar mitt skript tydligt att port 8080 är stängd genom antalet LISTEN som den kan hitta genom ss -tuln:"
+logr "![alt text](../docs/Screenshots/v37/listenportclosed.png)"
+logr "Med denna räkning från felfallet i jämförelse med när porten 8080 var öppen i normalfallet så kan man se att porten faktiskt är stängd."
+logr ""
+logr "* Det förväntade resultatet: Då grep fungerade i normal fallet så förväntade jag mig att denna funktion också kunnde skriva en felkod då jag gjorde en "else" i if satsen."
+logr "* faktiska resultatet: Den skrev ut det som var planerat och loggade det i filen jag ville."
+logr "* slutsats: Funktionen fungerade som planerat."
+logr ""
+logr "----------------------------------------------------------------"
+logr ""
+logr "## Koppling till vecka 36"
+logr ""
+logr "* Hardening: jämför lyssnande portar och tjänster med vad du förväntar dig efter genomförd hardening. Motivera minst en tjänst som behöver finnas kvar."
+logr ""
+logr "Reflektion: Efter att jag har kört igenom mitt skript och kontrollerat att min HTTP server på 8080 är nere kan jag se att portarna 53, 22 och 111 är öppna. Jag har gjort lite research på howtouselinux.com som beskriver port 111 som är någon form av portmap."
+logr "Jag trodde först att det var en port jag möjligtvis kunde stänga men ser ut som att det är en tjänst som bör vara öppen ifall jag vill skicka filer mellan system. Dessa tre portar verkar vara väldigt viktiga för drift, specifikt port 22 som är för ssh. Port 53 är viktig då denna hanterar DNS så ingen tvekan om att denna behövs."
+logr ""
+logr "*Backup och recovery: förklara vilka två nätverkskontroller i ditt verktyg som du skulle köra först efter en återställning och vad de verifierar. Ingen ny restore krävs."
+logr ""
+logr "Reflektion: Om jag kör mitt program kommer den alltid kontrollen om mapp strukturen finns eller inte samt om den har ändrade rättigheter. Detta skapar en bra grund för att skriptet kan fortsätta samt att den kontrollerar att vissa portar är aktiva, eller om den är kopplad till internet kan vara nog information för att kunna börja med felsökningar."
+
+log "[INFO] Loggen finns i $logfile"
+log "[INFO] README.MD finns i $readme"
