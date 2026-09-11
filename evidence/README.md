@@ -11,7 +11,7 @@ Jag har gjort att man skriver en hemsida utanför skriptet utav säkerhetsskäl.
 ![alt text](../docs/Screenshots/v37/dnsfunction.png) <p>
 Här kan man se att google.com svarar genom loggen [INFO] DNS Fungerar. Förbättring här kunde vara att göra ett OK istället för INFO.
 
-* Det förväntade resultatet: Jag förväntade mig att genom att skriva ./secure_network_check.sh google.com skulle starta skriptet och ha google.com som variabeln som sparas för sökning i skriptet
+* Det förväntade resultatet: Jag förväntade mig att genom att skriva ./secure_network_check.sh google.com skulle starta skriptet och ha google.com som variabeln som sparas för sökning i skriptet.
   
 * faktiska resultatet: Utfärdades som planerat
 * slutsats: att skapa target=$1 som variabel som kallas utanför skriptet fungerade utmärkt då det kändes lite osäkert i början medans jag byggde upp grunden. Som slutsats fungerade som planerat.
@@ -30,6 +30,7 @@ Här visar den hur många lyssnande portar som finns aktiva vid tillfället: <p>
 * faktiska resultatet: Den hittade porten samt hur många lyssnare som finns genom grep och wc -l som underlättade enormt.
 * slutsats: Att använda grep och wc -l är bra verktyp för att extrahera hård data utan att skapa potentiell exponering av känslig information. 
 
+----------------------------------------------------------------
 
 ### Felfall 1
 Då jag har skapat ett skript som kontrollerar hemsidan utanför skriptet skapar detta en enkel kontroll om hemsidan finns eller inte, samt om skriptet körs utan att skriva något efter du exekverar skriptet:
@@ -62,3 +63,19 @@ Med denna räkning från felfallet i jämförelse med när porten 8080 var öppe
 * Det förväntade resultatet: Då grep fungerade i normal fallet så förväntade jag mig att denna funktion också kunnde skriva en felkod då jag gjorde en "else" i if satsen.
 * faktiska resultatet: Den skrev ut det som var planerat och loggade det i filen jag ville.
 * slutsats: Funktionen fungerade som planerat.
+  
+----------------------------------------------------------------
+
+## Koppling till vecka 36
+
+* Hardening: jämför lyssnande portar och tjänster med vad du förväntar dig efter genomförd hardening. Motivera
+minst en tjänst som behöver finnas kvar.
+
+Reflektion: Efter att jag har kört igenom mitt skript och kontrollerat att min HTTP server på 8080 är nere kan jag se att portarna 53, 22 och 111 är öppna. Jag har gjort lite research på howtouselinux.com som beskriver port 111 som är någon form av portmap.
+Jag trodde först att det var en port jag möjligtvis kunde stänga men ser ut som att det är en tjänst som bör vara öppen ifall jag vill skicka filer mellan system. Dessa tre portar verkar vara väldigt viktiga för drift, specifikt port 22 som är för ssh. Port 53 är viktig då denna hanterar DNS så ingen tvekan om att denna behövs.
+
+
+* Backup och recovery: förklara vilka två nätverkskontroller i ditt verktyg som du skulle köra först efter en
+återställning och vad de verifierar. Ingen ny restore krävs.
+
+Reflektion: Om jag kör mitt program kommer alltid kontrollen om mapp strukturen finns eller inte samt om den har ändrade rättigheter. Detta skapar en bra grund för att skriptet kan fortsätta samt att den kontrollerar att vissa portar är aktiva, eller om den är kopplad till internet kan vara nog information för att kunna börja med felsökningar.
