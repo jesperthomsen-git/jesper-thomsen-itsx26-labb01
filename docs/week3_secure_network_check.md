@@ -101,9 +101,22 @@ Man kan alltid förbättras och om jag skulle fortsätta med skriptet och förs�
 
 Det jag skulle kunna förbättra är att skapa en temporär logg vid varje skript exekvering och fråga om man skicka denna loggen över till en mer permanent logg som inte tas bort av programmet. Tanken var att behålla intigriteten på filen så den inte kan manipuleras externt med konfidentialitet i åtanke men när jag avväger hur jag har kodat så kommer det självklart att påverka tillgängligheten till loggen om det tas bort efter att loggen har mött en viss mängd.
 
-• Vilken kontroll gav mest värde och varför?
-• Vilken miljöskillnad påverkade ditt arbete?
-• Vilket fel var svårast att tolka?
-• Vad skulle du förbättra i en version 2?
-• Hur kan verktyget användas i en verklig drift- eller säkerhetsprocess utan att bli riskabelt?
+* Vilken kontroll gav mest värde och varför?
+  
+Att kontrollen om hemsidan fungerade och att mapp och fil strukturen fanns gav mig mest i denna övningen då det fick en att tänka abstrakt på vissa delar och ur ett perspektiv där folk vill potentiellt göra en illa.
 
+
+* Vilken miljöskillnad påverkade ditt arbete?
+  
+Att jobba i Linux har varit krävande men tycker att denna vecka och kopplingen som har gjorts har gett mig god insikt i hur Ubuntu fungerar och hur man använder kommandon på ett effektivt sätt.
+  
+* Vilket fel var svårast att tolka?
+Den svåraste var nog att försöka att förstå hur grep fungerade och att kunna få ut detta i text på ett effektivt sätt som både ger mig det jag vill ha men också lämna känslig information utanför programmet.
+  
+* Vad skulle du förbättra i en version 2?
+  
+I version 2 skulle jag nog kunna skapa bättre funktioner och möjligtvis en implementering där jag går djupare på hardening och recovery aspekten. Som till exempel på att lista portar som är öppna både genom ss -tuln men också ps aux där man kan då köra ett kill kommando direkt via skriptet om man anger lösenord igen som bekräftelse.
+  
+* Hur kan verktyget användas i en verklig drift- eller säkerhetsprocess utan att bli riskabelt?
+  
+Verktyget skulle kunna komma till hands för att kontrollera vissa nätverksdelar som om företagets hemside är uppe, om en server ligger nere, vilka portar är öppna som man kanske inte behöver och får information om detta.
