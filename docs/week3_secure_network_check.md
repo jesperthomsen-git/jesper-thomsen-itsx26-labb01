@@ -120,3 +120,6 @@ I version 2 skulle jag nog kunna skapa bättre funktioner och möjligtvis en imp
 * Hur kan verktyget användas i en verklig drift- eller säkerhetsprocess utan att bli riskabelt?
   
 Verktyget skulle kunna komma till hands för att kontrollera vissa nätverksdelar som om företagets hemside är uppe, om en server ligger nere, vilka portar är öppna som man kanske inte behöver och får information om detta.
+
+## Användning av AI i projektet
+Jag har inte använt mig av AI i denna inlämningsuppgift, resurser jag har använt är klasskamrater vid frågor, Google.com för små frågor som har gett resultat till olika hemsidor som har svaret jag letar efter(ej Gemini) samt hemsidor som linuxvox.com och howtouselinux.com och studiematerial + man kommandon i OCI miljön.
