@@ -1,26 +1,27 @@
 ## Repo struktur
 
-Reflektioner, CIA-analys & manuella observationer ligger i week3_secure_network_check.md
-│
-├── docs
-│ └── week3_secure_network_check.md
-├── evidence
-│ └── README.md
-│
-├── scripts
-│ └── secure_network_check.sh
-│
-├── README.md
-└── ...
+Reflektioner, CIA-analys & manuella observationer ligger i week3_secure_network_check.md <p>
+│<p>
+├── docs<p>
+│ └── week3_secure_network_check.md<p>
+├── evidence<p>
+│ └── README.md<p>
+│<p>
+├── scripts<p>
+│ └── secure_network_check.sh<p>
+│<p>
+├── README.md<p>
+└── ...<p>
+strukturen tagen är från Canvas: Oracle Cloud VM, Linux, hardening, recovery och cleanup 
 
 -------------------------------------------------------------
 
 ## Miljöbeskrivning
 
+Miljö: Oracle Cloud
+Ubuntu 26.04
+Ens3
 
-### Miljö: Oracle Cloud
-### Ubuntu 26.04
-### Ens3
 ### Adresser: 
 * Lokal adress är localhost 127.0.0.1 och är på ens sercer i Oracle cloud eller lokalt på ens dator
 * Privat adress är ett nätverk som man kan koppla sig till som inte går ut på internet som heter LAN
@@ -90,6 +91,7 @@ Ett klart exempel var när jag bytte ut koden för min harden funktion som ändr
 Ett annat exampel var att jag skapade och körde skriptet som root i början men ändrade detta så att vilken användare kan köra detta skriptet men endast den som kör skriptet kan få åtkomst till mappen och läsa filen.
 
 Detta är något som jag kommer ta med mig i framtiden.
+
 -------------------------------------------------------------
 
 ## Reflektion & förbättring
