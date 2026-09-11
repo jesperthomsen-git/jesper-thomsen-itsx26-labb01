@@ -99,5 +99,9 @@ Man kan alltid förbättras och om jag skulle fortsätta med skriptet och förs�
 
 Det jag skulle kunna förbättra är att skapa en temporär logg vid varje skript exekvering och fråga om man skicka denna loggen över till en mer permanent logg som inte tas bort av programmet. Tanken var att behålla intigriteten på filen så den inte kan manipuleras externt med konfidentialitet i åtanke men när jag avväger hur jag har kodat så kommer det självklart att påverka tillgängligheten till loggen om det tas bort efter att loggen har mött en viss mängd.
 
-
+• Vilken kontroll gav mest värde och varför?
+• Vilken miljöskillnad påverkade ditt arbete?
+• Vilket fel var svårast att tolka?
+• Vad skulle du förbättra i en version 2?
+• Hur kan verktyget användas i en verklig drift- eller säkerhetsprocess utan att bli riskabelt?
 
