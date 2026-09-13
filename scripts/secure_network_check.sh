@@ -48,16 +48,16 @@ cleanup() { #raderar fil
         rm $logfile
 }
 
-log() { #skapar en funktion som lagrar loggen mot README.md med en enkel seperation för datum + kommentaren jag kör log mot
+log() { #skapar en funktion som lagrar loggen mot logfile.md med en enkel seperation för datum + kommentaren jag kör log() mot
         printf '%s | %s\n' "$(date '+%T')" "$*" |
         tee -a "$logfile"
 }
-logr() { #skapar en funktion som lagrar loggen mot README.md med en enkel seperation för datum + kommentaren jag kör log mot
+logr() { #skapar en funktion som lagrar loggen mot README.md med en enkel seperation för datum + kommentaren jag kör logr() mot
         printf '%s | %s\n' "$(date '+%T')" "$*" |
         tee -a "$readme"
 }
 
-harden() { #skapar snabbt rättigheter på mappen & filen readme
+harden() { #Skapar snabbt rättigheter på mappen & filen readme + logfile.
         chmod 700 "$evidence" &&
         chmod 700 "$readme" &&
         chmod 700 "$logfile"
@@ -67,7 +67,7 @@ mksetup(){
 
 printf '%s | %s\n' "$(date '+%T')" "[INFO] Påbörjar verifiering av directory...(Denna info loggas ej i README.md)" >&2
 
-countdown=("5" "4" "3" "2" "1") #skapar en array som räknar ner innan verifieringen av filerna sker.
+countdown=("5" "4" "3" "2" "1") #Skapar en array som räknar ner innan verifieringen av filerna sker.
         
         for x in "${countdown[@]}"; do
 
@@ -80,25 +80,25 @@ countdown=("5" "4" "3" "2" "1") #skapar en array som räknar ner innan verifieri
 
         for evidence in "$evidence"; do #Skapar en kontrollerad loop som kollar om README.md finns.
 
-                #Denna loop idé var inspirerad från https://oneuptime.com/blog/post/2026-03-02-how-to-create-loops-for-while-until-in-bash-on-ubuntu/view
+                #Denna loop idé var inspererad från https://oneuptime.com/blog/post/2026-03-02-how-to-create-loops-for-while-until-in-bash-on-ubuntu/view
                 #Testar en ny metod för att kontrollera om mappen och filen finns.
 
 
     
                 [[ -d "$evidence" ]]  || {
-
+                        #mkdir för att skapa mappen.                                
                         printf '%s | %s\n' "$(date '+%T')" "[INFO] Hittar inte evidence mappern, skapar den nu.(Denna info loggas ej i README.md)" >&2 
-                #mkdir för att skapa mappen.
+
                         mkdir -p "$evidence" || {
 
                         Fail=$((Fail + 1))
                         log '[FAIL] Kunde inte skapa mappen, saknar permissions.' >&2
                         }
-        
+
                         Success=$((Success + 1))
                         printf '%s | %s\n' "$(date '+%T')" "[OK] Lyckades skapa evidence mappen.(Denna info loggas ej i README.md)" >&2
                 }
-        
+
                 if [[ ! -f "$readme" ]]; then
                         printf '%s | %s\n' "$(date '+%T')" "[INFO] Evidence mappen finns redan.(Denna info loggas ej i README.md)" >&2
                 else
@@ -106,9 +106,9 @@ countdown=("5" "4" "3" "2" "1") #skapar en array som räknar ner innan verifieri
                 fi
 
                 [[ -f "$logfile" ]] ||  {
-                #touch för att skapa filen.
+                        #touch för att skapa filen.
                         touch "$logfile" || {
-        
+
                         Fail=$((Fail + 1))
                         log '[FAIL] Kunde inte skapa logfile.md i evidence directory, saknar permissions.'
                         }
@@ -116,11 +116,10 @@ countdown=("5" "4" "3" "2" "1") #skapar en array som räknar ner innan verifieri
 
                         Success=$((Success + 1))
                         log "[OK] Lyckades skapa logfile.md filen."
-        
                 }
 
                 [[ -f "$readme" ]] ||  {
-                #touch för att skapa filen.
+                        #touch för att skapa filen.
                         touch "$readme" || {
         
                         Fail=$((Fail + 1))
@@ -130,7 +129,6 @@ countdown=("5" "4" "3" "2" "1") #skapar en array som räknar ner innan verifieri
 
                         Success=$((Success + 1))
                         log "[OK] Lyckades skapa README.md filen."
-        
                 }
 
                 if [[ ! -f "$logfile" ]]; then
@@ -146,12 +144,12 @@ countdown=("5" "4" "3" "2" "1") #skapar en array som räknar ner innan verifieri
         done
 }
 
-version() { #skapar en funktion för att skapa en lista av release samt vilken distro min OCI kör
+version() { #Skapar en funktion för att skapa en lista av release samt vilken distro min OCI kör
         lsb_release -a &&
         grep 'VERSION_ID' /etc/os-release
 }
 
-deletefiles() { #skapar en ja eller nej prmpt där ja kallar på cleanup funktionen
+deletefiles() { #Skapar en ja eller nej prmpt där ja kallar på cleanup funktionen
         read -e -p "Ska filen '$logfile' raderas [y/n]" val
 
         if [[ "$val"  == [Yy]* ]]; then
@@ -164,7 +162,7 @@ fi
 }
 
 
-structurecheck(){ #kallar på funktionen som skapar ny fil eller låter det vara baserat på wordcount i if statementen ovan
+structurecheck(){ #Kallar på funktionen som skapar ny fil eller låter det vara baserat på wordcount i if statementen ovan
        
         mksetup
         harden
@@ -196,11 +194,9 @@ log "[INFO] Kontrollerar mjukvara:$(version)"
 
 log "[INFO] kontrollerar om hemsidan existerar."
 
-target="$1" #target blir den hemsida du skriver utanför skriptet
+target="$1" #Target blir den hemsida du skriver utanför skriptet
 
-
-
-if [[ -z "$target" ]]; then #kontroll att skriptet inte körst tomt
+if [[ -z "$target" ]]; then #Kontroll att skriptet inte körst tomt
 
         Fail=$((Fail + 1))
         log "[FAIL] fältet $target är tomt, skriv en hemsida med ett mellanslag efter skriptet."
@@ -209,20 +205,20 @@ if [[ -z "$target" ]]; then #kontroll att skriptet inte körst tomt
 fi
 
 
-if getent hosts "$target" > /dev/null; then #kontrollerar att hemsidan kan nås
+if getent hosts "$target" > /dev/null; then #Kontrollerar att hemsidan kan nås
         
         Success=$((Success + 1))
         log "[OK] Hemsidan $target är tillgänglig."
         log "[INFO] kontroll startat"
         log "[INFO] DNS fungerar."
 
-        else
+else
         Fail=$((Fail + 1))
         log "[FAIL] DNS fungerar inte"
 
 fi
 
-while true; do #skapar en loop som kollar om olika portar är öppna eller ej samt om det finns portar som lyssnar.
+while true; do #Skapar en loop som kollar om olika portar är öppna eller ej samt om det finns portar som lyssnar.
 
         log "[INFO] Startar en lokal check lokalt"
 
@@ -239,14 +235,14 @@ while true; do #skapar en loop som kollar om olika portar är öppna eller ej sa
 
         fi
 
-        listen_count=$(ss -tuln | grep LISTEN | wc -l) #räknar antalet lyssnande portar
+        listen_count=$(ss -tuln | grep LISTEN | wc -l) #Räknar antalet lyssnande portar
 
-        if [[ "$listen_count" -gt 0 ]]; then #skriver ut antalet lyssnande portar om det finns.
+        if [[ "$listen_count" -gt 0 ]]; then #Skriver ut antalet lyssnande portar om det finns.
 
                 log "[INFO] Kontrollerar om det finns lyssnande portar"
                 Success=$((Success + 1))
                 log "[OK] Det finns $listen_count lyssnande portar"
-                break #skapar breakpoints här för att avsluta loopen om kravet möts.
+                break #Skapar breakpoints här för att avsluta loopen om kravet möts.
                 else
                 
                 log "[INFO] Kontrollerar om det finns lyssnande portar"

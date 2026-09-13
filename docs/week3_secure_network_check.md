@@ -32,7 +32,7 @@ Ens3
 * Kan möjligtvis kosta pengar om man ändrar i inställningar
 * Kan ha en viss fördröjning
 * Har öppna portar 80 & 443 som vem som helst kan komma in genom
-* Annorlunda gränsnitt och funktioner från andra distron
+* Kan ha annorlunda gränsnitt och funktioner från andra distron
 
 -------------------------------------------------------------
 
@@ -69,7 +69,7 @@ Att man skapar en logg för att se vart som skriptet det går fel eller vart det
 
 
 #### Tillgänglighet
-Tillgänglighet: Hur visar DNS, route, tjänst och port om en funktion är tillgänglig?
+Hur visar DNS, route, tjänst och port om en funktion är tillgänglig?
 
 När man försöker gå in på en hemsida som inte är tillgänglig så letar ens dator efter en specik IP adress som konverteras över till ett domän namn men kommer aldrig fram. Detta gör att paketet kommer tillbaka olevererat. Genom route kan man felsöka om det är på ens egna sida eller om hemsidan är nere genom att kolla på om till exempel ens portar eller tjänster är nere som till exempel "ss- tuln", "ip addr" och "hostname -i".
  
@@ -77,7 +77,7 @@ När man försöker gå in på en hemsida som inte är tillgänglig så letar en
     ip addr  
     hostname -i
 
-När det är en tjänst är inaktiv så brukar den oftast stå som att den lyssnar, det betyder att den håller utkik på inkommande kommandon från en port, som till exempel port 8080. När porten är stängd så kommer tjänsten inte att visas i listan under "ss -tuln". När man då kallar på en funktion som att starta sin egna lokala HTTP server så kan man enkelt se att detta port öppnas och att en tjänst blir tilldelar för den porten, som en person som håller dörren öppen för den som har tillåtelse till det. 
+När det är en tjänst är inaktiv så brukar den oftast stå som att den lyssnar, det betyder att den håller utkik på inkommande kommandon från en port, som till exempel port 8080. När porten är stängd så kommer tjänsten inte att visas i listan under "ss -tuln". När man då kallar på en funktion som att starta sin egna lokala HTTP server så kan man enkelt se att denna port öppnas och att en tjänst blir tilldelar för den porten, som en person som håller dörren öppen för den som har tillåtelse till det. 
 
 Med detta kan man se till att olike processer och tjänster inte har sina dörrar öppna för tillgång hela tiden men att man stänger dessa för att kunna minska ytan för attacker. Genom tillgänglighet och en säker approach så kan man se till att personer som ska ha tillgång till tjänster eller portar har det medans andra som till exempel saknar nycklar eller tillgång till den server på det lokala nätverket inte får tillgång.
 
@@ -88,7 +88,7 @@ Ge ett exempel där en säkerhetsåtgärd kan försämra tillgänglighet om den 
 
 Ett klart exempel var när jag bytte ut koden för min harden funktion som ändrade både fil men också mappen från ursprungligen 700 till chmod 600 vilket gjorde att jag förlorade access och persmissions ganska fort och låste mig ute från att kunna köra skriptet ordentligt. 
 
-Ett annat exampel var att jag skapade och körde skriptet som root i början men ändrade detta så att vilken användare kan köra detta skriptet men endast den som kör skriptet kan få åtkomst till mappen och läsa filen.
+Ett annat exempel var att jag skapade och körde skriptet som root i början men ändrade detta så att vilken användare kan köra detta skriptet men endast den som kör skriptet kan få åtkomst till mappen och läsa filen.
 
 Detta är något som jag kommer ta med mig i framtiden.
 
@@ -97,7 +97,7 @@ Detta är något som jag kommer ta med mig i framtiden.
 ## Reflektion & förbättring
 Att skapa ett robust skript i bash kan vara svårt och ganska oflexibelt men är ett otroligt bra verktyg för att kunna skapa små och konsisa automationer som hjälper daglig drift. Att skapa större skript i bash kan leda till olika säkerhets risker som till exempel mitt chmod problem eller att man råkar köra den i admin så den skapar, flyttar eller raderar mappar den inte borde ha gjort. 
 
-Man kan alltid förbättras och om jag skulle fortsätta med skriptet och försöka att optimera det så skulle jag nog skapa fler funktioner och kalla på dem genom bättre argument för att i slutändan få en mer lättläslig kod men också mer användarvändligt. Ner det kommer till harderning och säkerhets tänket så har jag lagt till en funktion som tar bort hela README.md filen och skapar en ny med chmod redan fixat, detta kan självklart skapa problem när det kommer till felsök under en längre period och finns då en chans att förlora datan för alltid. 
+Man kan alltid förbättras och om jag skulle fortsätta med skriptet och försöka att optimera det så skulle jag nog skapa fler funktioner och kalla på dem genom bättre argument för att i slutändan få en mer lättläslig kod men också få det mer användarvändligt. När det kommer till harderning och säkerhets tänket så har jag lagt till en funktion som tar bort hela README.md filen och skapar en ny med chmod redan fixat, detta kan självklart skapa problem när det kommer till felsök under en längre period och finns då en chans att förlora datan för alltid. 
 
 Det jag skulle kunna förbättra är att skapa en temporär logg vid varje skript exekvering och fråga om man skicka denna loggen över till en mer permanent logg som inte tas bort av programmet. Tanken var att behålla intigriteten på filen så den inte kan manipuleras externt med konfidentialitet i åtanke men när jag avväger hur jag har kodat så kommer det självklart att påverka tillgängligheten till loggen om det tas bort efter att loggen har mött en viss mängd.
 
@@ -116,10 +116,12 @@ Den svåraste var nog att försöka att förstå hur grep fungerade och att kunn
 * Vad skulle du förbättra i en version 2?
   
 I version 2 skulle jag nog kunna skapa bättre funktioner och möjligtvis en implementering där jag går djupare på hardening och recovery aspekten. Som till exempel på att lista portar som är öppna både genom ss -tuln men också ps aux där man kan då köra ett kill kommando direkt via skriptet om man anger lösenord igen som bekräftelse.
+
+I version behöver jag också komma på ett bättre system att kunna skriva till en fil som kommer innehålla mycket text.
   
 * Hur kan verktyget användas i en verklig drift- eller säkerhetsprocess utan att bli riskabelt?
   
 Verktyget skulle kunna komma till hands för att kontrollera vissa nätverksdelar som om företagets hemside är uppe, om en server ligger nere, vilka portar är öppna som man kanske inte behöver och får information om detta.
 
 ## Användning av AI i projektet
-Jag har inte använt mig av AI i denna inlämningsuppgift, resurser jag har använt är klasskamrater vid frågor, Google.com för små frågor som har gett resultat till olika hemsidor som har svaret jag letar efter(ej Gemini) samt hemsidor som linuxvox.com och howtouselinux.com och studiematerial + man kommandon i OCI miljön.
+Jag har inte använt mig av AI i denna inlämningsuppgift, resurser jag har använt är klasskamrater vid frågor, Google.com för små frågor som har gett resultat till olika hemsidor som har svaret jag letar efter(ej Gemini) samt hemsidor som linuxvox.com, w3schools och howtouselinux.com och studiematerial + man kommandon i OCI miljön.
