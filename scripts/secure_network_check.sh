@@ -82,8 +82,6 @@ countdown=("5" "4" "3" "2" "1") #Skapar en array som räknar ner innan verifieri
 
                 #Denna loop idé var inspererad från https://oneuptime.com/blog/post/2026-03-02-how-to-create-loops-for-while-until-in-bash-on-ubuntu/view
                 #Testar en ny metod för att kontrollera om mappen och filen finns.
-
-
     
                 [[ -d "$evidence" ]]  || {
                         #mkdir för att skapa mappen.                                

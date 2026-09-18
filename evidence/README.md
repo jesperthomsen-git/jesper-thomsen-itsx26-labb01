@@ -81,3 +81,6 @@ Jag trodde först att det var en port jag möjligtvis kunde stänga men ser ut s
 Reflektion: Om jag kör mitt program kommer alltid kontrollen om mapp strukturen finns eller inte samt om den har ändrade rättigheter. Detta skapar en bra grund för att skriptet kan fortsätta samt att den kontrollerar att vissa portar är aktiva, eller om den är kopplad till internet kan vara nog information för att kunna börja med felsökningar.
 
 ----------------------------------------------------------------
+
+
+## Vecka 38 Network Traffic Investigation
