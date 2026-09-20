@@ -29,7 +29,7 @@ Struktur på repot och vart du hittar bilderna är nämnt ovan samt märkt i str
 │<p>
 ├── evidence<p>
 │ └── screenshots<p>
-│   └── w38<p> <--
+│   └── w38 <-- <p>
 │<p>
 │ └── README.md<p>
 │<p>
