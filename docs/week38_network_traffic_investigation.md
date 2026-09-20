@@ -311,11 +311,14 @@ Jämför ett HTTP-flöde med ett TLS/HTTPS-flöde, eller använd motsvarande god
 
 ## 07. Brandvägg och hardening
 
-* Välj ett observerat flöde och ange vilken inkommande eller utgående brandväggsregel som principiellt skulle beröra det.
-* Förklara skillnaden mellan en tjänst som lyssnar lokalt och trafik som tillåts passera en brandvägg.
-* Resonera om default deny och minsta nödvändiga öppning.
-* Koppla analysen till föregående veckors hardening: är de observerade tjänsterna och flödena rimliga för miljön?
-* Du ska inte ändra brandväggsregler för att slutföra denna del.
+* Välj ett observerat flöde och ange vilken inkommande eller utgående brandväggsregel som principiellt skulle beröra det: Efter djupare observation så hittar jag inte mycket information om Port 37328. Om "sysctl net.ipv4.ip_local_port_range" så får jag upp en range mellan 32768-60999. Då jag använder mig av UFW på Ubuntu så har jag ej modifierat min port range men något jag bör göra i framtiden för att minska ytan mot attacker.
+  * sysctl net.ipv4.ip_local_port_range 
+  
+* Förklara skillnaden mellan en tjänst som lyssnar lokalt och trafik som tillåts passera en brandvägg: En tjänst som lyssnar väntar oftast på inkommande anrop eller signaler som en som håller upp dörren för att låta trafik passera. Trafik som ankommer till specifika portar kör alltid efter protokoller och port nummer för att kunna hitta rätt tjänst eller applikation. Brandväggen hjälper till med förinstallerade regler för att reglera och motverka attacker utifrån.
+  
+* Resonera om default deny och minsta nödvändiga öppning: Att ha som vana att ha default deny i åtanke gör att du skapar en så liten attack yta som möjligt. Att manuellt tillåta och neka vissa portar är en bra vana vid större företag för att se till att portar som är inaktiva blir stängda som inte behövs. Att vara påläst om vilka portar som är viktiga för drift och vilka som kan stängas är en viktig del i cybersäkerhet
+  
+* Koppla analysen till föregående veckors hardening: är de observerade tjänsterna och flödena rimliga för miljön? När jag går igenom flödesschemat så har alla tjänster och protokoller en viktig roll när jag jämför dem mot OSI modellen. Jag behövde läsa ytterligare om ephemeral ports och visste inte att dessa fanns förräns denna vecka och har skapat en insikt om att detta kan skapa problemer om man har portar som är öppna som inte skall vara det i slutändan. Att kunna se allt från metadata till hemsidans struktur skapar självklart stora konfidentialitets frågor som om hemsidan är orginalet eller om det finns något på hemsidan som läser av vad du skriver. Att se hur paketet rör sig från klient till slutparten och delarna i mellan gör att man enkelt kan se vart och vilket moment som saker kan gå fel, som ett exempel som en misslyckad handshake; är det internet uppkoppling från klientens sida eller är servern nere?
 
 ---------------------------------------
 
