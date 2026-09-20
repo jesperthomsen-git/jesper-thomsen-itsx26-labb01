@@ -234,9 +234,43 @@ Vilken osäkerhet ska anges? (förklara, var konkret)
 ☐ Om uppgiften innehåller känslig metadata som behöver saneras
 
 ---------------------------------------
+## 04. protokollinventering
+
+Skapa en tabell med minst följande protokoll. Om ett protokoll saknas ska du beskriva hur du sökte och varför det rimligen kan saknas.
+
+| Protokoll | Minsta evidens | Analysfråga | 
+|---|---|---|
+| DNS	| En query och motsvarande response, om tillgängligt |	Vilket namn efterfrågas, vilket svar ges och vad visar detta? |
+| ICMP	| Ett echo request/reply-par eller dokumenterad frånvaro |	Vad visar trafiken om nåbarhet, och vilka slutsatser kan inte dras? |
+| TCP	| En komplett eller delvis handshake |	Kan du identifiera SYN, SYN/ACK och ACK samt endpoints och portar? |
+| HTTP	| En request och relevant response, om tillgängligt |	Vilka headers eller data är läsbara? |
+| TLS/HTTPS	| ClientHello/ServerHello eller Application Data |	Vilken metadata syns och vad är krypterat? |
 
 
-## 04. Fördjupad analys av två flöden
+| DNS	| En query och motsvarande response, om tillgängligt |	Vilket namn efterfrågas, vilket svar ges och vad visar detta? |
+|---|---|---|
+| DNS	| Standard query, Message is a query | Example.com, svaret är Message is a response. Detta visar på att domänen finns och att den svarar paketet |
+
+| ICMP	| Ett echo request/reply-par eller dokumenterad frånvaro |	Vad visar trafiken om nåbarhet, och vilka slutsatser kan inte dras? |
+|---|---|---|
+| ICMP	| Ping request till 8.8.8.8 och tillbaka OCI |	Jag skapade 10 pings mot servern och fick ett genomsnitt en respons på 8ms som visar på bra uppkoppling, Jag kan se att paket skickas, men kan inte se hur många gånger ett paket har hoppat eller dess RTT som man kan se hos TCP |
+
+| TCP	| En komplett eller delvis handshake |	Kan du identifiera SYN, SYN/ACK och ACK samt endpoints och portar? |
+|---|---|---|
+| TCP	| Genom att filtrera med tcp.flags.syn==1 kan jag se att jag har skapat en 3 way handshake. Detta kan jag se genom att SYN och SYN + ACK finns. | Enligt IP som jag kontrollerar så är min OCI SYN och SYN ACK är en HTTP address. RTT till ACK var 2,4ms. Det ser också ut som att source port är 46378 och om jag öppnar paketet så ser det ut som att port 80 används, detta kan då vara handshake till och från Example.com.|
+
+| HTTP	| En request och relevant response, om tillgängligt |	Vilka headers eller data är läsbara? |
+|---|---|---|
+| HTTP	| Curl mot Example.com, Response: OK | Då allt är okrypterat kan jag se hela uppbygnaden i html kod i head. Jag kan se att jag får denna informationen genom curl, datum och tid detta gjordes, server som hostar example.com samt vilket http protokoll som används vilket är HTTP1.1 |
+
+| TLS/HTTPS	| ClientHello/ServerHello eller Application Data |	Vilken metadata syns och vad är krypterat? |
+|---|---|---|
+| TLS/HTTPS	| Klienten(jag) säger hello och Example.com ger en handshake och säger hello tillbaka |	Det ända jag kan se som är metadata är destinationen Example.com, att det är under application data protocol; HPT och resten av paketet är krypterat. |
+
+
+---------------------------------------
+
+## 05. Fördjupad analys av två flöden
 Välj två olika flöden, varav minst ett ska vara TCP-baserat. För varje flöde ska du redovisa:
     • paketnummer eller tydlig flödeshänvisning
     • källa, destination, port och protokoll
@@ -247,7 +281,9 @@ Välj två olika flöden, varav minst ett ska vara TCP-baserat. För varje flöd
     • alternativa förklaringar
     • vad mer som skulle behövas för en säkrare slutsats
 
-## 05. Krypterat och okrypterat
+---------------------------------------
+
+## 06. Krypterat och okrypterat
 
 Jämför ett HTTP-flöde med ett TLS/HTTPS-flöde, eller använd motsvarande godkända exempel i reserv-pcapen.
 
@@ -258,8 +294,9 @@ Jämför ett HTTP-flöde med ett TLS/HTTPS-flöde, eller använd motsvarande god
 | Felsökningsvärde	| Vad kan analyseras?	|Vad kan analyseras trots kryptering? |
 | Konfidentialitetsrisk	| Vilken information kan exponeras?	| Vilken information kan fortfarande vara synlig? |
 
+---------------------------------------
 
-## 06. Brandvägg och hardening
+## 07. Brandvägg och hardening
 
     • Välj ett observerat flöde och ange vilken inkommande eller utgående brandväggsregel som principiellt skulle beröra det.
     • Förklara skillnaden mellan en tjänst som lyssnar lokalt och trafik som tillåts passera en brandvägg.
@@ -267,10 +304,10 @@ Jämför ett HTTP-flöde med ett TLS/HTTPS-flöde, eller använd motsvarande god
     • Koppla analysen till föregående veckors hardening: är de observerade tjänsterna och flödena rimliga för miljön?
     • Du ska inte ändra brandväggsregler för att slutföra denna del.
 
+---------------------------------------
 
 
-
-## 07. CIA och evidens
+## 08. CIA och evidens
 | Område | Besvara |
 |---|---|
 | Konfidentialitet	| Vilken information i pcapen eller rapporten behöver skyddas? Vad visar jämförelsen HTTP och TLS? |
@@ -278,8 +315,9 @@ Jämför ett HTTP-flöde med ett TLS/HTTPS-flöde, eller använd motsvarande god
 | Tillgänglighet	| Vilka observationer visar att namnuppslag, route och transport fungerar eller inte fungerar? |
 | Evidenskvalitet	| Vilka begränsningar finns i fångsten? Vad kan ha missats på grund av interface, timing, kryptering eller miljö? |
 
+---------------------------------------
 
-## 08. slutsats och rekommendation
+## 09. slutsats och rekommendation
 
 Skriv en sammanhängande slutsats som besvarar:
     • Vad hände i den analyserade trafiken?
@@ -288,10 +326,13 @@ Skriv en sammanhängande slutsats som besvarar:
     • Vilken säkerhets- eller driftåtgärd rekommenderar du, utan att överdriva vad pcapen visar?
     • Vilken ytterligare evidens skulle du samla in i nästa steg?
 
+---------------------------------------
 
-## 09. AI-användning
+## 10. AI-användning
 
 Om du använder generativ AI ska du redovisa verktyg, syfte, vilka förslag du använde eller avvisade, hur du kontrollerade analysen mot pcap-filen och vilka slutsatser du formulerade själv. Paketnummer, filterresultat och tekniska slutsatser måste verifieras av dig.
+
+---------------------------------------
 
 ## Fördjupa flöden
 
