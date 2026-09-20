@@ -7,9 +7,6 @@ Fångst: OCI tcpdump med SCP överföring, genom att använda -i any i tcp dumb 
 Fångsten på OCI stoppas efter 1500 paket, jag stoppade manuellt tidigare med ctrl + c. Koden var för denna fångst:
     sudo tcpdump -i any -s 0 -c 1500 -w inluppg.pcap
 
-
-* Beskriv hur pcap och skärmbilder har hanterats och sanerats. ej ifyllt
-
 Jag tog inspiration från trafikgeneratorn och lade upp dessa i rad efter varandra medans tcpdump var igång:
 
     ping 8.8.8.8 | head -11
@@ -22,7 +19,7 @@ I grund och botten har jag tagit inspiration från trafikgeneratorn men jag har 
 
 ### Beskriv hur pcap och skärmbilder har hanterats och sanerats.
 
-pcap och skärmbilder kommer läggas in i evidence/screenshots/w38. Jag kommer att redigera screenshots och bilder som tas under analys som en del av saneringen
+pcap eller skärmbilder kommer läggas in i evidence/screenshots/w38. Jag kommer att redigera screenshots och bilder som tas under analys som en del av saneringen men inget har lagts till än.
 
 Struktur på repot och vart du hittar bilderna är nämnt ovan samt märkt i strukturen nedan.
 <p>
@@ -65,11 +62,55 @@ lokalt interface och lokal IP-adress: OCI, 127.0.0.1
 | Default via 10.0.0.1 och 10.0.0.191| vad syns (var konkret) | vad stöder observationen | vad kan inte avgöras |
 
 ```mermaid
-graph TD;
-    A-->B;
-    A-->C;
-    B-->D;
-    C-->D;
+flowchart TB
+    USER((("Användare")))
+    USER2((("Användare 2")))
+    USER3((("Användare 3")))
+    LO["Lokalt infterface & lokal IP"]
+    DNS[["DNS uppslag"]]
+    DRG["Default route & Gateway"]
+    PR["Privat IP"]
+    PU["Publik IP"]
+    NAT["Network adress translation"]
+    PAT["Port adress translation"]
+    ROUT[/"Router"\]
+    DNSS[("DNS Server")]
+    INTERNET[["Internet"]]
+    FW[/"Brandvägg"\]
+    TRANSP["Transportprotokoll och port"]
+    APP["Applikationsprotokoll"]
+    
+
+    USER --> LO
+    USER2 --> LO
+    USER3 --> LO
+    ROUT --> DNS
+    --> ROUT
+    LO --> PR
+    PR --> DRG
+    DRG --> FW
+    FW --> TRANSP
+    FW --> APP
+    APP --> ROUT
+    TRANSP --> ROUT
+    ROUT --> PAT
+    ROUT --> NAT
+    NAT --> PU
+    PAT --> PU
+    NATNODE --> ROUT
+    PATNODE --> ROUT
+    FWNODE --> FW
+   
+    PU --> INTERNET
+    
+    DNS --> DNSS
+    DNSNODE --> DNS
+    DNSS --> DNS
+
+    DNSNODE("DNS skickar query till Top Level Domain för att kontrollera om domänen finns")
+    NATNODE("NAT översätter flera privata IP adresser inom samma nätverk till ett unikt Publik IP som flera användare kan använda")
+    PATNODE("PAT tillåter flera privata IP adresser att dela samma publika IP genom unika portar")
+    FWNODE("Brandväggen har förinstallerade instruktioner för att skydda användaren mot farliga hemsidor och bestämmer vilka portar som är öppna och kan ändras manuellt")
 ```
 
 
