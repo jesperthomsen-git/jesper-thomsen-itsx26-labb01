@@ -84,3 +84,7 @@ Reflektion: Om jag kör mitt program kommer alltid kontrollen om mapp strukturen
 
 
 ## Vecka 38 Network Traffic Investigation
+
+* Evidensbeskrivning	evidence/README.md med pcap-källa, datum för analys, miljö och eventuell sanering
+  
+  Lägger till detta så jag inte glömmer
