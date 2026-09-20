@@ -4,21 +4,47 @@ Miljö: OCI
 Interface: Windows & OCI Ubuntu 26.04
 Fångst: OCI tcpdump med SCP överföring, genom att använda -i any i tcp dumb får man en bredare fångst där man inte behöver vara väldigt specifik i vad man letar efter, perfekt för troubleshooting.
 
-Fångsten på OCI stoppas efter 5000 paket, jag stoppade manuellt tidigare med ctrl + c. Koden var för denna fångst:
-    sudo tcpdump -i any -s 0 -c 5000 -w Test.pcap
+Fångsten på OCI stoppas efter 1500 paket, jag stoppade manuellt tidigare med ctrl + c. Koden var för denna fångst:
+    sudo tcpdump -i any -s 0 -c 1500 -w inluppg.pcap
 
 
 * Beskriv hur pcap och skärmbilder har hanterats och sanerats. ej ifyllt
 
 Jag tog inspiration från trafikgeneratorn och lade upp dessa i rad efter varandra medans tcpdump var igång:
 
-    ping 8.8.8.8 | head 11
+    ping 8.8.8.8 | head -11
     nslookup example.com
-    ping 127.0.0.1 | head 11
+    ping 127.0.0.1 | head -11
     curl -m 5 -sS -o /dev/null http://example.com
     curl -m 5 -sS -o /dev/null https://example.com
 
 I grund och botten har jag tagit inspiration från trafikgeneratorn men jag har lagt in en server som jag hostar på 8080 som jag pingar till som en extra del i min fångst.
+
+### Beskriv hur pcap och skärmbilder har hanterats och sanerats.
+
+pcap och skärmbilder kommer läggas in i evidence/screenshots/w38. Jag kommer att redigera screenshots och bilder som tas under analys som en del av saneringen
+
+Struktur på repot och vart du hittar bilderna är nämnt ovan samt märkt i strukturen nedan.
+<p>
+│<p>
+├── docs<p>
+│ └── week3_secure_network_check.md<p>
+│<p>
+├── evidence<p>
+│ └── screenshots<p>
+│   └── w38<p> <--
+│<p>
+│ └── README.md<p>
+│<p>
+│<p>
+├── README.md<p>
+└── ...<p>
+strukturen tagen är från Canvas: Oracle Cloud VM, Linux, hardening, recovery och cleanup 
+
+### Förklara relevanta skillnader mot lärarens OCI-demonstration.
+
+Den stora skillnaden är att jag kallar på olika funktioner utanför ett skript för att simulera tid mellan samt för att skapa en djupare förståelse hur wireshark fungerar.
+Jag överför då pcap filen från min OCI miljö till min primära dator där jag kan analysera paketen som jag både har tagit emot och skickat.
 
 ---------------------------------------
 
@@ -29,11 +55,25 @@ lokalt interface och lokal IP-adress: OCI, 127.0.0.1
 | DNS Uppslag | Slutsats (stöd) | Osäkerhet | Säkerhetsbetydelse / CIA |
 |---|---|---|---|---|---|
 | DNS paket till example.com| vad syns (var konkret) | vad stöder observationen | vad kan inte avgöras |
+| DNS paket till example.com| vad syns (var konkret) | vad stöder observationen | vad kan inte avgöras |
+| DNS paket till example.com| vad syns (var konkret) | vad stöder observationen | vad kan inte avgöras |
+| DNS paket till example.com| vad syns (var konkret) | vad stöder observationen | vad kan inte avgöras |
 
 
-| route och gateway | Slutsats (stöd) | Osäkerhet | Säkerhetsbetydelse / CIA |
+| Route & Gateway | Privat & Publik adress | Osäkerhet | Säkerhetsbetydelse / CIA |
 |---|---|---|---|---|---|
 | Default via 10.0.0.1 och 10.0.0.191| vad syns (var konkret) | vad stöder observationen | vad kan inte avgöras |
+
+```mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
+
+
+### Vad är NAT PAT?
 
 
 • privat respektive publik adress
@@ -66,6 +106,9 @@ Tillgänglighet Vilka tecken visar att DNS, route och transport fungerar? Vad ka
 betyda?
 
 ----------------------------------
+
+* Evidensbeskrivning	evidence/README.md med pcap-källa, datum för analys, miljö och eventuell sanering
+
 
 ## Evidenskvalitet
 
