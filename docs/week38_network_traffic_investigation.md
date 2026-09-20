@@ -237,17 +237,61 @@ Vilken osäkerhet ska anges? (förklara, var konkret)
 
 
 ## 04. Fördjupad analys av två flöden
+Välj två olika flöden, varav minst ett ska vara TCP-baserat. För varje flöde ska du redovisa:
+    • paketnummer eller tydlig flödeshänvisning
+    • källa, destination, port och protokoll
+    • händelseordning
+    • förväntat beteende
+    • faktisk observation
+    • eventuell avvikelse, timeout, reset eller retransmission
+    • alternativa förklaringar
+    • vad mer som skulle behövas för en säkrare slutsats
 
 ## 05. Krypterat och okrypterat
 
+Jämför ett HTTP-flöde med ett TLS/HTTPS-flöde, eller använd motsvarande godkända exempel i reserv-pcapen.
+
+| Aspekt | HTTP | TLS/HTTPS | 
+|---|---|---|
+| Synlig metadata	| Beskriv konkret	| Beskriv konkret |
+| Läsbar applikationsdata	| Beskriv konkret	|Beskriv konkret |
+| Felsökningsvärde	| Vad kan analyseras?	|Vad kan analyseras trots kryptering? |
+| Konfidentialitetsrisk	| Vilken information kan exponeras?	| Vilken information kan fortfarande vara synlig? |
+
+
 ## 06. Brandvägg och hardening
 
+    • Välj ett observerat flöde och ange vilken inkommande eller utgående brandväggsregel som principiellt skulle beröra det.
+    • Förklara skillnaden mellan en tjänst som lyssnar lokalt och trafik som tillåts passera en brandvägg.
+    • Resonera om default deny och minsta nödvändiga öppning.
+    • Koppla analysen till föregående veckors hardening: är de observerade tjänsterna och flödena rimliga för miljön?
+    • Du ska inte ändra brandväggsregler för att slutföra denna del.
+
+
+
+
 ## 07. CIA och evidens
+| Område | Besvara |
+|---|---|
+| Konfidentialitet	| Vilken information i pcapen eller rapporten behöver skyddas? Vad visar jämförelsen HTTP och TLS? |
+| Integritet	| Hur visar du att analysen hör till rätt pcap? Hur använder du filnamn, paketnummer, eventuell hash och Git-historik? |
+| Tillgänglighet	| Vilka observationer visar att namnuppslag, route och transport fungerar eller inte fungerar? |
+| Evidenskvalitet	| Vilka begränsningar finns i fångsten? Vad kan ha missats på grund av interface, timing, kryptering eller miljö? |
+
 
 ## 08. slutsats och rekommendation
 
+Skriv en sammanhängande slutsats som besvarar:
+    • Vad hände i den analyserade trafiken?
+    • Vilka observationer är starkast underbyggda?
+    • Vilka osäkerheter återstår?
+    • Vilken säkerhets- eller driftåtgärd rekommenderar du, utan att överdriva vad pcapen visar?
+    • Vilken ytterligare evidens skulle du samla in i nästa steg?
+
+
 ## 09. AI-användning
 
+Om du använder generativ AI ska du redovisa verktyg, syfte, vilka förslag du använde eller avvisade, hur du kontrollerade analysen mot pcap-filen och vilka slutsatser du formulerade själv. Paketnummer, filterresultat och tekniska slutsatser måste verifieras av dig.
 
 ## Fördjupa flöden
 
