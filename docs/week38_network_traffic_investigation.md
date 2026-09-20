@@ -16,20 +16,20 @@
 * fråga läraren vid osäkerhet via Slack
 
 
-Definition of Done
-[X] Miljö, spår och metod är tydligt beskrivna.
-[X] Fångsten är begränsad, tillåten och säker, eller reservspåret är motiverat.
-[X] Paketets väg är beskriven med observation och förklaring åtskilda.
-☐ DNS, ICMP, TCP, HTTP och TLS/HTTPS är analyserade eller saknad trafik är korrekt redovisad.
-☐ Två flöden har analyserats på djupet.
-☐ HTTP och TLS/HTTPS har jämförts.
-☐ Brandvägg och hardening har kopplats till faktisk trafik.
-☐ CIA-analysen bygger på konkreta observationer.
-☐ Begränsningar och osäkerheter är synliga.
-☐ Rapport och skärmbilder är sanerade.
-☐ Rå pcap finns inte i GitHub utan uttryckligt tillstånd.
-☐ AI-användning är redovisad.
-☐ Canvas innehåller en fungerande direktlänk till rapporten.
+Definition of Done<p>
+[X] Miljö, spår och metod är tydligt beskrivna.<p>
+[X] Fångsten är begränsad, tillåten och säker, eller reservspåret är motiverat.<p>
+[X] Paketets väg är beskriven med observation och förklaring åtskilda.<p>
+☐ DNS, ICMP, TCP, HTTP och TLS/HTTPS är analyserade eller saknad trafik är korrekt redovisad.<p>
+☐ Två flöden har analyserats på djupet.<p>
+☐ HTTP och TLS/HTTPS har jämförts.<p>
+☐ Brandvägg och hardening har kopplats till faktisk trafik.<p>
+☐ CIA-analysen bygger på konkreta observationer.<p>
+☐ Begränsningar och osäkerheter är synliga.<p>
+☐ Rapport och skärmbilder är sanerade.<p>
+☐ Rå pcap finns inte i GitHub utan uttryckligt tillstånd.<p>
+☐ AI-användning är redovisad.<p>
+☐ Canvas innehåller en fungerande direktlänk till rapporten.<p>
 
 
 | Område | Godkänt | Väl godkänt |
