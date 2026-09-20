@@ -45,7 +45,7 @@ Definition of Done
 
 ----------------------------------
 
-## Miljö och Metod
+## 01. Miljö och Metod
 
 Miljö: OCI
 Interface: Windows & OCI Ubuntu 26.04
@@ -92,7 +92,7 @@ Jag överför då pcap filen från min OCI miljö till min primära dator där j
 
 ---------------------------------------
 
-## Paketets Väg
+## 02. Paketets Väg
 
 ### Här nedan skapar jag ett flödesschema över min förståelse hur allt hänger ihop:
 
@@ -236,46 +236,17 @@ Vilken osäkerhet ska anges? (förklara, var konkret)
 ---------------------------------------
 
 
-## fördjupad analys av två flöden
+## 04. Fördjupad analys av två flöden
 
-Identifiera flödet och ändpunkterna
-Ordna relevanta paket i tidsföljd
-Jämför protokoll, synlighet och resultat
-Avgränsa vad fångsten kan visa
-Vad skyddas av krypteringen?
-Hur syns brandvägg och hardening indirekt?
-Hur kopplas saniterad evidens till CIA?
+## 05. Krypterat och okrypterat
 
-* Konfidentialitet: Vad exponeras eller skyddas?
-* Integritet: Vad kan ändras eller verifieras?
-* Tillgänglighet: Når trafiken avsedd tjänst?
-  
-### CIA frågor
-Konfidentialitet Vilken metadata är synlig? Vad är läsbart i HTTP? Vad skyddas av TLS? Kan pcap-filen i sig vara
-känslig?
-Integritet Hur vet du vilken fil som analyserats? Hur bidrar filnamn, hash, paketnummer och Git-historik till
-spårbarhet?
-Tillgänglighet Vilka tecken visar att DNS, route och transport fungerar? Vad kan timeout, reset eller uteblivet svar
-betyda?
+## 06. Brandvägg och hardening
 
-----------------------------------
+## 07. CIA och evidens
 
+## 08. slutsats och rekommendation
 
-
-## Evidenskvalitet
-
-Var samlades trafiken in?
-Vilka filter eller avgränsningar användes?
-Vad saknas/saknades vid fångsten?
-Vilken osäkerhet ska anges? (förklara, var konkret)
-
-### Vad ska jag anteckna
-☐ Paketnummer eller annan tydlig hänvisning.
-☐ Källa, destination och protokoll.
-☐ Vilket lager eller vilken funktion observationen hör till.
-☐ Vad observationen visar.
-☐ Vad observationen inte räcker för att slå fast.
-☐ Om uppgiften innehåller känslig metadata som behöver saneras
+## 09. AI-användning
 
 
 ## Fördjupa flöden
