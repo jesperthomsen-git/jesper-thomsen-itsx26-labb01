@@ -49,16 +49,16 @@ Jag överför då pcap filen från min OCI miljö till min primära dator där j
 
 lokalt interface och lokal IP-adress: OCI, 127.0.0.1
 
-| DNS Uppslag | Slutsats (stöd) | Osäkerhet | Säkerhetsbetydelse / CIA |
-|---|---|---|---|---|---|
-| DNS paket till example.com| vad syns (var konkret) | vad stöder observationen | vad kan inte avgöras |
-| DNS paket till example.com| vad syns (var konkret) | vad stöder observationen | vad kan inte avgöras |
-| DNS paket till example.com| vad syns (var konkret) | vad stöder observationen | vad kan inte avgöras |
-| DNS paket till example.com| vad syns (var konkret) | vad stöder observationen | vad kan inte avgöras |
+| DNS Uppslag | Slutsats (stöd) | Osäkerhet | Säkerhetsbetydelse & CIA |
+|---|---|---|---|
+| DNS paket till example.com | vad syns (var konkret) | vad stöder observationen | vad kan inte avgöras |
+| DNS paket till example.com | vad syns (var konkret) | vad stöder observationen | vad kan inte avgöras |
+| DNS paket till example.com | vad syns (var konkret) | vad stöder observationen | vad kan inte avgöras |
+| DNS paket till example.com | vad syns (var konkret) | vad stöder observationen | vad kan inte avgöras |
 
 
 | Route & Gateway | Privat & Publik adress | Osäkerhet | Säkerhetsbetydelse / CIA |
-|---|---|---|---|---|---|
+|---|---|---|---|
 | Default via 10.0.0.1 och 10.0.0.191| vad syns (var konkret) | vad stöder observationen | vad kan inte avgöras |
 
 ```mermaid
@@ -203,7 +203,7 @@ Fyll i rapporten!
 ## Rapport och evidens av Wireshark
 
 | Observation (Konkret) | Slutsats (stöd) | Osäkerhet | Säkerhetsbetydelse / CIA |
-|---|---|---|---|---|---|
+|---|---|---|---|
 |tex. HTTPS | vad syns (var konkret) | vad stöder observationen | vad kan inte avgöras |
 
 ----------------------------------
