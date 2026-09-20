@@ -271,15 +271,28 @@ Skapa en tabell med minst följande protokoll. Om ett protokoll saknas ska du be
 ---------------------------------------
 
 ## 05. Fördjupad analys av två flöden
+
 Välj två olika flöden, varav minst ett ska vara TCP-baserat. För varje flöde ska du redovisa:
-    • paketnummer eller tydlig flödeshänvisning
-    • källa, destination, port och protokoll
-    • händelseordning
-    • förväntat beteende
-    • faktisk observation
-    • eventuell avvikelse, timeout, reset eller retransmission
-    • alternativa förklaringar
-    • vad mer som skulle behövas för en säkrare slutsats
+
+Flöde 1: TCP
+* paketnummer eller tydlig flödeshänvisning: 1336, börjar med SYN från Linux
+* källa, destination, port och protokoll: 02:00:17:01:c5:db, 104.20.23.154, Dst port 443, TCP
+* händelseordning: OCI skickar förfrågan till Example.com, får svar tillbaka genom handshake med SYN ACK, klient(jag) skickar ett hello, får tillbaka ett hello och sedan skickas application data och krypterade paket mellan varandra och Example.com avslutar kontakten med ACK.
+* förväntat beteende: Beteendet som var förväntat var att kopplingen skulle gå igenom då detta var en kontrollerad uppkoppling genom ett kommando men saker kunde alltid ha hänt som till exempel packet loss men inget jag hittade som var fel i handlingen i wireshark.
+* faktisk observation: Observationen visar att kopplingen lyckades och fick en 3 way handshake med Example.com.
+* eventuell avvikelse, timeout, reset eller retransmission: Uppkopplingen skapades utan problem och enligt RTT genom ACK så var kopplingen utan delay eller packet loss.
+* alternativa förklaringar: Inget extra som jag kan se som avviker från observationen.
+* vad mer som skulle behövas för en säkrare slutsats: Då jag inte är väldigt insatt i wireshark än så möter jag svårigheter att läsa och tyda vad som sker vid vissa tillfällen under konversationer mellan klient och destinationen.
+
+Flöde 2: PING
+* paketnummer eller tydlig flödeshänvisning: 290 Echo request
+* källa, destination, port och protokoll: 02:00:17:01:c5:db, 8.8.8.8, ICMP kör inte igenom några portar.
+* händelseordning: Klient skickar en echo ping request och väntar på att paketet kommer tillbaka medans klienten tar tid
+* förväntat beteende: Förväntade mig snabbt svar från Google
+* faktisk observation: Då jag skickade 10 packet och fick svar efter 7-9 millisekunder efteråt visar det på att kopplingen är stabil och fungerar utan förlorade paket.
+* eventuell avvikelse, timeout, reset eller retransmission: UA
+* alternativa förklaringar: Genom att skicka paket till olika servrar eller leverantörer kan man både felsöka på sin sida men också kontrollera om en viss hemsida är nere.
+* vad mer som skulle behövas för en säkrare slutsats: För att kunna få en säkrare slutsat om hur echo ping requests fungerar skulle jag vilka veta mer om källan som stod som fråga i fördjupningen.
 
 ---------------------------------------
 
@@ -289,20 +302,20 @@ Jämför ett HTTP-flöde med ett TLS/HTTPS-flöde, eller använd motsvarande god
 
 | Aspekt | HTTP | TLS/HTTPS | 
 |---|---|---|
-| Synlig metadata	| Beskriv konkret	| Beskriv konkret |
-| Läsbar applikationsdata	| Beskriv konkret	|Beskriv konkret |
-| Felsökningsvärde	| Vad kan analyseras?	|Vad kan analyseras trots kryptering? |
-| Konfidentialitetsrisk	| Vilken information kan exponeras?	| Vilken information kan fortfarande vara synlig? |
+| Synlig metadata	| Visar okrypterad information som datum, protokoller, servern som hostar hemsidan. | Hela paketet är krypterat och kan endast se hemsidan som det gäller. |
+| Läsbar applikationsdata	| hela hemsidans innehåll i HTML kod som visar strukturen samt vilken request som gjordes mot hemsidan. | Kan inte se någon information om jag gör en follow option på ett HTTPS protokoll. |
+| Felsökningsvärde	| Kan se vilken request klienten gjorde samt se vem som skickade requesten och till destinationen, analysera status koder som 200. | Det jag kan se är ip addresser, vilken hemsida som tar emot förfrågan genom follow funktionen samt vilken port paketet var på väg mot samt handshakes. |
+| Konfidentialitetsrisk	| Det jag tänker spontant är att man kan se hemsidans uppbyggnad, vilket skapar möjlighet att återskapa hemsidan som t.ex phishing. Jag har läst om att hemsidor som kör med HTTP är känsligare mot injektioner genom olika program	| klientens IP, Destinations IP, port, längd av paketet, tid och datum samt vilken miljö som klienten skickade förfrågan från.|
 
 ---------------------------------------
 
 ## 07. Brandvägg och hardening
 
-    • Välj ett observerat flöde och ange vilken inkommande eller utgående brandväggsregel som principiellt skulle beröra det.
-    • Förklara skillnaden mellan en tjänst som lyssnar lokalt och trafik som tillåts passera en brandvägg.
-    • Resonera om default deny och minsta nödvändiga öppning.
-    • Koppla analysen till föregående veckors hardening: är de observerade tjänsterna och flödena rimliga för miljön?
-    • Du ska inte ändra brandväggsregler för att slutföra denna del.
+* Välj ett observerat flöde och ange vilken inkommande eller utgående brandväggsregel som principiellt skulle beröra det.
+* Förklara skillnaden mellan en tjänst som lyssnar lokalt och trafik som tillåts passera en brandvägg.
+* Resonera om default deny och minsta nödvändiga öppning.
+* Koppla analysen till föregående veckors hardening: är de observerade tjänsterna och flödena rimliga för miljön?
+* Du ska inte ändra brandväggsregler för att slutföra denna del.
 
 ---------------------------------------
 
