@@ -6,3 +6,4 @@ __pycache__/
 *.log
 docs/evidence-summary.txt
 read_failed_logins.py
+app/extract_without_crash.py
