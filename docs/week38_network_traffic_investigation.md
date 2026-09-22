@@ -152,6 +152,7 @@ flowchart TB
 ```
 
 ### Rita eller beskriv ett av flödena i din pcap från applikationen till destinationen.
+
 * lokalt interface och lokal IP-adress
 * DNS-uppslag
 * default route och gateway
@@ -163,10 +164,12 @@ flowchart TB
 
 Jag har valt ett flöde genom en curl mot HTTP example.com som jag tycker är väldigt intressant.
 
-
 | Observation | Förklaring | Osäkerhet | Säkerhetsbetydelse / CIA |
 |---|---|---|---|
 |Curl till HTTP://www.example.com | Jag kan se att när jag skickade en curl mot addressen så svarar addressen och jag kan se information om hemsidan och dens uppbyggnad. Kort översikt: Ser 4 packet, En okrypterad HTTP request, Lyckad respons från servern, TCP sekvens och ACK nummer, tid mellan paketen, TTL + RTT samt att responsen från servern är genom text och HTML. | Då jag har inte jobbat i wireshark mycket har jag haft svårigheter att förstå eller analysera paket där information kan vara känslig, som visas i en sanerad screenshot från httpexample.png så har jag svårt att förstå om t.ex TSVAL eller TSecr håller någon särkild vikt inom sanering | Om man kollar utifrån ett säkerhetstänk så har jag sanerat denna fil samt strukit över information som IP addresser och vägen till destinationen. Detta kan både kopplas till integriteten där jag kollade om pcap filen blev ändrad under SCP överföringen genom att generera checksums för filen och kontrollerade hashen mot varandra och konfidentialitet där jag såg till att vissa portar var stängda och var inloggad via en SSH nycket. |
+
+Här är en bild på hur paketets struktur ser ut i Wireshark: <p>
+![alt text](../evidence/screenshots/w38/Httpexample.png)<p>
 
 Här är en miniatyr av min förståelse av flödet:
 
@@ -191,47 +194,9 @@ flowchart TB
    ROUT --> INTERNET
    INTERNET --> LO
 ```
-
-### Fördjupning av protokoll
-Identifiera flödet och ändpunkterna
-Ordna relevanta paket i tidsföljd
-Jämför protokoll, synlighet och resultat
-Avgränsa vad fångsten kan visa
-Vad skyddas av krypteringen?
-Hur syns brandvägg och hardening indirekt?
-Hur kopplas saniterad evidens till CIA?
-
-* Konfidentialitet: Vad exponeras eller skyddas?
-* Integritet: Vad kan ändras eller verifieras?
-* Tillgänglighet: Når trafiken avsedd tjänst?
-  
-### CIA frågor
-Konfidentialitet Vilken metadata är synlig? Vad är läsbart i HTTP? Vad skyddas av TLS? Kan pcap-filen i sig vara
-känslig?
-Integritet Hur vet du vilken fil som analyserats? Hur bidrar filnamn, hash, paketnummer och Git-historik till
-spårbarhet?
-Tillgänglighet Vilka tecken visar att DNS, route och transport fungerar? Vad kan timeout, reset eller uteblivet svar
-betyda?
-
 ----------------------------------
 
 * Evidensbeskrivning	evidence/README.md med pcap-källa, datum för analys, miljö och eventuell sanering
-
-
-## Evidenskvalitet
-
-Var samlades trafiken in?
-Vilka filter eller avgränsningar användes?
-Vad saknas/saknades vid fångsten?
-Vilken osäkerhet ska anges? (förklara, var konkret)
-
-### Vad ska jag anteckna
-☐ Paketnummer eller annan tydlig hänvisning.
-☐ Källa, destination och protokoll.
-☐ Vilket lager eller vilken funktion observationen hör till.
-☐ Vad observationen visar.
-☐ Vad observationen inte räcker för att slå fast.
-☐ Om uppgiften innehåller känslig metadata som behöver saneras
 
 ---------------------------------------
 ## 04. protokollinventering
@@ -265,7 +230,7 @@ Skapa en tabell med minst följande protokoll. Om ett protokoll saknas ska du be
 
 | TLS/HTTPS	| ClientHello/ServerHello eller Application Data |	Vilken metadata syns och vad är krypterat? |
 |---|---|---|
-| TLS/HTTPS	| Klienten(jag) säger hello och Example.com ger en handshake och säger hello tillbaka |	Det ända jag kan se som är metadata är destinationen Example.com, att det är under application data protocol; HPT och resten av paketet är krypterat. |
+| TLS/HTTPS	| Klienten(jag) säger hello och Example.com ger en handshake och säger hello tillbaka |	Det ända jag kan se som är metadata är destinationen Example.com,  att det är under application data protocol; HPT och resten av paketet är krypterat. | ^^^^^^^^^^^^^^^^^^
 
 
 ---------------------------------------
@@ -276,7 +241,7 @@ Välj två olika flöden, varav minst ett ska vara TCP-baserat. För varje flöd
 
 Flöde 1: TCP
 * paketnummer eller tydlig flödeshänvisning: 1336, börjar med SYN från Linux
-* källa, destination, port och protokoll: 02:00:17:01:c5:db, 104.20.23.154, Dst port 443, TCP
+* källa, destination, port och protokoll: 10.0.0.191, 104.20.23.154, Dst port 443, TCP
 * händelseordning: OCI skickar förfrågan till Example.com, får svar tillbaka genom handshake med SYN ACK, klient(jag) skickar ett hello, får tillbaka ett hello och sedan skickas application data och krypterade paket mellan varandra och Example.com avslutar kontakten med ACK.
 * förväntat beteende: Beteendet som var förväntat var att kopplingen skulle gå igenom då detta var en kontrollerad uppkoppling genom ett kommando men saker kunde alltid ha hänt som till exempel packet loss men inget jag hittade som var fel i handlingen i wireshark.
 * faktisk observation: Observationen visar att kopplingen lyckades och fick en 3 way handshake med Example.com.
@@ -286,7 +251,7 @@ Flöde 1: TCP
 
 Flöde 2: PING
 * paketnummer eller tydlig flödeshänvisning: 290 Echo request
-* källa, destination, port och protokoll: 02:00:17:01:c5:db, 8.8.8.8, ICMP kör inte igenom några portar.
+* källa, destination, port och protokoll: 10.0.0.191, 8.8.8.8, ICMP kör inte igenom några portar.
 * händelseordning: Klient skickar en echo ping request och väntar på att paketet kommer tillbaka medans klienten tar tid
 * förväntat beteende: Förväntade mig snabbt svar från Google
 * faktisk observation: Då jag skickade 10 packet och fick svar efter 7-9 millisekunder efteråt visar det på att kopplingen är stabil och fungerar utan förlorade paket.
@@ -303,9 +268,22 @@ Jämför ett HTTP-flöde med ett TLS/HTTPS-flöde, eller använd motsvarande god
 | Aspekt | HTTP | TLS/HTTPS | 
 |---|---|---|
 | Synlig metadata	| Visar okrypterad information som datum, protokoller, servern som hostar hemsidan. | Hela paketet är krypterat och kan endast se hemsidan som det gäller. |
-| Läsbar applikationsdata	| hela hemsidans innehåll i HTML kod som visar strukturen samt vilken request som gjordes mot hemsidan. | Kan inte se någon information om jag gör en follow option på ett HTTPS protokoll. |
+| Läsbar applikationsdata	| Hela hemsidans innehåll i HTML kod som visar strukturen samt vilken request som gjordes mot hemsidan. | Kan inte se någon information om jag gör en follow option på ett HTTPS protokoll. |
 | Felsökningsvärde	| Kan se vilken request klienten gjorde samt se vem som skickade requesten och till destinationen, analysera status koder som 200. | Det jag kan se är ip addresser, vilken hemsida som tar emot förfrågan genom follow funktionen samt vilken port paketet var på väg mot samt handshakes. |
 | Konfidentialitetsrisk	| Det jag tänker spontant är att man kan se hemsidans uppbyggnad, vilket skapar möjlighet att återskapa hemsidan som t.ex phishing. Jag har läst om att hemsidor som kör med HTTP är känsligare mot injektioner genom olika program	| klientens IP, Destinations IP, port, längd av paketet, tid och datum samt vilken miljö som klienten skickade förfrågan från.|
+
+Här är ett exempel på hur en okrypterad hemsida kan se ut: <p>
+![alt text](../evidence/screenshots/w38/Followhttp.png)<p>
+
+| Aspekt | HTTP | TLS/HTTPS | 
+|---|---|---|
+| Synlig metadata	| Tid/datum, IP addresser, längd på paket, src ports & dst ports, app data, Mac address, TTL, SYN & SYN ACK, GET request, HTTP version | Tid/datum, IP addresser, längd på paket, src ports & dest ports, app data, Mac address, TTL, SYN & SYN ACK |
+| Läsbar applikationsdata	| GET request, HTML innehåll, statuskoder | Oläsbar html innehåll, krypterad |
+| Felsökningsvärde	| Statuskoder, IP addresser, src & dst ports | version, payload storlek, IP addresser, src & dst ports |
+| Konfidentialitetsrisk	| Se ovan | Se ovan |
+
+Bild på struktur av TLS appdata: HÄR
+__________________________________________
 
 ---------------------------------------
 
@@ -327,9 +305,14 @@ Jämför ett HTTP-flöde med ett TLS/HTTPS-flöde, eller använd motsvarande god
 | Område | Besvara |
 |---|---|
 | Konfidentialitet	| Vilken information i pcapen eller rapporten behöver skyddas? Vad visar jämförelsen HTTP och TLS? |
+| Svar	| I Pcap filen finns metadata så som tid & datum, portar, ip addresser och andra delar som miljön och MAC addressen som tog emot fångsten som kan i slutändan skapa problem då attackeraren kan skapa en bild och hitta känslig information som man inte är medveten om. När man kollar på paketen från listan utan att kolla packet details så är oftast IP addressen, längden, och vem som tog emot paketet samt svarade den informationen jag skulle skydda, men ju djupare man dyker ner i paketens information så ser man att allt finns med. Jag hittade ett program som heter Tracewrangler som sanerar ens pcap fil om man har rätt inställningar vilket kan hjälpa med att hålla informationen konfidentiellt. Att HTTP är okrypterat och att den som har som åtanke att attackera kan se all information som skett på hemsidan, kunna replikera samt se om du har skrivit något på hemsidan skapar stora säkerhetsfrågor som, är mina lösenord läckta? min email? betalkort? När man jämför detta med TLS så är all metada synlig som nämnt men innehållet från hemsidan, information från mig som är personligt är nu krypterat vilket skapar ett ytterligare lager av säkerhet som attackeraren behöver gå igenom. Om attackeraren har en master encryption key så kan dem nog kolla på infon men detta är oftast högst osannolikt. |
 | Integritet	| Hur visar du att analysen hör till rätt pcap? Hur använder du filnamn, paketnummer, eventuell hash och Git-historik? |
+| Svar	| Det enkla svaret är svårt att bevisa vilken pcap som analysen tillhör då man helst inte vill ladda upp pcap filen till Github.  |
 | Tillgänglighet	| Vilka observationer visar att namnuppslag, route och transport fungerar eller inte fungerar? |
+| Svar	| Vilka observationer visar att namnuppslag, route och transport fungerar eller inte fungerar? |
 | Evidenskvalitet	| Vilka begränsningar finns i fångsten? Vad kan ha missats på grund av interface, timing, kryptering eller miljö? |
+| Svar	| Vilka begränsningar finns i fångsten? Vad kan ha missats på grund av interface, timing, kryptering eller miljö? |
+
 
 ---------------------------------------
 
@@ -368,3 +351,4 @@ egen pcap med reservspår genom trafigeneratorn
 * PCAP visar observerad nätverkstrafik vid fångspunkt
 
 ----------------------------------
+
