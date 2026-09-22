@@ -176,7 +176,7 @@ Jag har valt ett flöde genom en curl mot HTTP example.com som jag tycker är v�
 | Observation | Förklaring | Osäkerhet | Säkerhetsbetydelse / CIA |
 |---|---|---|---|
 |Curl till HTTP://www.example.com | Jag kan se att när jag skickade en curl mot addressen så svarar addressen och jag kan se information om hemsidan och dens uppbyggnad. Kort översikt: Ser 4 packet, En okrypterad HTTP request, Lyckad respons från servern, TCP sekvens och ACK nummer, tid mellan paketen, TTL + RTT samt att responsen från servern är genom text och HTML. | Då jag har inte jobbat i wireshark mycket har jag haft svårigheter att förstå eller analysera paket där information kan vara känslig, som visas i en sanerad screenshot från httpexample.png så har jag svårt att förstå om t.ex TSVAL eller TSecr håller någon särkild vikt inom sanering | Om man kollar utifrån ett säkerhetstänk så har jag sanerat denna fil samt strukit över information som IP addresser och vägen till destinationen. Detta kan både kopplas till integriteten där jag kollade om pcap filen blev ändrad under SCP överföringen genom att generera checksums för filen och kontrollerade hashen mot varandra och konfidentialitet där jag såg till att vissa portar var stängda och var inloggad via en SSH nycket. |
-<p>
+
 Länk där jag lärde mig om checksums [^1]
 
 Här är en bild på hur paketets struktur ser ut i Wireshark: <p>
@@ -239,7 +239,7 @@ Skapa en tabell med minst följande protokoll. Om ett protokoll saknas ska du be
 | TLS/HTTPS	| ClientHello/ServerHello eller Application Data |	Vilken metadata syns och vad är krypterat? |
 |---|---|---|
 | TLS/HTTPS	| Klienten(jag) säger hello och Example.com ger en handshake och säger hello tillbaka |	Det ända jag kan se som är metadata är destinationen Example.com,  att det är under application data protocol; HPT och resten av paketet är krypterat. |
-<p>
+
 Information om Metadata[^5]
 
 
