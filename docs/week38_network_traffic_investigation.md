@@ -232,7 +232,7 @@ Skapa en tabell med minst följande protokoll. Om ett protokoll saknas ska du be
 
 | TLS/HTTPS	| ClientHello/ServerHello eller Application Data |	Vilken metadata syns och vad är krypterat? |
 |---|---|---|
-| TLS/HTTPS	| Klienten(jag) säger hello och Example.com ger en handshake och säger hello tillbaka |	Det ända jag kan se som är metadata är destinationen Example.com,  att det är under application data protocol; HPT och resten av paketet är krypterat. | ^^^^^^^^^^^^^^^^^^
+| TLS/HTTPS	| Klienten(jag) säger hello och Example.com ger en handshake och säger hello tillbaka |	Det ända jag kan se som är metadata är destinationen Example.com,  att det är under application data protocol; HPT och resten av paketet är krypterat. |
 
 
 ---------------------------------------
@@ -252,8 +252,7 @@ Flöde 1: TCP
 * vad mer som skulle behövas för en säkrare slutsats: Då jag inte är väldigt insatt i wireshark än så möter jag svårigheter att läsa och tyda vad som sker vid vissa tillfällen under konversationer mellan klient och destinationen.
 
 Här är paketet för flöde 1:<p>
-<p>
-![alt text](../evidence/screenshots/w38/TCPwireshark.png)<p>
+![alt text](../evidence/screenshots/w38/TCPwireshark.png)
 <p>
 
 Flöde 2: PING
@@ -285,9 +284,8 @@ Här är ett exempel på hur en okrypterad hemsida kan se ut: <p>
 | Aspekt | HTTP | TLS/HTTPS | 
 |---|---|---|
 | Synlig metadata	| Tid/datum, IP addresser, längd på paket, src ports & dst ports, app data, Mac address, TTL, SYN & SYN ACK, GET request, HTTP version | Tid/datum, IP addresser, längd på paket, src ports & dest ports, app data, Mac address, TTL, SYN & SYN ACK |
-| Läsbar applikationsdata	| GET request, HTML innehåll, statuskoder | Oläsbar html innehåll, krypterad |
-| Felsökningsvärde	| Statuskoder, IP addresser, src & dst ports | version, payload storlek, IP addresser, src & dst ports |
-| Konfidentialitetsrisk	| Se ovan | Se ovan |
+| Läsbar applikationsdata	| GET request, HTML innehåll, statuskoder | Oläsbar html innehåll, visar protokoll för krypterad data |
+| Felsökningsvärde	| Statuskoder, IP addresser, src & dst ports TTL| TLS version, payload storlek, IP addresser, src & dst ports, klient/server hello, TTL |
 
 Bild på struktur av TLS appdata:<p>
 ![alt text](../evidence/screenshots/w38/TLSappdata.png)<p>
@@ -296,14 +294,14 @@ Bild på struktur av TLS appdata:<p>
 
 ## 07. Brandvägg och hardening
 
-* Välj ett observerat flöde och ange vilken inkommande eller utgående brandväggsregel som principiellt skulle beröra det: Efter djupare observation så hittar jag inte mycket information om Port 37328. Om "sysctl net.ipv4.ip_local_port_range" så får jag upp en range mellan 32768-60999. Då jag använder mig av UFW på Ubuntu så har jag ej modifierat min port range men något jag bör göra i framtiden för att minska ytan mot attacker.
+* Välj ett observerat flöde och ange vilken inkommande eller utgående brandväggsregel som principiellt skulle beröra det:<p> Efter djupare observation så hittar jag inte mycket information om Port 37328. Om "sysctl net.ipv4.ip_local_port_range" så får jag upp en range mellan 32768-60999. Då jag använder mig av UFW på Ubuntu så har jag ej modifierat min port range men något jag bör göra i framtiden för att minska ytan mot attacker.
   * sysctl net.ipv4.ip_local_port_range 
   
-* Förklara skillnaden mellan en tjänst som lyssnar lokalt och trafik som tillåts passera en brandvägg: En tjänst som lyssnar väntar oftast på inkommande anrop eller signaler som en som håller upp dörren för att låta trafik passera. Trafik som ankommer till specifika portar kör alltid efter protokoller och port nummer för att kunna hitta rätt tjänst eller applikation. Brandväggen hjälper till med förinstallerade regler för att reglera och motverka attacker utifrån.
+* Förklara skillnaden mellan en tjänst som lyssnar lokalt och trafik som tillåts passera en brandvägg:<p> En tjänst som lyssnar väntar oftast på inkommande anrop eller signaler som en som håller upp dörren för att låta trafik passera. Trafik som ankommer till specifika portar kör alltid efter protokoller och port nummer för att kunna hitta rätt tjänst eller applikation. Brandväggen hjälper till med förinstallerade regler för att reglera och motverka attacker utifrån.
   
-* Resonera om default deny och minsta nödvändiga öppning: Att ha som vana att ha default deny i åtanke gör att du skapar en så liten attack yta som möjligt. Att manuellt tillåta och neka vissa portar är en bra vana vid större företag för att se till att portar som är inaktiva blir stängda som inte behövs. Att vara påläst om vilka portar som är viktiga för drift och vilka som kan stängas är en viktig del i cybersäkerhet
+* Resonera om default deny och minsta nödvändiga öppning:<p> Att ha som vana att ha default deny i åtanke gör att du skapar en så liten attack yta som möjligt. Att manuellt tillåta och neka vissa portar är en bra vana vid större företag för att se till att portar som är inaktiva blir stängda som inte behövs. Att vara påläst om vilka portar som är viktiga för drift och vilka som kan stängas är en viktig del i cybersäkerhet
   
-* Koppla analysen till föregående veckors hardening: är de observerade tjänsterna och flödena rimliga för miljön? När jag går igenom flödesschemat så har alla tjänster och protokoller en viktig roll när jag jämför dem mot OSI modellen. Jag behövde läsa ytterligare om ephemeral ports och visste inte att dessa fanns förräns denna vecka och har skapat en insikt om att detta kan skapa problemer om man har portar som är öppna som inte skall vara det i slutändan. Att kunna se allt från metadata till hemsidans struktur skapar självklart stora konfidentialitets frågor som om hemsidan är orginalet eller om det finns något på hemsidan som läser av vad du skriver. Att se hur paketet rör sig från klient till slutparten och delarna i mellan gör att man enkelt kan se vart och vilket moment som saker kan gå fel, som ett exempel som en misslyckad handshake; är det internet uppkoppling från klientens sida eller är servern nere?
+* Koppla analysen till föregående veckors hardening:<p> är de observerade tjänsterna och flödena rimliga för miljön? När jag går igenom flödesschemat så har alla tjänster och protokoller en viktig roll när jag jämför dem mot OSI modellen. Jag behövde läsa ytterligare om ephemeral ports och visste inte att dessa fanns förräns denna vecka och har skapat en insikt om att detta kan skapa problemer om man har portar som är öppna som inte skall vara det i slutändan. Att kunna se allt från metadata till hemsidans struktur skapar självklart stora konfidentialitets frågor som om hemsidan är orginalet eller om det finns något på hemsidan som läser av vad du skriver. Att se hur paketet rör sig från klient till slutparten och delarna i mellan gör att man enkelt kan se vart och vilket moment som saker kan gå fel, som ett exempel som en misslyckad handshake; är det internet uppkoppling från klientens sida eller är servern nere?
 
 ---------------------------------------
 
@@ -314,11 +312,11 @@ Bild på struktur av TLS appdata:<p>
 | Konfidentialitet	| Vilken information i pcapen eller rapporten behöver skyddas? Vad visar jämförelsen HTTP och TLS? |
 | Svar	| I Pcap filen finns metadata så som tid & datum, portar, ip addresser och andra delar som miljön och MAC addressen som tog emot fångsten som kan i slutändan skapa problem då attackeraren kan skapa en bild och hitta känslig information som man inte är medveten om. När man kollar på paketen från listan utan att kolla packet details så är oftast IP addressen, längden, och vem som tog emot paketet samt svarade den informationen jag skulle skydda, men ju djupare man dyker ner i paketens information så ser man att allt finns med. Jag hittade ett program som heter Tracewrangler som sanerar ens pcap fil om man har rätt inställningar vilket kan hjälpa med att hålla informationen konfidentiellt. Att HTTP är okrypterat och att den som har som åtanke att attackera kan se all information som skett på hemsidan, kunna replikera samt se om du har skrivit något på hemsidan skapar stora säkerhetsfrågor som, är mina lösenord läckta? min email? betalkort? När man jämför detta med TLS så är all metada synlig som nämnt men innehållet från hemsidan, information från mig som är personligt är nu krypterat vilket skapar ett ytterligare lager av säkerhet som attackeraren behöver gå igenom. Om attackeraren har en master encryption key så kan dem nog kolla på infon men detta är oftast högst osannolikt. |
 | Integritet	| Hur visar du att analysen hör till rätt pcap? Hur använder du filnamn, paketnummer, eventuell hash och Git-historik? |
-| Svar	| Det enkla svaret är svårt att bevisa vilken pcap som analysen tillhör då man helst inte vill ladda upp pcap filen till Github.  |
+| Svar	| Det enkla svaret är svårt att bevisa vilken pcap som analysen tillhör då man helst inte vill ladda upp pcap filen till Github. Då man inte bör ladda upp sin pcap till github på grund av känslig information så tar jag mig tiden att sanera bilder/screenshots som visar och stödjer min analys. |
 | Tillgänglighet	| Vilka observationer visar att namnuppslag, route och transport fungerar eller inte fungerar? |
-| Svar	| Vilka observationer visar att namnuppslag, route och transport fungerar eller inte fungerar? |
+| Svar	| Genom att observera SYN & SYN ACK, Hello's och genom att kontrollera med enkla ping kommandon hjälper en att kunna förstå flödet och se vart det kan vara där kopplingen bryter eller inte fungerar och kan enkelt se detta genom att se om man har fått tillbaka en ACK eller får tillbaka paketet man skickar via pings. |
 | Evidenskvalitet	| Vilka begränsningar finns i fångsten? Vad kan ha missats på grund av interface, timing, kryptering eller miljö? |
-| Svar	| Vilka begränsningar finns i fångsten? Vad kan ha missats på grund av interface, timing, kryptering eller miljö? |
+| Svar	| Begränsningarna genom att skapa fångst genom wireshark är att man behöver se till man alltid har en stabil uppkoppling till hårdvaran man vill skanna, tid och potentiellt stort lagringsutrymme till att spara stora pcaps på. Om wireshark inte kör konstant så finns det en chans att man kan helt enkelt missa paket eller händelser av attacker och dess händelseförlopp. Som att försöka nappa på en okrypterad/sanerad bild man laddar upp på en hemsida för att se om någon går in på hemsidan för att komma åt känslig information i bilden. Kryptering kan också skapa problem om felsökning behövs då allt är scramblat behöver man oftast en master/root nyckel för att kunna kryptera av hemsidan eller fångsten ordentligt för att kunna se vad som har gått fel. Beroende på miljön så kan Wireshark vara ganska krävande och något som kan påverka maskinvaran man är kopplad till, som ett exempel en server som hanterar trafik, den har redan en viss belastning, man vill helst inte belasta den mer och man kan då skapa pcaps utan gui och istället skapa fångsten genom en konsol med dumpcap. |
 
 
 ---------------------------------------
@@ -326,11 +324,20 @@ Bild på struktur av TLS appdata:<p>
 ## 09. slutsats och rekommendation
 
 Skriv en sammanhängande slutsats som besvarar:
-    • Vad hände i den analyserade trafiken?
-    • Vilka observationer är starkast underbyggda?
-    • Vilka osäkerheter återstår?
-    • Vilken säkerhets- eller driftåtgärd rekommenderar du, utan att överdriva vad pcapen visar?
-    • Vilken ytterligare evidens skulle du samla in i nästa steg?
+
+* Vad hände i den analyserade trafiken?<p>
+  
+
+* Vilka observationer är starkast underbyggda?<p>
+
+
+* Vilka osäkerheter återstår?<p>
+
+
+* Vilken säkerhets- eller driftåtgärd rekommenderar du, utan att överdriva vad pcapen visar?<p>
+
+
+* Vilken ytterligare evidens skulle du samla in i nästa steg?<p>
 
 ---------------------------------------
 
@@ -338,24 +345,4 @@ Skriv en sammanhängande slutsats som besvarar:
 
 Om du använder generativ AI ska du redovisa verktyg, syfte, vilka förslag du använde eller avvisade, hur du kontrollerade analysen mot pcap-filen och vilka slutsatser du formulerade själv. Paketnummer, filterresultat och tekniska slutsatser måste verifieras av dig.
 
----------------------------------------
-
-## Fördjupa flöden
-
-Kan verifiera och jämföra vissa protokoller mot varandra för att se skillnad:
-
-DNS <-> ICMP
-HTTP <-> TLS/HTTPS
-Lyckad anslutning <-> Uteblivet svar
-egen pcap med reservspår genom trafigeneratorn
-
-----------------------------------
-
-## Brandvägg info
-
-* SS bevisar lokalt lyssande tjänster men inte ensam extern nåbarhet
-* Brandväggsregler beskriver avsedd tillåtelse eller blockering
-* PCAP visar observerad nätverkstrafik vid fångspunkt
-
-----------------------------------
 
