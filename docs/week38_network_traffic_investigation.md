@@ -238,6 +238,7 @@ Skapa en tabell med minst följande protokoll. Om ett protokoll saknas ska du be
 | TLS/HTTPS	| ClientHello/ServerHello eller Application Data |	Vilken metadata syns och vad är krypterat? |
 |---|---|---|
 | TLS/HTTPS	| Klienten(jag) säger hello och Example.com ger en handshake och säger hello tillbaka |	Det ända jag kan se som är metadata är destinationen Example.com,  att det är under application data protocol; HPT och resten av paketet är krypterat. |
+
 Information om Metadata[^5]
 
 
