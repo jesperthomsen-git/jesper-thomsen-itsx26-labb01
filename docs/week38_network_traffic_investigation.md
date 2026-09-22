@@ -23,16 +23,16 @@
 [X] Miljö, spår och metod är tydligt beskrivna.<p>
 [X] Fångsten är begränsad, tillåten och säker, eller reservspåret är motiverat.<p>
 [X] Paketets väg är beskriven med observation och förklaring åtskilda.<p>
-☐ DNS, ICMP, TCP, HTTP och TLS/HTTPS är analyserade eller saknad trafik är korrekt redovisad.<p>
-☐ Två flöden har analyserats på djupet.<p>
-☐ HTTP och TLS/HTTPS har jämförts.<p>
-☐ Brandvägg och hardening har kopplats till faktisk trafik.<p>
-☐ CIA-analysen bygger på konkreta observationer.<p>
-☐ Begränsningar och osäkerheter är synliga.<p>
-☐ Rapport och skärmbilder är sanerade.<p>
-☐ Rå pcap finns inte i GitHub utan uttryckligt tillstånd.<p>
-☐ AI-användning är redovisad.<p>
-☐ Canvas innehåller en fungerande direktlänk till rapporten.<p>
+[X] DNS, ICMP, TCP, HTTP och TLS/HTTPS är analyserade eller saknad trafik är korrekt redovisad.<p>
+[X] Två flöden har analyserats på djupet.<p>
+[X] HTTP och TLS/HTTPS har jämförts.<p>
+[X] Brandvägg och hardening har kopplats till faktisk trafik.<p>
+[X] CIA-analysen bygger på konkreta observationer.<p>
+[X] Begränsningar och osäkerheter är synliga.<p>
+[X] Rapport och skärmbilder är sanerade.<p>
+[X] Rå pcap finns inte i GitHub utan uttryckligt tillstånd.<p>
+[X] AI-användning är redovisad.<p>
+[X] Canvas innehåller en fungerande direktlänk till rapporten.<p>
 
 
 | Område | Godkänt | Väl godkänt |
@@ -402,14 +402,14 @@ Om du använder generativ AI ska du redovisa verktyg, syfte, vilka förslag du a
 Jag behövde använda mig utav AI från DuckDuckGo, syftet var att kunna förstå känslig metadata från paketvyen innan man gräver djupare. 
 Frågan: Vad anses som kännslig information i paketvyen i Wireshark? #Jag skickade Httpexample.png tillsammans med denna fråga
 Svar:<p>
-The visible screenshot does not appear to contain highly sensitive information such as passwords, cookies, API keys, or message contents.
-It does reveal some network details:
-    • An unencrypted HTTP request: GET / HTTP/1.1 
-    • A successful server response: HTTP/1.1 200 OK 
-    • TCP sequence/acknowledgment numbers 
-    • Packet/frame numbers and payload length 
-    • That the response contains HTML: (text/html) 
-The IP-address columns and host details appear cropped out, which reduces the exposure. However, because this is HTTP rather than HTTPS, the underlying traffic could potentially expose URLs, form data, cookies, or page contents if those packets were included.
+The visible screenshot does not appear to contain highly sensitive information such as passwords, cookies, API keys, or message contents.<p>
+It does reveal some network details:<p>
+    • An unencrypted HTTP request: GET / HTTP/1.1 <p>
+    • A successful server response: HTTP/1.1 200 OK <p>
+    • TCP sequence/acknowledgment numbers <p>
+    • Packet/frame numbers and payload length <p>
+    • That the response contains HTML: (text/html) <p>
+The IP-address columns and host details appear cropped out, which reduces the exposure. However, because this is HTTP rather than HTTPS, the underlying traffic could potentially expose URLs, form data, cookies, or page contents if those packets were included.<p>
 
 * Anvisningarna skapade en förståelse om vad känslig data kan vara och läste vidare på metadata[^5] för att skapa en större förståelse om vad som kan ses som metadata. 
 * Jag validerade informationen som jag fick från AI:n genom att kolla på paketanalysen som jag tog en screenshot av för att stämma av att det AI säger och nämner stämmer överrens.
