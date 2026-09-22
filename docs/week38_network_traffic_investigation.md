@@ -253,7 +253,7 @@ Flöde 1: TCP
 
 Här är paketet för flöde 1:<p>
 <p>
-<p>
+![alt text](../evidence/screenshots/w38/TCPwireshark.png)<p>
 <p>
 
 Flöde 2: PING
