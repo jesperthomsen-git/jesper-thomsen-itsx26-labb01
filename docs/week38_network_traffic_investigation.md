@@ -328,33 +328,93 @@ Bild på struktur av TLS appdata:<p>
 | Svar	| Begränsningarna genom att skapa fångst genom wireshark är att man behöver se till man alltid har en stabil uppkoppling till hårdvaran man vill skanna, tid och potentiellt stort lagringsutrymme till att spara stora pcaps på. Om wireshark inte kör konstant så finns det en chans att man kan helt enkelt missa paket eller händelser av attacker och dess händelseförlopp. Som att försöka nappa på en okrypterad/sanerad bild man laddar upp på en hemsida för att se om någon går in på hemsidan för att komma åt känslig information i bilden. Kryptering kan också skapa problem om felsökning behövs då allt är scramblat behöver man oftast en master/root nyckel för att kunna kryptera av hemsidan eller fångsten ordentligt för att kunna se vad som har gått fel. Beroende på miljön så kan Wireshark vara ganska krävande och något som kan påverka maskinvaran man är kopplad till, som ett exempel en server som hanterar trafik, den har redan en viss belastning, man vill helst inte belasta den mer och man kan då skapa pcaps utan gui och istället skapa fångsten genom en konsol med dumpcap. |
 
 
-
-
 ## 09. slutsats och rekommendation
 ---------------------------------------
 
 Skriv en sammanhängande slutsats som besvarar:
 
 * Vad hände i den analyserade trafiken?<p>
-  
+  Det jag kan se genom att följa flödet 05. flöde 1 TCP är att jag skickat ett paket på 80 i längd till example.com och då jag inte kan se HTTP som protokoll men TCP som sedan går över till TLS förstår jag det som att den är krypterad genom HTTPS. Efter att jag har fått SYN ACK tillbaka så ser jag att min klient och servern säger "hello" innan  de börjar skicka krypterad app data mellan varandra. oNär jag då lämnar hemsidan så ser jag en tagg som heter FIN som jag förstår är slutet på konversationen och avslutar kopplingen mellan parterna.
 
 * Vilka observationer är starkast underbyggda?<p>
-
+De starkaste observationerna jag hittar är SYN, SYN ACK som handshakes och att klienten och server utbyter data efter att dem har sagt hej till varandra.
 
 * Vilka osäkerheter återstår?<p>
-
+Jag har svårigheter att förstå om sequense nummer, SYN nummer, ACK nummer och WIN nummer har någon stor betydelse för hur paketet skickas vidare samt om dessa ligger under känslig information och metadata. 
 
 * Vilken säkerhets- eller driftåtgärd rekommenderar du, utan att överdriva vad pcapen visar?<p>
-
+Om jag skulle kontrollera en pcap eller skicka denna vidare för analys skulle jag självklart göra mitt bästa att sanera den genom att spoofa IP addresser, byta ut MAC addresser och se om annan information som tid och datum kan raderas innan tredjeparts analys då detta kan skapa stora problem i företag som har data och skydds certifikat. Jag skulle se till att ha en dator som både har bra prestanda samt 1TB av minne för att kunna skapa en konsis analys ifall en attack sker så kan datorn plocka upp detta om det skulle vara att arbetsplatsen eller datorn är obemannad för stunden.
 
 * Vilken ytterligare evidens skulle du samla in i nästa steg?<p>
 
+Jag tycker att mallen vi fick för denna veckan var en bra grund för analys men passade inte helt in i denna inlämningsuppgift för det var många frågor och moment som överlappade varandra.
+I framtiden skulle jag vilja kuna fylla i denna mall:
 
+*********************************************************************
+Fördjupning av protokoll:
+
+Identifiera flödet och ändpunkterna
+Ordna relevanta paket i tidsföljd
+Jämför protokoll, synlighet och resultat
+Avgränsa vad fångsten kan visa
+Vad skyddas av krypteringen?
+Hur syns brandvägg och hardening indirekt?
+Hur kopplas saniterad evidens till CIA?
+
+* Konfidentialitet: Vad exponeras eller skyddas?
+* Integritet: Vad kan ändras eller verifieras?
+* Tillgänglighet: Når trafiken avsedd tjänst?
+  
+CIA frågor
+Konfidentialitet Vilken metadata är synlig? Vad är läsbart i HTTP? Vad skyddas av TLS? Kan pcap-filen i sig vara
+känslig?
+Integritet Hur vet du vilken fil som analyserats? Hur bidrar filnamn, hash, paketnummer och Git-historik till
+spårbarhet?
+Tillgänglighet Vilka tecken visar att DNS, route och transport fungerar? Vad kan timeout, reset eller uteblivet svar
+betyda?
+
+----------------------------------
+
+Evidenskvalitet
+
+Var samlades trafiken in?
+Vilka filter eller avgränsningar användes?
+Vad saknas/saknades vid fångsten?
+Vilken osäkerhet ska anges? (förklara, var konkret)
+
+Vad ska jag anteckna
+☐ Paketnummer eller annan tydlig hänvisning.<p>
+☐ Källa, destination och protokoll.<p>
+☐ Vilket lager eller vilken funktion observationen hör till.<p>
+☐ Vad observationen visar.<p>
+☐ Vad observationen inte räcker för att slå fast.<p>
+☐ Om uppgiften innehåller känslig metadata som behöver saneras<p>
+
+*********************************************************************
 
 ## 10. AI-användning
 ---------------------------------------
 
 Om du använder generativ AI ska du redovisa verktyg, syfte, vilka förslag du använde eller avvisade, hur du kontrollerade analysen mot pcap-filen och vilka slutsatser du formulerade själv. Paketnummer, filterresultat och tekniska slutsatser måste verifieras av dig.
+
+Jag behövde använda mig utav AI från DuckDuckGo, syftet var att kunna förstå känslig metadata från paketvyen innan man gräver djupare. 
+Frågan: Vad anses som kännslig information i paketvyen i Wireshark? #Jag skickade Httpexample.png tillsammans med denna fråga
+Svar:<p>
+The visible screenshot does not appear to contain highly sensitive information such as passwords, cookies, API keys, or message contents.
+It does reveal some network details:
+    • An unencrypted HTTP request: GET / HTTP/1.1 
+    • A successful server response: HTTP/1.1 200 OK 
+    • TCP sequence/acknowledgment numbers 
+    • Packet/frame numbers and payload length 
+    • That the response contains HTML: (text/html) 
+The IP-address columns and host details appear cropped out, which reduces the exposure. However, because this is HTTP rather than HTTPS, the underlying traffic could potentially expose URLs, form data, cookies, or page contents if those packets were included.
+
+* Anvisningarna skapade en förståelse om vad känslig data kan vara och läste vidare på metadata[^5] för att skapa en större förståelse om vad som kan ses som metadata. 
+* Jag validerade informationen som jag fick från AI:n genom att kolla på paketanalysen som jag tog en screenshot av för att stämma av att det AI säger och nämner stämmer överrens.
+* Genom analysen kunde jag därav se att man kan GET requests, HTTP version samt payload längden. Man kan också se att jag har då gått in på en okrypterad hemsida som visar text och html kod och har skapat en cia analys om detta i fältet 04. protokollinventering om HTTP samt 06. Krypterat och okrypterat.
+
+
+
 
 
 ## Externa länkar
