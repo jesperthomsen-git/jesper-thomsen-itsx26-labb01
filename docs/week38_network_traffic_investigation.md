@@ -68,7 +68,7 @@ Jag tog inspiration från trafikgeneratorn och lade upp dessa i rad efter varand
 
 I grund och botten har jag tagit inspiration från trafikgeneratorn men jag har lagt in en server som jag hostar på 8080 som jag pingar till som en extra del i min fångst.
 
-[README.md](../evidence/README.md) har blivit uppdaterad med ny kortfattad information om vad denna analys innehåller.
+evidence/[README.md](../evidence/README.md) har blivit uppdaterad med ny kortfattad information om vad denna analys innehåller.
 
 ### Beskriv hur pcap och skärmbilder har hanterats och sanerats.
 ---------------------------------------

@@ -90,11 +90,11 @@ evidence/README.md med pcap-källa, datum för analys, miljö och eventuell sane
 
 Pcap källan var tagen från min OCI miljö på Oracle cloud, all nät trafik var skapad där och pcap filen var verifierad via checksum efter SCP filöverföring.
 
-Evidensbeskrivning samt flöden och dess analys finns i [text](../docs/week38_network_traffic_investigation.md)
+Evidensbeskrivning samt flöden och dess analys finns i [week38_network_traffic_investigation.md](../docs/week38_network_traffic_investigation.md)
 Datum för analysen skedde mellan dagarna 20.Sept - Sept 22
 Miljöbeskrivning finns i analysen samt sanering har skett via utsstrykning av känslig information samt borttagande av egenskaper och personlig information i filernas settings.
 
-Bilder ligger i [text](screenshots/w38) <p>
+Sanerade bilder ligger under [screenshots/w38](screenshots/w38) <p>
 
 Struktur på repot och vart du hittar bilderna är nämnt ovan samt märkt i strukturen nedan.
 <p>
