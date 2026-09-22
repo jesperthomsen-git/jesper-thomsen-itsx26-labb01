@@ -356,7 +356,7 @@ Skriv en sammanhängande slutsats som besvarar:
 Om du använder generativ AI ska du redovisa verktyg, syfte, vilka förslag du använde eller avvisade, hur du kontrollerade analysen mot pcap-filen och vilka slutsatser du formulerade själv. Paketnummer, filterresultat och tekniska slutsatser måste verifieras av dig.
 
 
-## Referenser
+## Externa länkar
 ---------------------------------------
 
 [^1]: https://www.thelinuxvault.net/blog/how-to-verify-checksums-in-linux/ 
