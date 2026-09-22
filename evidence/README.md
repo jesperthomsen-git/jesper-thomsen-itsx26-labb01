@@ -80,11 +80,39 @@ Jag trodde först att det var en port jag möjligtvis kunde stänga men ser ut s
 
 Reflektion: Om jag kör mitt program kommer alltid kontrollen om mapp strukturen finns eller inte samt om den har ändrade rättigheter. Detta skapar en bra grund för att skriptet kan fortsätta samt att den kontrollerar att vissa portar är aktiva, eller om den är kopplad till internet kan vara nog information för att kunna börja med felsökningar.
 
-----------------------------------------------------------------
 
 
 ## Vecka 38 Network Traffic Investigation
+----------------------------------------------------------------
 
-* Evidensbeskrivning	evidence/README.md med pcap-källa, datum för analys, miljö och eventuell sanering
-  
-  Lägger till detta så jag inte glömmer
+
+evidence/README.md med pcap-källa, datum för analys, miljö och eventuell sanering:
+
+Pcap källan var tagen från min OCI miljö på Oracle cloud, all nät trafik var skapad där och pcap filen var verifierad via checksum efter SCP filöverföring.
+
+Evidensbeskrivning samt flöden och dess analys finns i [text](../docs/week38_network_traffic_investigation.md)
+Datum för analysen skedde mellan dagarna 20.Sept - Sept 22
+Miljöbeskrivning finns i analysen samt sanering har skett via utsstrykning av känslig information samt borttagande av egenskaper och personlig information i filernas settings.
+
+Bilder ligger i [text](screenshots/w38) <p>
+
+Struktur på repot och vart du hittar bilderna är nämnt ovan samt märkt i strukturen nedan.
+<p>
+│<p>
+├── docs<p>
+│ └── week3_secure_network_check.md<p>
+│<p>
+├── evidence<p>
+│ └── screenshots<p>
+│   └── w38 <-- <p>
+│<p>
+│ └── README.md<p>
+│<p>
+│<p>
+├── README.md<p>
+└── ...<p>
+
+strukturen tagen är från Canvas: Oracle Cloud VM, Linux, hardening, recovery och cleanup.
+
+----------------------------------------------------------------
+
