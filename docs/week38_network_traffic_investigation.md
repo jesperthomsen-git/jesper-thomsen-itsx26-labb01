@@ -66,7 +66,8 @@ I grund och botten har jag tagit inspiration från trafikgeneratorn men jag har 
 
 ### Beskriv hur pcap och skärmbilder har hanterats och sanerats.
 
-pcap eller skärmbilder kommer läggas in i evidence/screenshots/w38. Jag kommer att redigera screenshots och bilder som tas under analys som en del av saneringen men inget har lagts till än.
+pcap eller skärmbilder kommer läggas in i evidence/screenshots/w38. 
+Jag kommer att redigera screenshots och bilder som tas under analys som en del av saneringen men inget har lagts till än.
 
 Struktur på repot och vart du hittar bilderna är nämnt ovan samt märkt i strukturen nedan.
 <p>
@@ -83,7 +84,8 @@ Struktur på repot och vart du hittar bilderna är nämnt ovan samt märkt i str
 │<p>
 ├── README.md<p>
 └── ...<p>
-strukturen tagen är från Canvas: Oracle Cloud VM, Linux, hardening, recovery och cleanup 
+
+strukturen tagen är från Canvas: Oracle Cloud VM, Linux, hardening, recovery och cleanup.
 
 ### Förklara relevanta skillnader mot lärarens OCI-demonstration.
 
@@ -249,6 +251,11 @@ Flöde 1: TCP
 * alternativa förklaringar: Inget extra som jag kan se som avviker från observationen.
 * vad mer som skulle behövas för en säkrare slutsats: Då jag inte är väldigt insatt i wireshark än så möter jag svårigheter att läsa och tyda vad som sker vid vissa tillfällen under konversationer mellan klient och destinationen.
 
+Här är paketet för flöde 1:<p>
+<p>
+<p>
+<p>
+
 Flöde 2: PING
 * paketnummer eller tydlig flödeshänvisning: 290 Echo request
 * källa, destination, port och protokoll: 10.0.0.191, 8.8.8.8, ICMP kör inte igenom några portar.
@@ -282,8 +289,8 @@ Här är ett exempel på hur en okrypterad hemsida kan se ut: <p>
 | Felsökningsvärde	| Statuskoder, IP addresser, src & dst ports | version, payload storlek, IP addresser, src & dst ports |
 | Konfidentialitetsrisk	| Se ovan | Se ovan |
 
-Bild på struktur av TLS appdata: HÄR
-__________________________________________
+Bild på struktur av TLS appdata:<p>
+![alt text](../evidence/screenshots/w38/TLSappdata.png)<p>
 
 ---------------------------------------
 
