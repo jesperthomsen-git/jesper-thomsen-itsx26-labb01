@@ -1,0 +1,21 @@
+first_name,last_name,date,email,country,ip_address,activity
+Alex,Carter,2026-09-22 08:03:12,alex.carter@example.com,United States,192.0.2.10,login
+Maya,Singh,2026-09-22 08:27:45,maya.singh@example.com,India,192.0.2.11,viewed_dashboard
+Alex,Carter,2026-09-22 09:16:38,alex.carter@example.com,United States,192.0.2.10,searched
+Liam,Wilson,2026-09-22 09:44:21,liam.wilson@example.com,Canada,192.0.2.12,login
+Alex,Carter,2026-09-22 10:05:57,alex.carter@example.com,United States,192.0.2.10,downloaded_report
+Sofia,Garcia,2026-09-22 10:38:09,sofia.garcia@example.com,Spain,192.0.2.13,updated_profile
+Alex,Carter,2026-09-22 11:12:26,alex.carter@example.com,United States,192.0.2.10,created_record
+Noah,Muller,2026-09-22 11:53:44,noah.muller@example.com,Germany,192.0.2.14,searched
+Alex,Carter,2026-09-22 12:24:18,alex.carter@example.com,United States,192.0.2.10,changed_settings
+Maya,Singh,2026-09-22 12:47:33,maya.singh@example.com,India,192.0.2.11,exported_data
+Alex,Carter,2026-09-22 13:08:51,alex.carter@example.com,United States,192.0.2.10,viewed_dashboard
+Liam,Wilson,2026-09-22 13:36:05,liam.wilson@example.com,Canada,192.0.2.12,downloaded_report
+Alex,Carter,2026-09-22 14:19:42,alex.carter@example.com,United States,192.0.2.10,updated_profile
+Sofia,Garcia,2026-09-22 14:52:16,sofia.garcia@example.com,Spain,192.0.2.13,login
+Alex,Carter,2026-09-22 15:07:29,alex.carter@example.com,United States,192.0.2.10,exported_data
+Noah,Muller,2026-09-22 15:41:53,noah.muller@example.com,Germany,192.0.2.14,changed_settings
+Alex,Carter,2026-09-22 16:22:07,alex.carter@example.com,United States,192.0.2.10,searched
+Maya,Singh,2026-09-22 16:48:35,maya.singh@example.com,India,192.0.2.11,logout
+Alex,Carter,2026-09-22 17:13:24,alex.carter@example.com,United States,192.0.2.10,downloaded_report
+Alex,Carter,2026-09-22 18:05:46,alex.carter@example.com,United States,192.0.2.10,logout
