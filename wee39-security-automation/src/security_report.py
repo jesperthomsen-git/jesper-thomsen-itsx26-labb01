@@ -45,111 +45,47 @@
 #☐ Canvas-inlämningen länkar direkt till rätt leverans.
 
 
+import csv #importerar moduler för att skapa csv filer
+import re #importerar requests, har denna fall i fall jag kommer använda den i framtiden
+from pathlib import Path #använder mig av pathlib biblioteket för att hitta filer och mappar
+import os #samma som ovan
+import subprocess #För att installera pandas om det inte finns på systemet #beta
+import sys #För att installera pandas om det inte finns på systemet #beta
 
-import csv
-#import pandas as pd
-import re
+print("Kontrollerar om pandas biblioteket är installerat, vänligen vänta.")
 
-search = "a"
-risknorm = 1
-risknight =  2
-risklogin = 3
-riskcountry = 5
-
-with open("data/userlogs.csv", encoding="utf-8", newline="") as userlogs:
-    user_read = csv.DictReader(userlogs)
-    user_list = list(user_read)
-
-    print("Skriver ut CSV dokument")
-
-    for users in user_list:
-        print(
-            users["date"],
-            users["last_name"],
-            users["first_name"],
-            users["email"],
-            users["country"],
-            users["ip_address"]
-        )
-        
-
-
-import pathlib
-import os
-
-suspicious_ip = "data/suspicious_ips.txt"
-
-def load_indicators(path): #berättar vart filen finns  
-    path = [ 
-
-        "data/auth.log"
-        "data/access.log"
-        "data/firewall.log"
-    ]
+def install(pkg):
+    subprocess.check_call([sys.executable, "-m", "pip", "install", pkg])
     
-def analyze_logs(path, indicators):
-
-        for f in :
-            if f in line:
-                sus_ip = {line.strip() for line in f if line.strip()}
-        print("fel")
-
-def write_report(results, path):
-    print("testar om denna funktionen funkar")
-    report_lines = [
-        "ITSX26 SECURITY REPORT"
-        f""
-        f""
-        f""
-        f""
-        f"",
-        f"LIMITATION",
-
-    ]
+def pandas_installed(pkg):
+    try:
+        __import__(pkg)
+        return True
+    except ImportError: 
+        return False
     
-    f.write("\n".join(report_lines))
+if pandas_installed("pandas"):
+    print("pandas existerar redan, fortsätter..\n")
+else:
+    print("Installerar pandas, vänligen vänta ytterligare..")
+    import subprocess
+    import sys
+    install("pandas")
+    import pandas as pd
+    print("pandas är nu installerat, fortsätter..\n")
+    
 
-def main():
-    load_indicators(suspicious_ip)
-    analyze_logs()
-    write_report()
+pandas_installed("pandas")
 
-print("Kontrollerar om filer existerar\n")
-main()
 
-skipped = 0
-failed_count = 0
 
-with open("data/auth.log", encoding="utf-8") as log_file: #berättar vart filen finns
-    for line in log_file:
-        if "Failed login" in line:
-            failed_count += 1
-            print(line.strip())
-        fields = line.split()
-        source_fields = [f for f in fields if f.startswith("src=")] # f = variabel i arrayen som skapar splits efter "="
 
-        if not source_fields:
-            skipped += 1
-            continue
-        ip_address = source_fields[0].split("=", 1)[1]
-    print(f"IP address: {ip_address}")
 
-    print(f"Failed logins: {failed_count}")
 
-with open("data/suspicious_ips.txt", encoding="utf-8") as ip_file: #berättar vart filen finns
-    susp_ips = {line.strip() for line in ip_file if line.strip()}
-    print ("suspicious ip: ", susp_ips)
 
-   # for line in ip_file:
-    #    linesplit = line.split()
-    #    array = [f for f in linesplit if f.startswith("")]
-    #    susip = array[0].split("=", 1)[1]
-    #print(f"suspicious ip: {susip}")
 
-with open("data/access.log", encoding="utf-8") as access_file: #berättar vart filen finns
-    acclogs = {line.strip() for line in access_file if line.strip()}
-    print ("Listing access logs: ", acclogs)
 
-with open("data/firewall.log", encoding="utf-8") as fw_file: #berättar vart filen finns
-    fw = {line.strip() for line in fw_file if line.strip()}
-    print ("Listing firewall settings: ", fw)
+
+
+
+

@@ -41,14 +41,15 @@ Automatiserat analysflöde | Programmet läser minst två filer, genomför relev
 
 ## AI-användning
 AI-stöd är tillåtet för förklaringar, felsökning, kodgranskning och förslag. Du ansvarar för att förstå, testa och verifiera allt som lämnas in.
-    • ☐ Ange vilket AI-verktyg som användes.
-    • ☐ Beskriv vad AI hjälpte till med.
-    • ☐ Beskriv hur du testade och verifierade förslagen.
-    • ☐ Markera eller förklara större AI-genererade koddelar.
-    • ☐ Var beredd att muntligt förklara programmets dataflöde och analyslogik.
+    • ☐ Ange vilket AI-verktyg som användes.<p>
+    • ☐ Beskriv vad AI hjälpte till med.<p>
+    • ☐ Beskriv hur du testade och verifierade förslagen.<p>
+    • ☐ Markera eller förklara större AI-genererade koddelar.<p>
+    • ☐ Var beredd att muntligt förklara programmets dataflöde och analyslogik.<p>
 
 ## Sammantagen betygsnivå
 | BETYG | SAMMANTAGEN NIVÅ |
+|---|---|
 | G	|Samtliga obligatoriska leveranser och säkerhetsramar är uppfyllda. Analysen fungerar, är begriplig och gör proportionerliga påståenden utifrån evidensen. |
 | VG | G är uppfyllt och arbetet visar genomgående fördjupad korrelation, robust databehandling, reproducerbar verifiering och analytisk mognad. Enstaka avancerade koddetaljer räcker inte i sig. |
 | Ej godkänt |Centrala leveranser saknas, programmet kan inte verifieras, säkerhetsramar bryts eller analysen gör ogrundade påståenden som inte kan kopplas till evidens. |
