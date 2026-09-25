@@ -103,7 +103,7 @@ def load_indicators(folder = Path("wee39-security-automation/data")): #berättar
         try:
             df = pd.read_csv(
                 file,
-                sep='\s+',
+                sep='\n+',
                 engine='python',
                 header=None, 
                 )
@@ -114,8 +114,19 @@ def load_indicators(folder = Path("wee39-security-automation/data")): #berättar
         except Exception as error:
             print(f"Kunde inte läsa {file}: {error}")
 
-load_indicators()
+def analyse_logs(df):
+    print("Kontrollerar filer för analys..")
+    
+    if df.empty:
+            print("Det finns inget att analysera")
+            return df
+    
+    
+    print("Kompilerar loggar till en security_report.CSV fil")
+    return df
 
+load_indicators()
+analyse_logs()
 
 
 
