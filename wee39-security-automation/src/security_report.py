@@ -53,7 +53,7 @@ import subprocess #För att installera pandas om det inte finns på systemet #be
 import sys #För att installera pandas om det inte finns på systemet #beta
 
 
-folder = Path('wee39-security-automation/data')
+
 output_path = "wee39-security-automation/reports/security_report.csv"
 
 
@@ -71,6 +71,7 @@ def pandas_installed(pkg):
     
 if pandas_installed("pandas"):
     print("pandas existerar redan, fortsätter..\n")
+    import pandas as pd
 else:
     print("Installerar pandas, vänligen vänta ytterligare..")
     import subprocess
@@ -82,7 +83,7 @@ else:
 
 pandas_installed("pandas")
 
-def load_indicators(folder): #berättar vart filen finns  
+def load_indicators(folder = Path("wee39-security-automation/data")): #berättar vart filen finns  
 
     print("Kontrollerar filer i /data finns för uppgiften")
     files = list(folder.rglob("*.log"))
@@ -96,7 +97,7 @@ def load_indicators(folder): #berättar vart filen finns
         for file in files:
             print(file)
         
-    dataframe = []
+    dataframes = []
     
     for file in files:
         try:
@@ -113,7 +114,7 @@ def load_indicators(folder): #berättar vart filen finns
         except Exception as error:
             print(f"Kunde inte läsa {file}: {error}")
 
-load_indicators(folder)
+load_indicators()
 
 
 
