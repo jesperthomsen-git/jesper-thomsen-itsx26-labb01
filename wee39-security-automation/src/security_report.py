@@ -97,7 +97,7 @@ def load_indicators(folder): #berättar vart filen finns
         for file in log_files:
             print(file)
         
-    dataframe = []
+    dataframes = []
     
     for file in log_files:
         try:
@@ -105,15 +105,20 @@ def load_indicators(folder): #berättar vart filen finns
                 file,
                 engine='python',
                 header=None,
-                names=["log_entry"]
+                names=["log_entry"],
                 dtype=str 
                 )
 
             df["source_file"] = file.name
-            dataframe.append(df)
+            dataframes.append(df)
         
         except Exception as error:
             print(f"Kunde inte läsa {file}: {error}")
+    
+    if not dataframes:
+        return pd.DataFrame()
+    
+    return pd.concat(dataframes, ignore_index=True)
 
 def analyse_logs(log_files):
     print("Kontrollerar filer för analys..")
@@ -135,7 +140,6 @@ def write_report(analyse, output_path):
             return
     analyse.to_csv(output_path, index=False)
     print(f"Resultatet av fångsten har skrivits ner till {output_path}")
-
 
 
 def main_frame():
