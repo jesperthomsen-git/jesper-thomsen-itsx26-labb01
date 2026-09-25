@@ -38,6 +38,7 @@ def analyze_logs(path, indicators):
 
 def write_report(results, path):
     print("testar om denna funktionen funkar")
+    
     report_lines = [
         "ITSX26 SECURITY REPORT"
         f""

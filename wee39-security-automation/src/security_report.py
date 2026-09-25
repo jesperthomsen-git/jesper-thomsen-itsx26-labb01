@@ -54,7 +54,7 @@ import sys #För att installera pandas om det inte finns på systemet #beta
 
 
 
-
+output_path = "wee39-security-automation/output/security_report.csv"
 
 print("Kontrollerar om pandas biblioteket är installerat, vänligen vänta.")
 
@@ -135,10 +135,13 @@ def analyse_logs(log_files):
 def write_report(analyse, output_path):
 
     print("Kontrollerar om det finns data att skriva ner")
+    
     if analyse.empty:
             print("Det finns inga resultat att skriva ner för tillfället..")
             return
+
     analyse.to_csv(output_path, index=False)
+
     print(f"Resultatet av fångsten har skrivits ner till {output_path}")
 
 
@@ -150,7 +153,7 @@ def main_frame():
         parents=True, 
         exist_ok=True
         ) 
-    output_path = "wee39-security-automation/output/security_report.csv"
+    
 
 
     log_files = load_indicators(folder)
@@ -158,10 +161,29 @@ def main_frame():
     write_report(analyse, output_path)
     
     
+
+def main_report(output_path):
+    
+    print(f"Beräknar matchingar utifrån CSV dokument, vänligen vänta..")
+    
+    with open(output_path, encoding="utf-8", newline="") as user_logs:
+        user_read = csv.DictReader(user_logs)
+        user_list = list(user_read)
+
+    for user in user_list:
+        print(
+            user["log_entry"]
+        )
+            
+            
+        
+    
+    
+
 main_frame()
-
-
-
+main_report(output_path)
+    
+    
 
 
 
