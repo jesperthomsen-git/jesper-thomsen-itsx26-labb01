@@ -54,25 +54,24 @@ import sys #För att installera pandas om det inte finns på systemet #beta
 
 
 
-output_path = "wee39-security-automation/reports/security_report.csv"
 
 
 print("Kontrollerar om pandas biblioteket är installerat, vänligen vänta.")
 
 def install(pkg):
-    subprocess.check_call([sys.executable, "-m", "pip", "install", pkg])
+    subprocess.check_call([sys.executable, "-m", "pip", "install", pkg]) #skapar en exekveringskod som installerar pandas om det behövs för att kunna köra skriptet
     
-def pandas_installed(pkg):
+def pandas_installed(pkg): #skapar en kontroll om det går att importera pandas eller inte
     try:
         __import__(pkg)
         return True
     except ImportError: 
         return False
     
-if pandas_installed("pandas"):
+if pandas_installed("pandas"):# om pandas finns så importerar vi den
     print("pandas existerar redan, fortsätter..\n")
     import pandas as pd
-else:
+else:                         # annars kallar vi på install() funktionen som behöver subprocess och sys imports för att fungera.
     print("Installerar pandas, vänligen vänta ytterligare..")
     import subprocess
     import sys
@@ -97,7 +96,7 @@ def load_indicators(folder = Path("wee39-security-automation/data")): #berättar
         for file in files:
             print(file)
         
-    dataframes = []
+    output_fil = []
     
     for file in files:
         try:
@@ -109,21 +108,35 @@ def load_indicators(folder = Path("wee39-security-automation/data")): #berättar
                 )
 
             df["source_file"] = file.name
-            dataframes.append(df)
+            output_fil.append(df)
         
         except Exception as error:
             print(f"Kunde inte läsa {file}: {error}")
 
-def analyse_logs(df):
+def analyse_logs(log_fil):
     print("Kontrollerar filer för analys..")
     
-    if df.empty:
+    if log_fil.empty:
             print("Det finns inget att analysera")
-            return df
+            return log_fil
     
     
     print("Kompilerar loggar till en security_report.CSV fil")
-    return df
+    return log_fil
+
+
+def write_report():
+
+
+
+def main_frame():
+    
+    output_path = "wee39-security-automation/reports/security_report.csv"
+
+
+    load = load_indicators()
+    analyse = analyse_logs(log_fil)
+    #write = 
 
 load_indicators()
 analyse_logs()
