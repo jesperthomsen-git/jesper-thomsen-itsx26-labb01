@@ -82,65 +82,79 @@ else:                         # annars kallar vi på install() funktionen som be
 
 pandas_installed("pandas")
 
-def load_indicators(folder = Path("wee39-security-automation/data")): #berättar vart filen finns  
+def load_indicators(folder): #berättar vart filen finns  
 
     print("Kontrollerar filer i /data finns för uppgiften")
-    files = list(folder.rglob("*.log"))
-
-    if not files:
-        print("Hittar inte filer i {folder}")
+    folder = Path(folder)
+    log_files = list(folder.rglob("*.log"))
+    
+    if not log_files:
+        print(f"Hittar inte filer i {folder}")
         return pd.DataFrame()
         
     else:
         print("Hittade filerna: ")
-        for file in files:
+        for file in log_files:
             print(file)
         
-    output_fil = []
+    dataframe = []
     
-    for file in files:
+    for file in log_files:
         try:
             df = pd.read_csv(
                 file,
-                sep='\n+',
                 engine='python',
-                header=None, 
+                header=None,
+                names=["log_entry"]
+                dtype=str 
                 )
 
             df["source_file"] = file.name
-            output_fil.append(df)
+            dataframe.append(df)
         
         except Exception as error:
             print(f"Kunde inte läsa {file}: {error}")
 
-def analyse_logs(log_fil):
+def analyse_logs(log_files):
     print("Kontrollerar filer för analys..")
     
-    if log_fil.empty:
+    if log_files.empty:
             print("Det finns inget att analysera")
-            return log_fil
+            return log_files
     
     
     print("Kompilerar loggar till en security_report.CSV fil")
-    return log_fil
+    return log_files
 
 
-def write_report():
+def write_report(analyse, output_path):
+
+    print("Kontrollerar om det finns data att skriva ner")
+    if analyse.empty:
+            print("Det finns inga resultat att skriva ner för tillfället..")
+            return
+    analyse.to_csv(output_path, index=False)
+    print(f"Resultatet av fångsten har skrivits ner till {output_path}")
 
 
 
 def main_frame():
     
-    output_path = "wee39-security-automation/reports/security_report.csv"
+    folder = Path("wee39-security-automation/data")
+    output_folder = Path("wee39-security-automation/output")
+    output_folder.mkdir( #skapar en output mapp om den inte finns
+        parents=True, 
+        exist_ok=True
+        ) 
+    output_path = "wee39-security-automation/output/security_report.csv"
 
 
-    load = load_indicators()
-    analyse = analyse_logs(log_fil)
-    #write = 
-
-load_indicators()
-analyse_logs()
-
+    log_files = load_indicators(folder)
+    analyse = analyse_logs(log_files)
+    write_report(analyse, output_path)
+    
+    
+main_frame()
 
 
 
