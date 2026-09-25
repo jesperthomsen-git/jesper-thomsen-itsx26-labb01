@@ -62,6 +62,8 @@ AI-stöd är tillåtet för förklaringar, felsökning, kodgranskning och försl
 
 ## 02. observation
 --------------------------------------------
+Under min research hittade jag att pd.concat kan samla all information genom att kombinera information från loggfilerna till array som jag har döpt till dataframes, denna samlar då all information tills jag kallar på den igenom pd.concat i min "write_report()" funktion via "pd.concat(dataframes, ignore_index=True)"
+    pd.concat(dataframes, ignore_index=True)
 
 ## 03. Oäkerhet
 --------------------------------------------
