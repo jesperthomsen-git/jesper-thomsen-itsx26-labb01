@@ -51,6 +51,7 @@ from pathlib import Path #använder mig av pathlib biblioteket för att hitta fi
 import os #samma som ovan
 import subprocess #För att installera pandas om det inte finns på systemet #beta
 import sys #För att installera pandas om det inte finns på systemet #beta
+import numpy as np
 
 
 folder = Path("week39-security-automation/data")
@@ -129,9 +130,26 @@ def analyse_logs(log_files):
     
     
     print("Kompilerar loggar till en security_report.CSV fil")
-    return log_files
-
-
+    
+    
+    format = (
+        r"(?P<date>\d{4}-\d{2}-\d{2})\s+" #YYYY-MM-DD
+        r"T"
+        r"(?P<time>\d{2}:\d{2}:\d{2}Z)\s+"
+        r"src=(?P<ip_adress>\S+)\s+"
+        r"user=(?P<user>\S+)\s+"
+        r"(?P<event>DENY|DROP|ALLOW|FAILED|status|method)"
+    )
+    
+    csv_formatting = log_files["log_entry"].str.extract( #Testar pandas.Series.str.extract kommando som jag hittade på pandas hemsida
+        format,
+        expand=True
+        ) 
+    
+    csv_formatting["source_file"] = log_files["source_file"].values
+    return csv_formatting
+    
+    
 def write_report(analyse, output_path):
 
     print("Kontrollerar om det finns data att skriva ner")
@@ -140,8 +158,9 @@ def write_report(analyse, output_path):
             print("Det finns inga resultat att skriva ner för tillfället..")
             return
 
-    analyse.to_csv(output_path, index=True)
 
+    
+    analyse.to_csv(output_path, index=True)
     print(f"Resultatet av fångsten har skrivits ner till {output_path}")
 
 
@@ -221,28 +240,29 @@ def main_frame():
     analyse = analyse_logs(log_files)
     write_report(analyse, output_path)
     
-    
-
-
-        
-
 main_frame()
 #main_report(output_path)
     
 
     
-
+report = Path("week39-security-automation/output/security_report.txt")
 report_lines = [
+    ("***************************************"),
+    ("*       ITSX26 SECURITY REPORT        *"),
     ("***************************************\n"),
-    ("*       ITSX26 SECURITY REPORT        *\n"),
-    ("***************************************\n"),
-    ("\n"),
+    (""),
     (f"Data har tagits från {folder}\n"),
-    ("ITSX26 SECURITY REPORT\n"),
-    ("LIMITATIONS")
+    (""),
+    (""),
+    (""),
+    (""),
+    ("**********  BEGRÄNSNINGAR  ************\n"),
+    (""),
+    (""),
+    (""),
 
 ]
-with open("week39-security-automation/output/security_report.txt", "w", encoding="utf-8") as f:
+with open(report, "w", encoding="utf-8") as f:
     f.write("\n".join(report_lines))
 
 

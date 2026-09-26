@@ -1,13 +1,15 @@
 ***************************************
-
 *       ITSX26 SECURITY REPORT        *
-
 ***************************************
 
 
+Data har tagits från week39-security-automation\data
 
-Data har tagits från wee39-security-automation\data
 
-ITSX26 SECURITY REPORT
 
-LIMITATIONS
+
+
+**********  BEGRÄNSNINGAR  ************
+
+
+

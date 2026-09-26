@@ -1,28 +1,28 @@
-,log_entry,source_file
-0,2026-09-24T10:00:01Z src=203.0.113.15 method=GET path=/login status=401,access.log
-1,2026-09-24T10:00:05Z src=203.0.113.15 method=POST path=/login status=401,access.log
-2,2026-09-24T10:01:10Z src=198.51.100.44 method=GET path=/admin status=404,access.log
-3,2026-09-24T10:01:20Z src=198.51.100.44 method=GET path=/backup status=404,access.log
-4,2026-09-24T10:02:00Z src=192.0.2.25 method=GET path=/index.html status=200,access.log
-5,2026-09-24T10:03:00Z src=203.0.113.99 method=GET path=/api status=500,access.log
-0,2026-09-24T09:00:00Z auth Failed login user=admin src=203.0.113.15,auth.log
-1,2026-09-24T09:01:00Z auth Failed login user=admin src=203.0.113.15,auth.log
-2,2026-09-24T09:02:00Z auth Failed login user=admin src=203.0.113.15,auth.log
-3,2026-09-24T09:03:00Z auth Failed login user=admin src=203.0.113.15,auth.log
-4,2026-09-24T09:04:00Z auth Failed login user=admin src=203.0.113.15,auth.log
-5,2026-09-24T09:05:00Z auth Failed login user=admin src=203.0.113.15,auth.log
-6,2026-09-24T09:06:00Z auth Failed login user=admin src=203.0.113.15,auth.log
-7,2026-09-24T09:07:00Z auth Failed login user=admin src=203.0.113.15,auth.log
-8,2026-09-24T09:08:00Z auth Failed login user=admin src=203.0.113.15,auth.log
-9,2026-09-24T09:09:00Z auth Failed login user=admin src=203.0.113.15,auth.log
-10,2026-09-24T09:20:00Z auth Successful login user=student src=192.0.2.25,auth.log
-11,Malformed line,auth.log
-12,2026-09-24T09:22:00Z auth Failed login user=root src=203.0.113.99,auth.log
-0,2026-09-24T10:05:00Z DENY src=203.0.113.15 dst=10.0.0.10 port=22,firewall.log
-1,2026-09-24T10:05:05Z DENY src=203.0.113.15 dst=10.0.0.10 port=22,firewall.log
-2,2026-09-24T10:05:10Z DROP src=203.0.113.99 dst=10.0.0.10 port=3389,firewall.log
-3,2026-09-24T10:05:15Z ALLOW src=192.0.2.25 dst=10.0.0.10 port=443,firewall.log
-0,203.0.113.15,suspicious_ips.txt
-1,198.51.100.44,suspicious_ips.txt
-2,203.0.113.99,suspicious_ips.txt
-3,198.51.100.44,suspicious_ips.txt
+,date,time,ip_adress,user,event,source_file
+0,,,,,,access.log
+1,,,,,,access.log
+2,,,,,,access.log
+3,,,,,,access.log
+4,,,,,,access.log
+5,,,,,,access.log
+0,,,,,,auth.log
+1,,,,,,auth.log
+2,,,,,,auth.log
+3,,,,,,auth.log
+4,,,,,,auth.log
+5,,,,,,auth.log
+6,,,,,,auth.log
+7,,,,,,auth.log
+8,,,,,,auth.log
+9,,,,,,auth.log
+10,,,,,,auth.log
+11,,,,,,auth.log
+12,,,,,,auth.log
+0,,,,,,firewall.log
+1,,,,,,firewall.log
+2,,,,,,firewall.log
+3,,,,,,firewall.log
+0,,,,,,suspicious_ips.txt
+1,,,,,,suspicious_ips.txt
+2,,,,,,suspicious_ips.txt
+3,,,,,,suspicious_ips.txt
