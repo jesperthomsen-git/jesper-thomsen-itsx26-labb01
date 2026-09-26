@@ -86,7 +86,7 @@ def load_indicators(folder): #berättar vart filen finns
 
     print("Kontrollerar filer i /data finns för uppgiften")
     folder = Path(folder)
-    log_files = list(folder.rglob("*.log"))
+    log_files = list(folder.rglob("*"))
     
     if not log_files:
         print(f"Hittar inte filer i {folder}")
@@ -118,7 +118,7 @@ def load_indicators(folder): #berättar vart filen finns
     if not dataframes:
         return pd.DataFrame()
     
-    return pd.concat(dataframes, ignore_index=True)
+    return pd.concat(dataframes, ignore_index=False)
 
 def analyse_logs(log_files):
     print("Kontrollerar filer för analys..")
@@ -140,9 +140,72 @@ def write_report(analyse, output_path):
             print("Det finns inga resultat att skriva ner för tillfället..")
             return
 
-    analyse.to_csv(output_path, index=False)
+    analyse.to_csv(output_path, index=True)
 
     print(f"Resultatet av fångsten har skrivits ner till {output_path}")
+
+
+def main_report(output_path):
+    
+    failed_count = 0
+    error_list = []
+
+    risknorm = 1
+    risknight =  2
+    risklogin = 3
+    riskcountry = 5
+    
+    
+    print(f"Beräknar matchingar utifrån CSV dokument, vänligen vänta..")
+    
+    with open(output_path, encoding="utf-8", newline="") as user_logs:
+        user_read = csv.DictReader(user_logs)
+        data_list = list(user_read)
+
+    for line in data_list:
+        if "Failed login" in line:
+            failed_count += 1
+    print(f"Failed logins: {failed_count}")
+    
+    df1 = pd.DataFrame([
+        columns=["source_file", "ip_address", "users", "login_status", "firewall_status"]
+        
+    ])
+    pd.concat([df1])
+    
+    
+    
+    
+    
+            #print(line.strip())
+        #fields = line.split()
+        #source_fields = [f for f in fields if f.startswith("src=")] # f = variabel i arrayen som skapar splits efter "="
+
+        #if not source_fields:
+            #skipped += 1
+            #continue
+        #ip_address = source_fields[0].split("=", 1)[1]
+        
+    #print(f"IP address: {ip_address}")
+
+   
+
+    #susp_ips = {ip for ip in fields if line.strip()}
+
+    #print ("suspicious ip: ", susp_ips)
+
+
+    #acclogs = {line.strip() for line in access_file if line.strip()}
+    #print ("Listing access logs: ", acclogs)
+
+
+   # fw = {line.strip() for line in fw_file if line.strip()}
+    #print ("Listing firewall settings: ", fw)
+    
+    #for data in data_list:
+        #print(
+            #data["suspicious_ips.txt"],
+            #)
 
 
 def main_frame():
@@ -162,23 +225,8 @@ def main_frame():
     
     
 
-def main_report(output_path):
-    
-    print(f"Beräknar matchingar utifrån CSV dokument, vänligen vänta..")
-    
-    with open(output_path, encoding="utf-8", newline="") as user_logs:
-        user_read = csv.DictReader(user_logs)
-        user_list = list(user_read)
 
-    for user in user_list:
-        print(
-            user["log_entry"]
-        )
-            
-            
         
-    
-    
 
 main_frame()
 main_report(output_path)
