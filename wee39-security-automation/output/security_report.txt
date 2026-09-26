@@ -1,2 +1,13 @@
-Genererad resultatrapport med datakällor, antal, minst en konkret observation och minst en begränsning.
+***************************************
 
+*       ITSX26 SECURITY REPORT        *
+
+***************************************
+
+
+
+Data har tagits från wee39-security-automation\data
+
+ITSX26 SECURITY REPORT
+
+LIMITATIONS

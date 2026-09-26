@@ -20,3 +20,5 @@ Python 3.14.7
 
 
 ## AI-redovisning.
+
+Genererad resultatrapport med datakällor, antal, minst en konkret observation och minst en begränsning.

@@ -53,8 +53,8 @@ import subprocess #För att installera pandas om det inte finns på systemet #be
 import sys #För att installera pandas om det inte finns på systemet #beta
 
 
-
-output_path = "wee39-security-automation/output/security_report.csv"
+folder = Path("week39-security-automation/data")
+output_path = "week39-security-automation/output/security_report.csv"
 
 print("Kontrollerar om pandas biblioteket är installerat, vänligen vänta.")
 
@@ -145,7 +145,7 @@ def write_report(analyse, output_path):
     print(f"Resultatet av fångsten har skrivits ner till {output_path}")
 
 
-def main_report(output_path):
+#def main_report(output_path):
     
     failed_count = 0
     error_list = []
@@ -156,22 +156,21 @@ def main_report(output_path):
     riskcountry = 5
     
     
-    print(f"Beräknar matchingar utifrån CSV dokument, vänligen vänta..")
+    #print(f"Beräknar matchingar utifrån CSV dokument, vänligen vänta..")
     
-    with open(output_path, encoding="utf-8", newline="") as user_logs:
-        user_read = csv.DictReader(user_logs)
-        data_list = list(user_read)
+    #with open(output_path, "w", encoding="utf-8", newline="") as user_logs:
+        #user_read = csv.DictReader(user_logs)
+       # data_list = list(user_read)
 
-    for line in data_list:
-        if "Failed login" in line:
-            failed_count += 1
-    print(f"Failed logins: {failed_count}")
+    #for line in data_list:
+        #if "Failed login" in line:
+            #failed_count += 1
+    #print(f"Failed logins: {failed_count}")
     
-    df1 = pd.DataFrame([
-        columns=["source_file", "ip_address", "users", "login_status", "firewall_status"]
-        
-    ])
-    pd.concat([df1])
+    #df1 = pd.DataFrame([
+        #columns=["source_file", "ip_address", "users", "login_status", "firewall_status"
+        # ]])
+    #pd.concat([df1])
     
     
     
@@ -210,8 +209,7 @@ def main_report(output_path):
 
 def main_frame():
     
-    folder = Path("wee39-security-automation/data")
-    output_folder = Path("wee39-security-automation/output")
+    output_folder = Path("week39-security-automation/output")
     output_folder.mkdir( #skapar en output mapp om den inte finns
         parents=True, 
         exist_ok=True
@@ -229,11 +227,22 @@ def main_frame():
         
 
 main_frame()
-main_report(output_path)
+#main_report(output_path)
     
+
     
 
+report_lines = [
+    ("***************************************\n"),
+    ("*       ITSX26 SECURITY REPORT        *\n"),
+    ("***************************************\n"),
+    ("\n"),
+    (f"Data har tagits från {folder}\n"),
+    ("ITSX26 SECURITY REPORT\n"),
+    ("LIMITATIONS")
 
-
+]
+with open("week39-security-automation/output/security_report.txt", "w", encoding="utf-8") as f:
+    f.write("\n".join(report_lines))
 
 
