@@ -87,68 +87,120 @@ def load_indicators(folder): #berättar vart filen finns
 
     print("Kontrollerar filer i /data finns för uppgiften")
     folder = Path(folder)
-    log_files = list(folder.rglob("*"))
+    dataframes = []    
     
-    if not log_files:
-        print(f"Hittar inte filer i {folder}")
-        return pd.DataFrame()
-        
-    else:
-        print("Hittade filerna: ")
-        for file in log_files:
-            print(file)
-        
-    dataframes = []
+    log_files = [
+        file for file in folder.rglob("*")
+        if file.is_file()
+        ]
     
     for file in log_files:
         try:
-            df = pd.read_csv(
-                file,
-                engine='python',
-                header=None,
-                names=["log_entry"],
-                dtype=str 
-                )
-
-            df["source_file"] = file.name
-            dataframes.append(df)
-        
+            with file.open("r", encoding="utf-8") as f:
+                file_lines = 0
+                
+                for line in f:
+                    line = line.strip()
+                    
+                    if line:
+                        dataframes.append({
+                            "log_entry": line,
+                            "source_file": str(file)            
+                            })
+                        file_lines += 1
+                print(f"Laddade filerna {file}: Hittade {file_lines} linjer av data")
+                        
         except Exception as error:
-            print(f"Kunde inte läsa {file}: {error}")
-    
-    if not dataframes:
-        return pd.DataFrame()
-    
-    return pd.concat(dataframes, ignore_index=False)
+            print(f"Kunde inte läsa {file}: {error}") 
+        
+    return pd.DataFrame(dataframes)
 
 def analyse_logs(log_files):
     print("Kontrollerar filer för analys..")
     
     if log_files.empty:
             print("Det finns inget att analysera")
-            return log_files
-    
+            return pd.DataFrame()
     
     print("Kompilerar loggar till en security_report.CSV fil")
     
-    
-    format = (
-        r"(?P<date>\d{4}-\d{2}-\d{2})\s+" #YYYY-MM-DD
-        r"T"
-        r"(?P<time>\d{2}:\d{2}:\d{2}Z)\s+"
-        r"src=(?P<ip_adress>\S+)\s+"
-        r"user=(?P<user>\S+)\s+"
-        r"(?P<event>DENY|DROP|ALLOW|FAILED|status|method)"
+    #Skapat regex för att kunne filtrera för att skapa en grund för bättre matching av kolumner
+    date_time = (
+        r"(?P<date>20\d{2}-\d{2}-\d{2})"
+        r"(?P<time>T\d{2}:\d{2}:\d{2})"
+    )
+
+    ip_pattern = (
+        r"(?P<ip_address>"
+        r"(?<![\d.])"
+        r"(?:\d{1,3}\.){1,3}\d{1,3}"
+        r"(?![\d.])"
+        r")"
     )
     
-    csv_formatting = log_files["log_entry"].str.extract( #Testar pandas.Series.str.extract kommando som jag hittade på pandas hemsida
-        format,
-        expand=True
-        ) 
+    users = r"user=(?P<user>\S+)"
     
-    csv_formatting["source_file"] = log_files["source_file"].values
+    
+    events = (
+        r"(?:event=|status=|method=)?"
+        r"(?P<event>DENY|DROP|ALLOW|Failed|status|method)"
+    )
+    
+    log_file = log_files.reset_index(drop=True).copy()
+    
+    #filtrerar hela min dataframe genom filter och inte bara log_entry som jag kommenterade ovan
+    #filtered_logs = log_files.loc[combined_filter].copy() Denna kod behövs inte längre med är grunden för mitt kombinerade kommando för advancerad filtrering.
+    
+    print(
+        f"Skriver ut antalet matchande rader som kompileras."
+        f"Antalet matchningar: {combined_filter.sum()}"
+    )
+    
+    if filtered_logs.empty:
+        print("Inga rader matchade Regex.")
+        return pd.DataFrame()
+    
+    
+    csv_formatting = pd.concat( #sammanställer regex från strings som matchades innan tillsammans med andra strings som blir extraherade genom pd.concat
+        [
+            filtered_logs["log_entry"].str.extract(
+                date_time,
+                expand=True
+            ),
+            
+            filtered_logs["log_entry"].str.extract(
+                ip_pattern,
+                expand=True
+            ),
+            
+            filtered_logs["log_entry"].str.extract(
+                users,
+                expand=True
+            ),
+            
+            filtered_logs["log_entry"].str.extract(
+                events,
+                expand=True
+            )
+        ],
+        axis=1
+    )
+    
+    csv_formatting["source_file"] = (
+        filtered_logs["source_file"].to_numpy()
+    )
+    print(f"TEST SKER HÄR FÖR ATT TESTA REGEX"
+            f"Datum check: ", date_match.sum(),
+            "\n",
+            f"IP CHECK: ", ip_match.sum(),
+            "\n",
+            f"USER MATCH: ", users_match.sum(),
+            "\n",
+            f"EVENT MATCH: ", events_match.sum(),
+            "\n",
+            f"ALLA MATCHNINGAR: ", combined_filter.sum()
+        )
     return csv_formatting
-    
     
 def write_report(analyse, output_path):
 
@@ -160,7 +212,7 @@ def write_report(analyse, output_path):
 
 
     
-    analyse.to_csv(output_path, index=True)
+    analyse.to_csv(output_path, index=False)
     print(f"Resultatet av fångsten har skrivits ner till {output_path}")
 
 

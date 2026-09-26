@@ -65,6 +65,94 @@ AI-stöd är tillåtet för förklaringar, felsökning, kodgranskning och försl
 Under min research hittade jag att pd.concat kan samla all information genom att kombinera information från loggfilerna till array som jag har döpt till dataframes, denna samlar då all information tills jag kallar på den igenom pd.concat i min "write_report()" funktion via "pd.concat(dataframes, ignore_index=True)"
     pd.concat(dataframes, ignore_index=True)
 
+
+problem med filters
+
+format = (
+        r"(?P<date>\d{4}-\d{2}-\d{2})\s+" #YYYY-MM-DD
+        r"T"
+        r"(?P<time>\d{2}:\d{2}:\d{2}Z)\s+"
+        r"src=(?P<ip_adress>\S+)\s+"
+        r"user=(?P<user>\S+)\s+"
+        r"(?P<event>DENY|DROP|ALLOW|FAILED|status|method)"
+    )
+    
+    csv_formatting = log_files["log_entry"].str.extract( #Testar pandas.Series.str.extract kommando som jag hittade på pandas hemsida
+        format,
+        expand=True
+        ) 
+    
+    csv_formatting["source_file"] = log_files["source_file"].values
+    return csv_formatting 
+
+
+Try ger bättre exception stoppar och errors än min föregående kod. uppdaterad kod är:
+def load_indicators(folder): #berättar vart filen finns  
+
+    print("Kontrollerar filer i /data finns för uppgiften")
+    folder = Path(folder)
+    dataframes = []    
+    
+    log_files = [
+        file for file in folder.rglob("*")
+        if file.is_file()
+        ]
+    
+    for file in log_files:
+        try:
+            with file.open("r", encoding="utf-8") as f:
+                file_lines = 0
+                
+                for line in f:
+                    line = line.strip()
+                    
+                    if line:
+                        dataframes.append({
+                            "log_entry": line,
+                            "source_file": str(file)            
+                            })
+                        file_lines += 1
+                print(f"Laddade filerna {file}: Hittade {file_lines} linjer av data")
+                        
+        except Exception as error:
+            print(f"Kunde inte läsa {file}: {error}") 
+        
+    return pd.DataFrame(dataframes)
+
+
+Genom att skapa en filtrerings funktion var något som inte direkt fungerade i min filtrering. jag förstod därefter att jag tar bort all annan information som inte passar innanför dessa ramar och något jag kommer ta bort från min kod men är lärorikt att ta med sig i framtiden.
+
+    log_entry = log_files["log_entry"] # här skapar jag en series som finns med i pandas som samlar all data från förr till ett 1 dimensionellt array som samlar all data tills jag kallar på dem längre ner.
+
+    #skapar nu en mini funktion som läser av om någon linje får träff på mitt regex filter ovan
+    date_match = log_entry.str.contains(
+        date_time,
+        regex=True,
+        na=False  
+    )
+    ip_match = log_entry.str.contains(
+        ip_pattern,
+        regex=True,
+        na=False  
+    )
+    users_match = log_entry.str.contains(
+        users,
+        regex=True,
+        na=False  
+    )
+    events_match = log_entry.str.contains(
+        events,
+        regex=True,
+        na=False  
+    )
+    
+    combined_filter = ( #kombinerar dessa för att sedan kunna använda mig av pd.concat igen för att samla allt i min dataframe []
+        date_match 
+        & ip_match 
+        & users_match 
+        & events_match
+    )
+
 ## 03. Oäkerhet
 --------------------------------------------
 
