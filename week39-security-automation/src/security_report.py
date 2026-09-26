@@ -140,65 +140,84 @@ def analyse_logs(log_files):
     
     users = r"user=(?P<user>\S+)"
     
-    
     events = (
-        r"(?:event=|status=|method=)?"
-        r"(?P<event>DENY|DROP|ALLOW|Failed|status|method)"
+        r"(?:event=)?"
+        r"(?P<event>DENY|DROP|ALLOW|Failed login)"
     )
+    
+    methods = r"method=(?P<method>[A-Za-z]+)"
+
+    status_codes = r"status=(?P<status_code>\d{3})"
     
     log_file = log_files.reset_index(drop=True).copy()
     
     #filtrerar hela min dataframe genom filter och inte bara log_entry som jag kommenterade ovan
     #filtered_logs = log_files.loc[combined_filter].copy() Denna kod behövs inte längre med är grunden för mitt kombinerade kommando för advancerad filtrering.
     
-    print(
-        f"Skriver ut antalet matchande rader som kompileras."
-        f"Antalet matchningar: {combined_filter.sum()}"
-    )
-    
-    if filtered_logs.empty:
-        print("Inga rader matchade Regex.")
-        return pd.DataFrame()
-    
     
     csv_formatting = pd.concat( #sammanställer regex från strings som matchades innan tillsammans med andra strings som blir extraherade genom pd.concat
         [
-            filtered_logs["log_entry"].str.extract(
+            log_file["log_entry"].str.extract(
                 date_time,
                 expand=True
             ),
             
-            filtered_logs["log_entry"].str.extract(
+            log_file["log_entry"].str.extract(
                 ip_pattern,
                 expand=True
             ),
             
-            filtered_logs["log_entry"].str.extract(
+            log_file["log_entry"].str.extract(
                 users,
                 expand=True
             ),
-            
-            filtered_logs["log_entry"].str.extract(
+
+            log_file["log_entry"].str.extract(
                 events,
+                expand=True
+            ),
+            log_file["log_entry"].str.extract(
+                status_codes,
+                expand=True
+            ),  
+            log_file["log_entry"].str.extract(
+                methods,
                 expand=True
             )
         ],
         axis=1
     )
     
-    csv_formatting["source_file"] = (
-        filtered_logs["source_file"].to_numpy()
-    )
+    csv_formatting["log_entry"] = log_file["log_entry"]
+    csv_formatting["source_file"] = log_file["source_file"]
+    
+    csv_formatting = csv_formatting [
+        [
+            "source_file",
+            "date",
+            "time",
+            "ip_address",
+            "user",
+            "event",
+            "status_code",
+            "method",
+            "log_entry"  
+        ]
+    ]
     print(f"TEST SKER HÄR FÖR ATT TESTA REGEX"
-            f"Datum check: ", date_match.sum(),
+            f"Datum check: {csv_formatting["date"].notna().sum()}"
             "\n",
-            f"IP CHECK: ", ip_match.sum(),
+            f"IP CHECK: {csv_formatting["ip_address"].notna().sum()}"
             "\n",
-            f"USER MATCH: ", users_match.sum(),
+            f"USER MATCH: {csv_formatting["user"].notna().sum()}"
             "\n",
-            f"EVENT MATCH: ", events_match.sum(),
+            f"EVENT MATCH: {csv_formatting["event"].notna().sum()}"
             "\n",
-            f"ALLA MATCHNINGAR: ", combined_filter.sum()
+            f"STATUS MATCH: {csv_formatting["status_code"].notna().sum()}"
+            "\n",
+            f"METHOD MATCH: {csv_formatting["method"].notna().sum()}"
+            "\n",
+            f"ALLA MATCHNINGAR: {len(csv_formatting)}"
         )
     return csv_formatting
     
