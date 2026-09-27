@@ -57,6 +57,7 @@ import numpy as np #för att kunna hantera summeringar längre ner när det komm
 folder = Path("week39-security-automation/data")
 output_path = "week39-security-automation/output/security_report.csv"
 
+
 print("Kontrollerar om pandas biblioteket är installerat, vänligen vänta.")
 
 try:        
@@ -200,9 +201,75 @@ def analyse_logs(log_files):
             "event",
             "status_code",
             "method",
-            "log_entry"  
+            "log_entry",
+            
         ]
     ]
+    
+    ip_count =  csv_formatting["ip_address"].value_counts()
+    
+    try:
+        csv_formatting = csv_formatting.drop( #ignorerar fel eller om dessa redan existerar
+        columns=["ip_frequency", "TOT_IOC"],
+        errors="ignore"
+        )
+        
+        csv_formatting.insert(
+        loc=6,
+        column="ip_frequency",
+        value=(
+            csv_formatting["ip_address"]
+            .map(ip_count)
+            .fillna(0)
+            .astype(int)
+            )
+        )
+        csv_formatting.insert(
+                loc=len(csv_formatting.columns),
+                column="TOT_IOC",
+                value=0
+        )
+    except ValueError as e:
+        print(f"Fel uppstod med att skapa kolumnerna: {e}")
+    
+    csv_formatting["status_code"] = csv_formatting["status_code"].astype(str)
+    
+    csv_formatting["TOT_IOC"] += (csv_formatting["ip_frequency"] - 1).clip(lower=0)
+    
+    #Testar att indentera långa strängar
+    csv_formatting.loc[csv_formatting["user"].eq("admin"),
+        "TOT_IOC"
+    ] += 1
+    
+    csv_formatting.loc[csv_formatting["user"].eq("root"),
+        "TOT_IOC"
+    ] += 2
+    
+    csv_formatting.loc[csv_formatting["status_code"].eq("401"),
+        "TOT_IOC"
+    ] += 2
+    
+    csv_formatting.loc[csv_formatting["event"].eq("DENY"), 
+    "TOT_IOC"
+    ] += 1
+    
+    csv_formatting.loc[csv_formatting["event"].eq("Failed login"),
+    "TOT_IOC"
+    ] += 3
+    #ser ganska märkligt ut..
+    
+    csv_formatting.sort_values(
+        "TOT_IOC",
+        ascending=False,
+        inplace=True
+        
+    ) 
+    
+    csv_formatting.reset_index( #skapar en reset från föregående kolumner så allt nollställs fall i fall.
+        drop=True,
+        inplace=True
+    ) 
+    
     print(
             f"TEST SKER HÄR FÖR ATT TESTA ATT REGEX FUNGERAR\n"
             f"Datum check: {csv_formatting["date"].notna().sum()}"
@@ -235,68 +302,6 @@ def write_report(analyse, output_path):
     print(f"Resultatet av fångsten har skrivits ner till {output_path}")
 
 
-#def main_report(output_path):
-    
-    failed_count = 0
-    error_list = []
-
-    risknorm = 1
-    risknight =  2
-    risklogin = 3
-    riskcountry = 5
-    
-    
-    #print(f"Beräknar matchingar utifrån CSV dokument, vänligen vänta..")
-    
-    #with open(output_path, "w", encoding="utf-8", newline="") as user_logs:
-        #user_read = csv.DictReader(user_logs)
-        # data_list = list(user_read)
-
-    #for line in data_list:
-        #if "Failed login" in line:
-            #failed_count += 1
-    #print(f"Failed logins: {failed_count}")
-    
-    #df1 = pd.DataFrame([
-        #columns=["source_file", "ip_address", "users", "login_status", "firewall_status"
-        # ]])
-    #pd.concat([df1])
-    
-    
-    
-    
-    
-            #print(line.strip())
-        #fields = line.split()
-        #source_fields = [f for f in fields if f.startswith("src=")] # f = variabel i arrayen som skapar splits efter "="
-
-        #if not source_fields:
-            #skipped += 1
-            #continue
-        #ip_address = source_fields[0].split("=", 1)[1]
-        
-    #print(f"IP address: {ip_address}")
-
-   
-
-    #susp_ips = {ip for ip in fields if line.strip()}
-
-    #print ("suspicious ip: ", susp_ips)
-
-
-    #acclogs = {line.strip() for line in access_file if line.strip()}
-    #print ("Listing access logs: ", acclogs)
-
-
-   # fw = {line.strip() for line in fw_file if line.strip()}
-    #print ("Listing firewall settings: ", fw)
-    
-    #for data in data_list:
-        #print(
-            #data["suspicious_ips.txt"],
-            #)
-
-
 def main_frame():
     
     output_folder = Path("week39-security-automation/output")
@@ -310,9 +315,10 @@ def main_frame():
     log_files = load_indicators(folder)
     analyse = analyse_logs(log_files)
     write_report(analyse, output_path)
+
     
 main_frame()
-#main_report(output_path)
+
     
 
     
