@@ -1,28 +1,28 @@
-source_file,date,time,ip_address,ip_frequency,user,event,status_code,method,log_entry,TOT_IOC,----- SUMMARY -----
-week39-security-automation\data\auth.log,2026-09-24,T09:02:00,203.0.113.15,15,admin,Failed login,,,2026-09-24T09:02:00Z auth Failed login user=admin src=203.0.113.15,18,
-week39-security-automation\data\auth.log,2026-09-24,T09:03:00,203.0.113.15,15,admin,Failed login,,,2026-09-24T09:03:00Z auth Failed login user=admin src=203.0.113.15,18,
-week39-security-automation\data\auth.log,2026-09-24,T09:00:00,203.0.113.15,15,admin,Failed login,,,2026-09-24T09:00:00Z auth Failed login user=admin src=203.0.113.15,18,----- IP Addresser -----
-week39-security-automation\data\auth.log,2026-09-24,T09:04:00,203.0.113.15,15,admin,Failed login,,,2026-09-24T09:04:00Z auth Failed login user=admin src=203.0.113.15,18,----- INDIKERADE MÖNSTER -----
-week39-security-automation\data\auth.log,2026-09-24,T09:01:00,203.0.113.15,15,admin,Failed login,,,2026-09-24T09:01:00Z auth Failed login user=admin src=203.0.113.15,18,----- SÄKERHETS NIVÅ -----
-week39-security-automation\data\auth.log,2026-09-24,T09:06:00,203.0.113.15,15,admin,Failed login,,,2026-09-24T09:06:00Z auth Failed login user=admin src=203.0.113.15,18,
-week39-security-automation\data\auth.log,2026-09-24,T09:09:00,203.0.113.15,15,admin,Failed login,,,2026-09-24T09:09:00Z auth Failed login user=admin src=203.0.113.15,18,
-week39-security-automation\data\auth.log,2026-09-24,T09:08:00,203.0.113.15,15,admin,Failed login,,,2026-09-24T09:08:00Z auth Failed login user=admin src=203.0.113.15,18,
-week39-security-automation\data\auth.log,2026-09-24,T09:07:00,203.0.113.15,15,admin,Failed login,,,2026-09-24T09:07:00Z auth Failed login user=admin src=203.0.113.15,18,
-week39-security-automation\data\auth.log,2026-09-24,T09:05:00,203.0.113.15,15,admin,Failed login,,,2026-09-24T09:05:00Z auth Failed login user=admin src=203.0.113.15,18,
-week39-security-automation\data\access.log,2026-09-24,T10:00:01,203.0.113.15,15,,,401,GET,2026-09-24T10:00:01Z src=203.0.113.15 method=GET path=/login status=401,16,
-week39-security-automation\data\access.log,2026-09-24,T10:00:05,203.0.113.15,15,,,401,POST,2026-09-24T10:00:05Z src=203.0.113.15 method=POST path=/login status=401,16,
-week39-security-automation\data\firewall.log,2026-09-24,T10:05:00,203.0.113.15,15,,DENY,,,2026-09-24T10:05:00Z DENY src=203.0.113.15 dst=10.0.0.10 port=22,15,
-week39-security-automation\data\firewall.log,2026-09-24,T10:05:05,203.0.113.15,15,,DENY,,,2026-09-24T10:05:05Z DENY src=203.0.113.15 dst=10.0.0.10 port=22,15,
-week39-security-automation\data\suspicious_ips.txt,,,203.0.113.15,15,,,,,203.0.113.15,14,
-week39-security-automation\data\auth.log,2026-09-24,T09:22:00,203.0.113.99,4,root,Failed login,,,2026-09-24T09:22:00Z auth Failed login user=root src=203.0.113.99,8,
-week39-security-automation\data\access.log,2026-09-24,T10:03:00,203.0.113.99,4,,,500,GET,2026-09-24T10:03:00Z src=203.0.113.99 method=GET path=/api status=500,3,
-week39-security-automation\data\access.log,2026-09-24,T10:01:20,198.51.100.44,4,,,404,GET,2026-09-24T10:01:20Z src=198.51.100.44 method=GET path=/backup status=404,3,
-week39-security-automation\data\access.log,2026-09-24,T10:01:10,198.51.100.44,4,,,404,GET,2026-09-24T10:01:10Z src=198.51.100.44 method=GET path=/admin status=404,3,
-week39-security-automation\data\suspicious_ips.txt,,,198.51.100.44,4,,,,,198.51.100.44,3,
-week39-security-automation\data\suspicious_ips.txt,,,198.51.100.44,4,,,,,198.51.100.44,3,
-week39-security-automation\data\suspicious_ips.txt,,,203.0.113.99,4,,,,,203.0.113.99,3,
-week39-security-automation\data\firewall.log,2026-09-24,T10:05:10,203.0.113.99,4,,DROP,,,2026-09-24T10:05:10Z DROP src=203.0.113.99 dst=10.0.0.10 port=3389,3,
-week39-security-automation\data\access.log,2026-09-24,T10:02:00,192.0.2.25,3,,,200,GET,2026-09-24T10:02:00Z src=192.0.2.25 method=GET path=/index.html status=200,2,
-week39-security-automation\data\auth.log,2026-09-24,T09:20:00,192.0.2.25,3,student,,,,2026-09-24T09:20:00Z auth Successful login user=student src=192.0.2.25,2,
-week39-security-automation\data\firewall.log,2026-09-24,T10:05:15,192.0.2.25,3,,ALLOW,,,2026-09-24T10:05:15Z ALLOW src=192.0.2.25 dst=10.0.0.10 port=443,2,
-week39-security-automation\data\auth.log,,,,0,,,,,Malformed line,0,
+source_file,date,time,ip_address,ip_frequency,user,event,status_code,method,log_entry,TOT_IOC,-----_SCORE_-----
+week39-security-automation\data\auth.log,2026-09-24,T09:02:00,203.0.113.15,15,admin,Failed login,,,2026-09-24T09:02:00Z auth Failed login user=admin src=203.0.113.15,18,Hög risk
+week39-security-automation\data\auth.log,2026-09-24,T09:03:00,203.0.113.15,15,admin,Failed login,,,2026-09-24T09:03:00Z auth Failed login user=admin src=203.0.113.15,18,Hög risk
+week39-security-automation\data\auth.log,2026-09-24,T09:00:00,203.0.113.15,15,admin,Failed login,,,2026-09-24T09:00:00Z auth Failed login user=admin src=203.0.113.15,18,Hög risk
+week39-security-automation\data\auth.log,2026-09-24,T09:04:00,203.0.113.15,15,admin,Failed login,,,2026-09-24T09:04:00Z auth Failed login user=admin src=203.0.113.15,18,Hög risk
+week39-security-automation\data\auth.log,2026-09-24,T09:01:00,203.0.113.15,15,admin,Failed login,,,2026-09-24T09:01:00Z auth Failed login user=admin src=203.0.113.15,18,Hög risk
+week39-security-automation\data\auth.log,2026-09-24,T09:06:00,203.0.113.15,15,admin,Failed login,,,2026-09-24T09:06:00Z auth Failed login user=admin src=203.0.113.15,18,Hög risk
+week39-security-automation\data\auth.log,2026-09-24,T09:09:00,203.0.113.15,15,admin,Failed login,,,2026-09-24T09:09:00Z auth Failed login user=admin src=203.0.113.15,18,Hög risk
+week39-security-automation\data\auth.log,2026-09-24,T09:08:00,203.0.113.15,15,admin,Failed login,,,2026-09-24T09:08:00Z auth Failed login user=admin src=203.0.113.15,18,Hög risk
+week39-security-automation\data\auth.log,2026-09-24,T09:07:00,203.0.113.15,15,admin,Failed login,,,2026-09-24T09:07:00Z auth Failed login user=admin src=203.0.113.15,18,Hög risk
+week39-security-automation\data\auth.log,2026-09-24,T09:05:00,203.0.113.15,15,admin,Failed login,,,2026-09-24T09:05:00Z auth Failed login user=admin src=203.0.113.15,18,Hög risk
+week39-security-automation\data\access.log,2026-09-24,T10:00:01,203.0.113.15,15,,,401,GET,2026-09-24T10:00:01Z src=203.0.113.15 method=GET path=/login status=401,16,Hög risk
+week39-security-automation\data\access.log,2026-09-24,T10:00:05,203.0.113.15,15,,,401,POST,2026-09-24T10:00:05Z src=203.0.113.15 method=POST path=/login status=401,16,Hög risk
+week39-security-automation\data\firewall.log,2026-09-24,T10:05:00,203.0.113.15,15,,DENY,,,2026-09-24T10:05:00Z DENY src=203.0.113.15 dst=10.0.0.10 port=22,15,Hög risk
+week39-security-automation\data\firewall.log,2026-09-24,T10:05:05,203.0.113.15,15,,DENY,,,2026-09-24T10:05:05Z DENY src=203.0.113.15 dst=10.0.0.10 port=22,15,Hög risk
+week39-security-automation\data\suspicious_ips.txt,,,203.0.113.15,15,,,,,203.0.113.15,14,Hög risk
+week39-security-automation\data\auth.log,2026-09-24,T09:22:00,203.0.113.99,4,root,Failed login,,,2026-09-24T09:22:00Z auth Failed login user=root src=203.0.113.99,8,Medel risk
+week39-security-automation\data\access.log,2026-09-24,T10:03:00,203.0.113.99,4,,,500,GET,2026-09-24T10:03:00Z src=203.0.113.99 method=GET path=/api status=500,3,Medel risk
+week39-security-automation\data\access.log,2026-09-24,T10:01:20,198.51.100.44,4,,,404,GET,2026-09-24T10:01:20Z src=198.51.100.44 method=GET path=/backup status=404,3,Medel risk
+week39-security-automation\data\access.log,2026-09-24,T10:01:10,198.51.100.44,4,,,404,GET,2026-09-24T10:01:10Z src=198.51.100.44 method=GET path=/admin status=404,3,Medel risk
+week39-security-automation\data\suspicious_ips.txt,,,198.51.100.44,4,,,,,198.51.100.44,3,Medel risk
+week39-security-automation\data\suspicious_ips.txt,,,198.51.100.44,4,,,,,198.51.100.44,3,Medel risk
+week39-security-automation\data\suspicious_ips.txt,,,203.0.113.99,4,,,,,203.0.113.99,3,Medel risk
+week39-security-automation\data\firewall.log,2026-09-24,T10:05:10,203.0.113.99,4,,DROP,,,2026-09-24T10:05:10Z DROP src=203.0.113.99 dst=10.0.0.10 port=3389,3,Medel risk
+week39-security-automation\data\access.log,2026-09-24,T10:02:00,192.0.2.25,3,,,200,GET,2026-09-24T10:02:00Z src=192.0.2.25 method=GET path=/index.html status=200,2,Medel risk
+week39-security-automation\data\auth.log,2026-09-24,T09:20:00,192.0.2.25,3,student,,,,2026-09-24T09:20:00Z auth Successful login user=student src=192.0.2.25,2,Medel risk
+week39-security-automation\data\firewall.log,2026-09-24,T10:05:15,192.0.2.25,3,,ALLOW,,,2026-09-24T10:05:15Z ALLOW src=192.0.2.25 dst=10.0.0.10 port=443,2,Medel risk
+week39-security-automation\data\auth.log,,,,0,,,,,Malformed line,0,Medel risk

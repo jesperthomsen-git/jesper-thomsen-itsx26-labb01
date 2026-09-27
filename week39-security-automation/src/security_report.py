@@ -12,29 +12,20 @@
 
 
 #                         FUNKTIONSKRAV
-#☐ Programmet kan köras från dokumenterad projektrot.
-#☐ Indata öppnas för läsning och originalfilerna ändras inte.
-#☐ Minst två datakällor behandlas.
+#[X] Programmet kan köras från dokumenterad projektrot.
+#[X] Indata öppnas för läsning och originalfilerna ändras inte.
+#[X] Minst två datakällor behandlas.
 #☐ Minst ett mönster räknas eller sammanställs.
 #☐ IOC-listan läses och används för medlemskontroll.
 #☐ Felaktiga eller ofullständiga rader hanteras explicit.
 #☐ Rapporten skapas i output/ och kan återskapas med samma indata.
 #☐ Resultatet sorteras eller presenteras på ett stabilt och begripligt sätt.
 
-
-#                         SÄKERHETSRAMAR
-#Använd kursens syntetiska dataset eller annan uttryckligen godkänd testdata.
-#Publicera inte verkliga loggar, personuppgifter, tokens eller lösenord.
-#Programmet ska inte kontakta externa API:er eller hotdatatjänster.
-#Programmet ska inte skanna nät, försöka logga in eller genomföra brute force.
-#Programmet ska inte automatiskt blockera adresser, ändra brandvägg eller påverka konton.
-#Sanera skärmbilder och evidens innan publicering.
-
 #                         Definition of Done
-#☐ Rätt dataset och analyserade filer anges.
+#[X] Rätt dataset och analyserade filer anges.
 #☐ Programmet körs enligt README.
-#☐ Originaldata är oförändrad.
-#☐ Minst två datakällor analyseras.
+#[X] Originaldata är oförändrad.
+#[X] Minst två datakällor analyseras.
 #☐ IOC-jämförelse och minst ett räknat mönster finns.
 #☐ Felaktig data hanteras och redovisas.
 #☐ Rapportfilen genereras i output/.
@@ -56,6 +47,7 @@ import numpy as np #för att kunna hantera summeringar längre ner när det komm
 
 folder = Path("week39-security-automation/data")
 output_path = "week39-security-automation/output/security_report.csv"
+
 
 
 print("Kontrollerar om pandas biblioteket är installerat, vänligen vänta.")
@@ -88,6 +80,7 @@ def load_indicators(folder): #berättar vart filen finns
     print("Kontrollerar filer i /data finns för uppgiften")
     folder = Path(folder)
     dataframes = []    
+    total_lines = 0
     
     log_files = [
         file for file in folder.rglob("*")
@@ -96,8 +89,9 @@ def load_indicators(folder): #berättar vart filen finns
     
     for file in log_files:
         try:
+            file_lines = 0
+            
             with file.open("r", encoding="utf-8") as f:
-                file_lines = 0
                 
                 for line in f:
                     line = line.strip()
@@ -106,12 +100,18 @@ def load_indicators(folder): #berättar vart filen finns
                         dataframes.append({
                             "log_entry": line,
                             "source_file": str(file)            
-                            })
-                        file_lines += 1
-                print(f"Laddade filerna {file}: Hittade {file_lines} linjer av data")
+                        })
                         
+                        file_lines += 1
+                print(f"{file} har {file_lines} linjer som har lästs in.")
+            total_lines += file_lines
+
         except Exception as error:
             print(f"Kunde inte läsa {file}: {error}") 
+    
+    print(
+        f"Totalt {total_lines} blev inlästa"
+    )
         
     return pd.DataFrame(dataframes)
 
@@ -204,9 +204,11 @@ def analyse_logs(log_files):
             "log_entry",
             
         ]
+        
     ]
     
-    ip_count =  csv_formatting["ip_address"].value_counts()
+    
+    ip_count =  csv_formatting["ip_address"].value_counts(dropna=True)
     
     try:
         csv_formatting = csv_formatting.drop( #ignorerar fel eller om dessa redan existerar
@@ -242,7 +244,7 @@ def analyse_logs(log_files):
     status_401_count = csv_formatting["status_code"].eq("401").sum()
     deny_count = csv_formatting["event"].eq("DENY").sum()
     failed_login_count = csv_formatting["event"].eq("Failed login").sum()
-    ip_counter = csv_formatting["event"].eq("ip_address").sum()
+    #ip_counter = 
 
     
     #Testar att indentera långa strängar
@@ -271,52 +273,65 @@ def analyse_logs(log_files):
         "TOT_IOC",
         ascending=False,
         inplace=True
-        
     ) 
+    
     
     csv_formatting.reset_index( #skapar en reset från föregående kolumner så allt nollställs fall i fall.
         drop=True,
         inplace=True
     )   
     
-    print("IP TEST:", ip_counter)
+    print("TESTAR IP", ip_count)
     
     print("SKAPAR FULLSTÄNDIG RAPPORT I CSV FILEN MED SUMMERING, VÄNLIGEN VÄNTA")
     
+    summary_values = (
+        csv_formatting["TOT_IOC"]
+        .apply(lambda score: "Hög risk" if score >= 10 else "Medel risk")
+    )
     
     
-
-    if "SUMMARY" not in csv_formatting.columns:
-            csv_formatting.insert(
-                loc=len(csv_formatting.columns),
-                column="----- SUMMARY -----",
-                value=pd.NA
-            )
-            
-    csv_formatting.at[
-        csv_formatting.index[2],
-        "----- SUMMARY -----"
-    ] = "----- IP Addresser -----"
-    
-    csv_formatting.at[
-        csv_formatting.index[3],
-        "----- SUMMARY -----"    
-    ] = "----- INDIKERADE MÖNSTER -----"
-    
-    csv_formatting.at[
-        csv_formatting.index[4],
-        "----- SUMMARY -----"
-    ] = "----- SÄKERHETS NIVÅ -----" 
+    csv_formatting.insert(
+        loc=len(csv_formatting.columns),
+        column="-----_SCORE_-----",
+        value=summary_values
+    )
 
 
-    ##csv_formatting.at[csv_formatting.index[29], "IP Addresser"] = "ip_frequency"
-    #csv_formatting.at[csv_formatting.index[30], "INDIKERADE MÖNSTER"] = "ip_frequency"
-    #csv_formatting.at[csv_formatting.index[31], "SÄKERHETS NIVÅ"] = (
-        #"Hög risk" if csv_formatting.iloc[31]["TOT_IOC"] >=10
-       # else "Medel risk"
-   #)
+
     
-    
+    report = Path("week39-security-automation/output/security_report.txt")
+    report_lines = [
+    ("***************************************"),
+    ("*       ITSX26 SECURITY REPORT        *"),
+    ("***************************************\n"),
+    (""),
+    (f"Antal filer som har extraherats: {len(log_files)} och sedan extraherats till security_report.csv.\n"),
+    (f"Totalt  linjer av data har extraherats"),
+    ("INFO: Formatfel eller tomma linjer hoppas över på grund av Regex filtrering."),
+    (""),
+    (""),
+    (""),
+    ("-----IP Addresser och IOC-Matching-----"),
+    (""),
+    (""),
+    (f"{ip_count}"),
+    (""),
+    (""),
+    (""),
+    (""),
+    ("---------------MÖNSTER-----------------"),
+    (""),
+    (""),
+    (""),
+    ("**********  BEGRÄNSNINGAR  ************\n"),
+    (""),
+    (""),
+    (""),
+
+    ]
+    with open(report, "w", encoding="utf-8") as f:
+        f.write("\n".join(report_lines))
     
     
     return csv_formatting
@@ -354,25 +369,5 @@ main_frame()
 
     
 
-    
-report = Path("week39-security-automation/output/security_report.txt")
-report_lines = [
-    ("***************************************"),
-    ("*       ITSX26 SECURITY REPORT        *"),
-    ("***************************************\n"),
-    (""),
-    (f"Data har tagits från {folder}\n"),
-    (""),
-    (""),
-    (""),
-    (""),
-    ("**********  BEGRÄNSNINGAR  ************\n"),
-    (""),
-    (""),
-    (""),
-
-]
-with open(report, "w", encoding="utf-8") as f:
-    f.write("\n".join(report_lines))
 
 

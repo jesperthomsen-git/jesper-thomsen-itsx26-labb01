@@ -3,9 +3,27 @@
 ***************************************
 
 
-Data har tagits från week39-security-automation\data
+Antal filer som har extraherats: 27 och sedan extraherats till security_report.csv.
+
+Totalt  linjer av data har extraherats
+INFO: Formatfel eller tomma linjer hoppas över på grund av Regex filtrering.
 
 
+
+-----IP Addresser och IOC-Matching-----
+
+
+ip_address
+203.0.113.15     15
+198.51.100.44     4
+203.0.113.99      4
+192.0.2.25        3
+Name: count, dtype: int64
+
+
+
+
+---------------MÖNSTER-----------------
 
 
 

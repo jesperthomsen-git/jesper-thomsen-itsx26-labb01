@@ -9,8 +9,11 @@
 * Analysera minst en observation med slutsats, osäkerhet och säkerhetsbetydelse.
 * Dokumentera hur programmet körs, testas och avgränsas.
 
-| Rådata |	Vilka filer och loggrader användes? |
+## ANALYSKRAV
+
+| DEL | FRÅGA ATT BESVARA |
 |---|---|
+| Rådata |	Vilka filer och loggrader användes? |
 | Observation | Vad räknade eller matchade programmet konkret? |
 | Slutsats | Vilken begränsad slutsats stöds av observationen? |
 | Osäkerhet | Vad kan data och program inte fastställa? |
@@ -62,6 +65,8 @@ AI-stöd är tillåtet för förklaringar, felsökning, kodgranskning och försl
 
 ## 02. observation
 --------------------------------------------
+
+
 Under min research hittade jag att pd.concat kan samla all information genom att kombinera information från loggfilerna till array som jag har döpt till dataframes, denna samlar då all information tills jag kallar på den igenom pd.concat i min "write_report()" funktion via "pd.concat(dataframes, ignore_index=True)"
     pd.concat(dataframes, ignore_index=True)
 
