@@ -7,24 +7,24 @@ import sys
 
 print("Kontrollerar om pandas biblioteket är installerat, vänligen vänta.")
 
-def install(pkg):
-    subprocess.check_call([sys.executable, "-m", "pip", "install", pkg])
-    
+
 def pandas_installed(pkg):
     try:
         __import__(pkg)
+        import pandas as pd
         return True
     except ImportError: 
-        return False
+        
+        print("Installerar pandas, vänligen vänta ytterligare..")
+        
+        import pandas as pd
     
 if pandas_installed("pandas"):
     print("pandas existerar redan, fortsätter..\n")
 else:
-    print("Installerar pandas, vänligen vänta ytterligare..")
-    import subprocess
-    import sys
+    
     install("pandas")
-    import pandas as pd
+    
     print("pandas är nu installerat, fortsätter..\n")
     
 def load_indicators(folder): #berättar vart filen finns  

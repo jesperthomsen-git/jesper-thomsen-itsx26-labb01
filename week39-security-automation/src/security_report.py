@@ -51,7 +51,7 @@ from pathlib import Path #använder mig av pathlib biblioteket för att hitta fi
 import os #samma som ovan
 import subprocess #För att installera pandas om det inte finns på systemet #beta
 import sys #För att installera pandas om det inte finns på systemet #beta
-import numpy as np
+import numpy as np #för att kunna hantera summeringar längre ner när det kommer till matchningar inom arrays
 
 
 folder = Path("week39-security-automation/data")
@@ -59,29 +59,32 @@ output_path = "week39-security-automation/output/security_report.csv"
 
 print("Kontrollerar om pandas biblioteket är installerat, vänligen vänta.")
 
-def install(pkg):
-    subprocess.check_call([sys.executable, "-m", "pip", "install", pkg]) #skapar en exekveringskod som installerar pandas om det behövs för att kunna köra skriptet
-    
-def pandas_installed(pkg): #skapar en kontroll om det går att importera pandas eller inte
-    try:
-        __import__(pkg)
-        return True
-    except ImportError: 
-        return False
-    
-if pandas_installed("pandas"):# om pandas finns så importerar vi den
-    print("pandas existerar redan, fortsätter..\n")
+
+
+try:        
+    print("Försöker att importera Pandas")
     import pandas as pd
-else:                         # annars kallar vi på install() funktionen som behöver subprocess och sys imports för att fungera.
-    print("Installerar pandas, vänligen vänta ytterligare..")
-    import subprocess
-    import sys
-    install("pandas")
+    print("Importering utav Pandas lyckades\n")
+except ImportError as e:
+    print(f"Pandas import gick inte egenom, error: {e}")
+    print("Försöker att installera/ominstallera Pandas för att se om detta hjälper..")
+    subprocess.run(
+        [sys.executable, "-m", "pip", "install", "--upgrade", "--force-install", "pandas"],
+        check=True
+    )
+    
+    
+try:
+    print("kontrollerar version för att se om pandas är installerat rätt")
     import pandas as pd
-    print("pandas är nu installerat, fortsätter..\n")
+    print(pd.__version__)
+except ImportError as e:
+    print(f"Pandas import gick inte egenom igen, error: {e}")
+    print("Avslutar scriptet.")
+    sys.exit()
     
 
-pandas_installed("pandas")
+
 
 def load_indicators(folder): #berättar vart filen finns  
 
@@ -250,7 +253,7 @@ def write_report(analyse, output_path):
     
     #with open(output_path, "w", encoding="utf-8", newline="") as user_logs:
         #user_read = csv.DictReader(user_logs)
-       # data_list = list(user_read)
+        # data_list = list(user_read)
 
     #for line in data_list:
         #if "Failed login" in line:
