@@ -65,7 +65,7 @@ try:
     import pandas as pd
     print("Importering utav Pandas lyckades\n")
 except ImportError as e:
-    print(f"Pandas import gick inte egenom, error: {e}")
+    print(f"Pandas import gick inte igenom, error: {e}")
     print("Försöker att installera/ominstallera Pandas för att se om detta hjälper..")
     subprocess.run(
         [sys.executable, "-m", "pip", "install", "--upgrade", "--force-install", "pandas"],
@@ -215,7 +215,7 @@ def analyse_logs(log_files):
         )
         
         csv_formatting.insert(
-        loc=6,
+        loc=4,
         column="ip_frequency",
         value=(
             csv_formatting["ip_address"]
@@ -235,6 +235,15 @@ def analyse_logs(log_files):
     csv_formatting["status_code"] = csv_formatting["status_code"].astype(str)
     
     csv_formatting["TOT_IOC"] += (csv_formatting["ip_frequency"] - 1).clip(lower=0)
+    
+    
+    admin_count = csv_formatting["user"].eq("admin").sum()
+    root_count = csv_formatting["user"].eq("root").sum()
+    status_401_count = csv_formatting["status_code"].eq("401").sum()
+    deny_count = csv_formatting["event"].eq("DENY").sum()
+    failed_login_count = csv_formatting["event"].eq("Failed login").sum()
+    ip_counter = csv_formatting["event"].eq("ip_address").sum()
+
     
     #Testar att indentera långa strängar
     csv_formatting.loc[csv_formatting["user"].eq("admin"),
@@ -268,24 +277,48 @@ def analyse_logs(log_files):
     csv_formatting.reset_index( #skapar en reset från föregående kolumner så allt nollställs fall i fall.
         drop=True,
         inplace=True
-    ) 
+    )   
     
-    print(
-            f"TEST SKER HÄR FÖR ATT TESTA ATT REGEX FUNGERAR\n"
-            f"Datum check: {csv_formatting["date"].notna().sum()}"
-            "\n",
-            f"IP CHECK: {csv_formatting["ip_address"].notna().sum()}"
-            "\n",
-            f"USER MATCH: {csv_formatting["user"].notna().sum()}"
-            "\n",
-            f"EVENT MATCH: {csv_formatting["event"].notna().sum()}"
-            "\n",
-            f"STATUS MATCH: {csv_formatting["status_code"].notna().sum()}"
-            "\n",
-            f"METHOD MATCH: {csv_formatting["method"].notna().sum()}"
-            "\n",
-            f"ALLA MATCHNINGAR: {len(csv_formatting)}"
-        )
+    print("IP TEST:", ip_counter)
+    
+    print("SKAPAR FULLSTÄNDIG RAPPORT I CSV FILEN MED SUMMERING, VÄNLIGEN VÄNTA")
+    
+    
+    
+
+    if "SUMMARY" not in csv_formatting.columns:
+            csv_formatting.insert(
+                loc=len(csv_formatting.columns),
+                column="----- SUMMARY -----",
+                value=pd.NA
+            )
+            
+    csv_formatting.at[
+        csv_formatting.index[2],
+        "----- SUMMARY -----"
+    ] = "----- IP Addresser -----"
+    
+    csv_formatting.at[
+        csv_formatting.index[3],
+        "----- SUMMARY -----"    
+    ] = "----- INDIKERADE MÖNSTER -----"
+    
+    csv_formatting.at[
+        csv_formatting.index[4],
+        "----- SUMMARY -----"
+    ] = "----- SÄKERHETS NIVÅ -----" 
+
+
+    ##csv_formatting.at[csv_formatting.index[29], "IP Addresser"] = "ip_frequency"
+    #csv_formatting.at[csv_formatting.index[30], "INDIKERADE MÖNSTER"] = "ip_frequency"
+    #csv_formatting.at[csv_formatting.index[31], "SÄKERHETS NIVÅ"] = (
+        #"Hög risk" if csv_formatting.iloc[31]["TOT_IOC"] >=10
+       # else "Medel risk"
+   #)
+    
+    
+    
+    
     return csv_formatting
     
 def write_report(analyse, output_path):
@@ -295,8 +328,8 @@ def write_report(analyse, output_path):
     if analyse.empty:
             print("Det finns inga resultat att skriva ner för tillfället..")
             return
-
-
+    
+    
     
     analyse.to_csv(output_path, index=False)
     print(f"Resultatet av fångsten har skrivits ner till {output_path}")
