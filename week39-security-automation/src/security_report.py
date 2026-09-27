@@ -59,8 +59,6 @@ output_path = "week39-security-automation/output/security_report.csv"
 
 print("Kontrollerar om pandas biblioteket är installerat, vänligen vänta.")
 
-
-
 try:        
     print("Försöker att importera Pandas")
     import pandas as pd
@@ -71,9 +69,7 @@ except ImportError as e:
     subprocess.run(
         [sys.executable, "-m", "pip", "install", "--upgrade", "--force-install", "pandas"],
         check=True
-    )
-    
-    
+    ) 
 try:
     print("kontrollerar version för att se om pandas är installerat rätt")
     import pandas as pd
@@ -207,7 +203,8 @@ def analyse_logs(log_files):
             "log_entry"  
         ]
     ]
-    print(f"TEST SKER HÄR FÖR ATT TESTA REGEX"
+    print(
+            f"TEST SKER HÄR FÖR ATT TESTA ATT REGEX FUNGERAR\n"
             f"Datum check: {csv_formatting["date"].notna().sum()}"
             "\n",
             f"IP CHECK: {csv_formatting["ip_address"].notna().sum()}"

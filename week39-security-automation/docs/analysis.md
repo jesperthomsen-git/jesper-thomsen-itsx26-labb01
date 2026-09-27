@@ -153,6 +153,27 @@ Genom att skapa en filtrerings funktion var något som inte direkt fungerade i m
         & events_match
     )
 
+Försökte att skapa regler för när panda hittade strängarna som börjar på t.ex "admin" detta var något som inte helt fungerade och som jag förstår skriver över alla andra poäng som jag ville lägga tillsammans och bara tar den senaste och skriver ut
+df["suspicious_activity"] = np.where(df["user"]=="admin", 0, 2)
+df["suspicious_activity"] = np.where(df["user"]=="root", 0, 3)
+df["suspicious_activity"] = np.where(df["status_code"]=="401", 0, 1)
+df["suspicious_activity"] = np.where(df["event"]=="DENY", 0, 1) 
+df["suspicious_activity"] = np.where(df["event"]=="Failed Login", 0, 1)
+genom att använda mig av pd.loc så kan jag lättare lokalisera vad jag vill ha som "admin" genom 
+    df.loc[df["user"].eq("admin"), "suspcious_activity"] += 1
+    df är min dataframe
+    .loc är locate
+    ["user"] är min kolumn
+    .eq är equals, samma som om jag skulle skriva =
+    Om .loc hittar "admin" i strängen så lägger den till en counter till suspicious activity kolumnen
+
+Detta fungerar på samma logic som övningen vi gjorde i måndagen den 21:a
+    failed_count = 0
+    if "Failed login" in line:
+            failed_count += 1
+Då jag jobbar med kolumner kan jag skapa bättre struktur genom större projekt och filer och skapar en säkrare grund än att direkt räkna från ett text dokument.
+
+
 ## 03. Oäkerhet
 --------------------------------------------
 
