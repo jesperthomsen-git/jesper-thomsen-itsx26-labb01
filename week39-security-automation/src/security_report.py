@@ -15,20 +15,20 @@
 #[X] Programmet kan köras från dokumenterad projektrot.
 #[X] Indata öppnas för läsning och originalfilerna ändras inte.
 #[X] Minst två datakällor behandlas.
-#☐ Minst ett mönster räknas eller sammanställs.
-#☐ IOC-listan läses och används för medlemskontroll.
-#☐ Felaktiga eller ofullständiga rader hanteras explicit.
-#☐ Rapporten skapas i output/ och kan återskapas med samma indata.
-#☐ Resultatet sorteras eller presenteras på ett stabilt och begripligt sätt.
+#[X]] Minst ett mönster räknas eller sammanställs.
+#[X] IOC-listan läses och används för medlemskontroll.
+#[X] Felaktiga eller ofullständiga rader hanteras explicit.
+#[X] Rapporten skapas i output/ och kan återskapas med samma indata.
+#[X] Resultatet sorteras eller presenteras på ett stabilt och begripligt sätt.
 
 #                         Definition of Done
 #[X] Rätt dataset och analyserade filer anges.
 #☐ Programmet körs enligt README.
 #[X] Originaldata är oförändrad.
 #[X] Minst två datakällor analyseras.
-#☐ IOC-jämförelse och minst ett räknat mönster finns.
-#☐ Felaktig data hanteras och redovisas.
-#☐ Rapportfilen genereras i output/.
+#[X] IOC-jämförelse och minst ett räknat mönster finns.
+#[X] Felaktig data hanteras och redovisas.
+#[X] Rapportfilen genereras i output/.
 #☐ analysis.md innehåller observation, slutsats, osäkerhet, alternativ förklaring och säkerhetsbetydelse.
 #☐ Minst tre testfall är dokumenterade.
 #☐ AI-användning är redovisad och verifierad.
@@ -495,6 +495,19 @@ def compare_files(output_path, total_lines, ip_count, data_folder):
                 "Fält som inte följer med eller saknas helt följer inte förväntat format och kommer därför saknas i resultatet"
             ),
             "",
+            (
+                "Programmets storlek och mängden kod som jag har behövt att lära mig i denna uppgiften har varit tufft.\n"
+                "Genom att fortsätta med planen med att skapa ett program som kunde sammanställa information för att sedan hantera detta genom\n"
+                "att kalla på informationen som kolumnerna har sparat gör att det känns värt tiden och att det finns stor utvecklingspotential för skriptet.\n"
+                ""
+                "Det som jag har har begränsningar med är att jag inte har kunnat använda mig av olika compare, difference eller matchning av strängar genom .startswith("")\n"
+                "Vilket har gjort att jag har behövt att använda mer tid på att hitta lösningar på pandas hemsida och stackoverflow samt flertal videos med hur man kan manipulera csv.\n"
+                ""
+                "Begränsningarna som jag kan se i detta skriptet även om det har en gedigen ryggrad är att den inte är särskilt flexibel innanför skriptet.\n"
+                "Det är därför jag tog hjälp av Jupyter Notebook för at lära mig hur man kan manipulera csv filen utan att direkt ändra i filen.\n"
+                "Via Jupyter kan man enkelt bläddra och sortera effektivt efter det man söker efter och finns extra information i CSV filen som jag inte har tagit med i min rapport.\n"
+                "Vänligen ta en stund att titta på den om du får tid över"
+            ),
     
 #slutsats, osäkerhet och säkerhetsbetydelse.
     ])
