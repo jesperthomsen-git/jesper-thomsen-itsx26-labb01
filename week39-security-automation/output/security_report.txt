@@ -3,31 +3,76 @@
 ***************************************
 
 
-Antal filer som har extraherats: 27 och sedan extraherats till security_report.csv.
+* DATAKÄLLOR
+---------------------------------------
 
-Totalt  linjer av data har extraherats
+* CSV Fil: week39-security-automation\output\security_report.csv
+* IOC Fil: week39-security-automation\data\suspicious_ips.txt
+
+Antal filer som har extraherats: 3, antal har sedan extraherats till security_report.csv.
+
 INFO: Formatfel eller tomma linjer hoppas över på grund av Regex filtrering.
 
+* SAMMANSTÄLLNING
+---------------------------------------
+
+Totalt extraherade rader från CSV: 23
+Totalt antal rader har extraherats: 23
 
 
------IP Addresser och IOC-Matching-----
+IP Addresser och IOC-Matching: 
+Antal unika observerade IP-Addresser: 4
+Antal unika misstänkta IP-Addresser från IOC Lista: 3
 
+Antal IOC träffar som matchar 19
+Antal rader utan IP-Addresser: 1
+
+* IP ADDRESSER, FREKVENS
+---------------------------------------
 
 ip_address
-203.0.113.15     15
-198.51.100.44     4
-203.0.113.99      4
+203.0.113.15     14
 192.0.2.25        3
-Name: count, dtype: int64
+203.0.113.99      3
+198.51.100.44     2
 
+* IOC-TRÄFFAR
+---------------------------------------
 
+IP: 198.51.100.44 | Frekvens: 2 | Händelse:  | Användare:  | Status: 404 | Källa: week39-security-automation\data\access.log
+IP: 198.51.100.44 | Frekvens: 2 | Händelse:  | Användare:  | Status: 404 | Källa: week39-security-automation\data\access.log
+IP: 203.0.113.15 | Frekvens: 14 | Händelse:  | Användare:  | Status: 401 | Källa: week39-security-automation\data\access.log
+IP: 203.0.113.15 | Frekvens: 14 | Händelse:  | Användare:  | Status: 401 | Källa: week39-security-automation\data\access.log
+IP: 203.0.113.15 | Frekvens: 14 | Händelse: Failed login | Användare: admin | Status:  | Källa: week39-security-automation\data\auth.log
+IP: 203.0.113.15 | Frekvens: 14 | Händelse: Failed login | Användare: admin | Status:  | Källa: week39-security-automation\data\auth.log
+IP: 203.0.113.15 | Frekvens: 14 | Händelse: Failed login | Användare: admin | Status:  | Källa: week39-security-automation\data\auth.log
+IP: 203.0.113.15 | Frekvens: 14 | Händelse: Failed login | Användare: admin | Status:  | Källa: week39-security-automation\data\auth.log
+IP: 203.0.113.15 | Frekvens: 14 | Händelse: Failed login | Användare: admin | Status:  | Källa: week39-security-automation\data\auth.log
+IP: 203.0.113.15 | Frekvens: 14 | Händelse: Failed login | Användare: admin | Status:  | Källa: week39-security-automation\data\auth.log
+IP: 203.0.113.15 | Frekvens: 14 | Händelse: Failed login | Användare: admin | Status:  | Källa: week39-security-automation\data\auth.log
+IP: 203.0.113.15 | Frekvens: 14 | Händelse: Failed login | Användare: admin | Status:  | Källa: week39-security-automation\data\auth.log
+IP: 203.0.113.15 | Frekvens: 14 | Händelse: Failed login | Användare: admin | Status:  | Källa: week39-security-automation\data\auth.log
+IP: 203.0.113.15 | Frekvens: 14 | Händelse: Failed login | Användare: admin | Status:  | Källa: week39-security-automation\data\auth.log
+IP: 203.0.113.15 | Frekvens: 14 | Händelse: DENY | Användare:  | Status:  | Källa: week39-security-automation\data\firewall.log
+IP: 203.0.113.15 | Frekvens: 14 | Händelse: DENY | Användare:  | Status:  | Källa: week39-security-automation\data\firewall.log
+IP: 203.0.113.99 | Frekvens: 3 | Händelse:  | Användare:  | Status: 500 | Källa: week39-security-automation\data\access.log
+IP: 203.0.113.99 | Frekvens: 3 | Händelse: Failed login | Användare: root | Status:  | Källa: week39-security-automation\data\auth.log
+IP: 203.0.113.99 | Frekvens: 3 | Händelse: DROP | Användare:  | Status:  | Källa: week39-security-automation\data\firewall.log
 
+* RÄKNADE MÖNSTER
+---------------------------------------
 
----------------MÖNSTER-----------------
+Antal misslyckade inloggningar: [np.int64(11)]
+Antal DENY-händelser: [np.int64(2)]
 
+* SLUTSATS & BEGRÄNSNINGAR
+---------------------------------------
+IOC-träffar visar att observerade IP-addresser förekommer i IOC Listan
+Detta betyder ej att personen är misstänkt.
+Behöver bygga större case och evidens mot användare innan utredning startar.
 
+Att användare eller IP förekommer i IOC-listan bevisar inte att en attack har ägt rum.
+IP-addresser kan vara utdelade, förfalskade genom spoofing eller återanvända
 
-**********  BEGRÄNSNINGAR  ************
-
-
-
+Analysen har byggs upp genom data extrahering, textmatching och regex för att säkerställa faktuell data.
+Fält som inte följer med eller saknas helt följer inte förväntat format och kommer därför saknas i resultatet

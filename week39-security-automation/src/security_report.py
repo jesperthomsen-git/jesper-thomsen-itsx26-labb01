@@ -43,7 +43,7 @@ import os #samma som ovan
 import subprocess #För att installera pandas om det inte finns på systemet #beta
 import sys #För att installera pandas om det inte finns på systemet #beta
 import numpy as np #för att kunna hantera summeringar längre ner när det kommer till matchningar inom arrays
-
+import difflib as dl
 
 folder = Path("week39-security-automation/data")
 output_path = "week39-security-automation/output/security_report.csv"
@@ -66,6 +66,7 @@ except ImportError as e:
 try:
     print("kontrollerar version för att se om pandas är installerat rätt")
     import pandas as pd
+    print("v Pandas version: v")
     print(pd.__version__)
 except ImportError as e:
     print(f"Pandas import gick inte egenom igen, error: {e}")
@@ -83,7 +84,7 @@ def load_indicators(folder): #berättar vart filen finns
     total_lines = 0
     
     log_files = [
-        file for file in folder.rglob("*")
+        file for file in folder.rglob("*.log")
         if file.is_file()
         ]
     
@@ -113,7 +114,7 @@ def load_indicators(folder): #berättar vart filen finns
         f"Totalt {total_lines} blev inlästa"
     )
         
-    return pd.DataFrame(dataframes)
+    return pd.DataFrame(dataframes), total_lines
 
 def analyse_logs(log_files):
     print("Kontrollerar filer för analys..")
@@ -239,14 +240,6 @@ def analyse_logs(log_files):
     csv_formatting["TOT_IOC"] += (csv_formatting["ip_frequency"] - 1).clip(lower=0)
     
     
-    admin_count = csv_formatting["user"].eq("admin").sum()
-    root_count = csv_formatting["user"].eq("root").sum()
-    status_401_count = csv_formatting["status_code"].eq("401").sum()
-    deny_count = csv_formatting["event"].eq("DENY").sum()
-    failed_login_count = csv_formatting["event"].eq("Failed login").sum()
-    #ip_counter = 
-
-    
     #Testar att indentera långa strängar
     csv_formatting.loc[csv_formatting["user"].eq("admin"),
         "TOT_IOC"
@@ -281,9 +274,9 @@ def analyse_logs(log_files):
         inplace=True
     )   
     
-    print("TESTAR IP", ip_count)
+    print("IP Addresser som extraherades samt antal: ", ip_count)
     
-    print("SKAPAR FULLSTÄNDIG RAPPORT I CSV FILEN MED SUMMERING, VÄNLIGEN VÄNTA")
+    print("SKAPAR FULLSTÄNDIG RAPPORT I CSV FILEN MED SUMMERING, VÄNLIGEN VÄNTA\n")
     
     summary_values = (
         csv_formatting["TOT_IOC"]
@@ -296,45 +289,8 @@ def analyse_logs(log_files):
         column="-----_SCORE_-----",
         value=summary_values
     )
-
-
-
     
-    report = Path("week39-security-automation/output/security_report.txt")
-    report_lines = [
-    ("***************************************"),
-    ("*       ITSX26 SECURITY REPORT        *"),
-    ("***************************************\n"),
-    (""),
-    (f"Antal filer som har extraherats: {len(log_files)} och sedan extraherats till security_report.csv.\n"),
-    (f"Totalt  linjer av data har extraherats"),
-    ("INFO: Formatfel eller tomma linjer hoppas över på grund av Regex filtrering."),
-    (""),
-    (""),
-    (""),
-    ("-----IP Addresser och IOC-Matching-----"),
-    (""),
-    (""),
-    (f"{ip_count}"),
-    (""),
-    (""),
-    (""),
-    (""),
-    ("---------------MÖNSTER-----------------"),
-    (""),
-    (""),
-    (""),
-    ("**********  BEGRÄNSNINGAR  ************\n"),
-    (""),
-    (""),
-    (""),
-
-    ]
-    with open(report, "w", encoding="utf-8") as f:
-        f.write("\n".join(report_lines))
-    
-    
-    return csv_formatting
+    return csv_formatting, ip_count
     
 def write_report(analyse, output_path):
 
@@ -349,6 +305,193 @@ def write_report(analyse, output_path):
     analyse.to_csv(output_path, index=False)
     print(f"Resultatet av fångsten har skrivits ner till {output_path}")
 
+def valid_lines(line):
+    line = line.strip()
+    if not line:
+        return False
+    
+    if line == "Mal":
+        return False
+    if line == "mal":
+        return False
+    if line == "Line":
+        return False
+    if line == "line":
+        return False
+    
+    return True
+
+
+def compare_files(output_path, total_lines, ip_count, data_folder):
+    suspicious_path = Path("week39-security-automation/data")
+    security_compiled_path = Path(output_path)
+    data_folder = Path(suspicious_path)
+    
+    Security_ioc = data_folder / "suspicious_ips.txt"
+    Security_compiled = security_compiled_path
+    
+    report_path = security_compiled_path.with_name(
+        "security_report.txt"
+    )
+    
+    #Litet test så att filerna kan hittas genom ny kod jag hittade från Pathlib
+    try: 
+        report_data = pd.read_csv(
+            Security_compiled,
+            dtype=str,
+            keep_default_na=False   
+        )
+
+    except FileNotFoundError as e:
+        print(f"Hittar inte CSV filen {Security_compiled} som behövs för att kunna sammanställa en rapport")
+        return
+
+
+    try:
+        with Security_ioc.open("r", encoding="utf-8") as file:
+            suspicious_ips = {
+                line.strip()
+                for line in file
+                if valid_lines(line)
+            }  
+
+    except FileNotFoundError as e:
+        print(f"Hittar inte IOC filen {report_path} som behövs för att kunna sammanställa en rapport")
+        suspicious_ips = set()
+    
+    #skapar report_data som en tom kolumn som matchar datan från kolumnen ip_address genom .isin funktionen
+    report_data["IOC_match"] = (
+        report_data["ip_address"]
+        .isin(suspicious_ips)
+    )
+    
+    unique_ips = (
+            report_data["ip_address"]
+            .replace("", pd.NA)
+            .nunique()
+        )
+    
+    missing_ips = (
+            report_data["ip_address"]
+            .replace("", pd.NA)
+            .isna()
+            .sum()
+            )
+    
+    matched_data = report_data[
+        report_data["IOC_match"] == True
+    ].copy()
+    
+    matched_data = matched_data.sort_values(
+        by=["ip_address", "source_file"],
+        ascending=True
+    )
+    
+    number_of_lines = report_data["source_file"].nunique()
+    
+    report_lines = [
+        "***************************************",
+        "*       ITSX26 SECURITY REPORT        *",
+        "***************************************\n",
+        "",
+        "* DATAKÄLLOR",
+        "---------------------------------------",
+        "",
+        f"* CSV Fil: {Security_compiled}",
+        f"* IOC Fil: {Security_ioc}",
+        "",
+        f"Antal filer som har extraherats: {number_of_lines}, antal har sedan extraherats till security_report.csv.\n",
+        "INFO: Formatfel eller tomma linjer hoppas över på grund av Regex filtrering.",
+        "",
+        "* SAMMANSTÄLLNING",
+        "---------------------------------------",
+        "",
+        f"Totalt extraherade rader från CSV: {len(report_data)}",
+        f"Totalt antal rader har extraherats: {total_lines}",
+        "",
+        "",
+        "IP Addresser och IOC-Matching: ",
+        f"Antal unika observerade IP-Addresser: {unique_ips}",
+        f"Antal unika misstänkta IP-Addresser från IOC Lista: {len(suspicious_ips)}",
+        "",
+        f"Antal IOC träffar som matchar {len(matched_data)}",
+        f"Antal rader utan IP-Addresser: {missing_ips}",
+        "",
+        "* IP ADDRESSER, FREKVENS",
+        "---------------------------------------",
+        "",
+        ip_count.to_string(),
+        "",
+        "* IOC-TRÄFFAR",
+        "---------------------------------------",
+        "",
+    
+        ]
+    
+    if matched_data.empty:
+        report_lines.append(f"Inga IP-Addresser matchade {Security_ioc}")
+    else:
+        for _, row in matched_data.iterrows():
+            report_lines.append(
+                f"IP: {row.get("ip_address", "")} | "
+                f"Frekvens: {row.get("ip_frequency", "")} | "
+                f"Händelse: {row.get("event", "")} | "
+                f"Användare: {row.get("user", "")} | "
+                f"Status: {row.get("status_code", "")} | "
+                f"Källa: {row.get("source_file", "")}"
+            )
+
+    report_lines.extend([
+        "",
+        "* RÄKNADE MÖNSTER",
+        "---------------------------------------",
+    ])
+    
+    failed_logins = ([
+        report_data["event"]
+        .str.casefold()
+        .eq("failed login")
+        .sum()
+    ])
+
+    denied_events = ([
+        report_data["event"]
+        .str.upper()
+        .eq("DENY")
+        .sum()
+        ])
+    
+    
+    report_lines.extend([
+            "",
+            f"Antal misslyckade inloggningar: {failed_logins}",
+            f"Antal DENY-händelser: {denied_events}",
+            "",
+            "* SLUTSATS & BEGRÄNSNINGAR",
+            "---------------------------------------",
+            (
+                "IOC-träffar visar att observerade IP-addresser förekommer i IOC Listan\n"
+                "Detta betyder ej att personen är misstänkt.\n"
+                "Behöver bygga större case och evidens mot användare innan utredning startar."
+            ),
+            "",
+            (
+                "Att användare eller IP förekommer i IOC-listan bevisar inte att en attack har ägt rum.\n"
+                "IP-addresser kan vara utdelade, förfalskade genom spoofing eller återanvända"
+            ),
+            "",
+            (
+                "Analysen har byggs upp genom data extrahering, textmatching och regex för att säkerställa faktuell data.\n"
+                "Fält som inte följer med eller saknas helt följer inte förväntat format och kommer därför saknas i resultatet"
+            ),
+            "",
+    
+#slutsats, osäkerhet och säkerhetsbetydelse.
+    ])
+    
+    with report_path.open("w", encoding="utf-8") as file:        
+        file.write("\n".join(report_lines))
+    print(f"Rapporten har blivit skapat: {report_path}")
 
 def main_frame():
     
@@ -358,11 +501,16 @@ def main_frame():
         exist_ok=True
         ) 
     
-
-
-    log_files = load_indicators(folder)
-    analyse = analyse_logs(log_files)
+    log_files, total_lines = load_indicators(folder)
+    analyse, ip_count = analyse_logs(log_files)
+    
     write_report(analyse, output_path)
+    compare_files(
+        output_path=output_path, 
+        total_lines=total_lines, 
+        ip_count=ip_count, 
+        data_folder=folder
+    )
 
     
 main_frame()

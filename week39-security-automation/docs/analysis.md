@@ -179,6 +179,37 @@ Detta fungerar på samma logic som övningen vi gjorde i måndagen den 21:a
 Då jag jobbar med kolumner kan jag skapa bättre struktur genom större projekt och filer och skapar en säkrare grund än att direkt räkna från ett text dokument.
 
 
+Fungerade inte på grund av att summeringen genom Diff import fungerade inte som jag hade tänkt, då arrays är en väg att kunna skapa counters för var IP träff så gör den det för alla träffar av IP vilket inte är vad jag är ute efter.
+    with open(log_file, "r", encoding="utf-8") as f1:
+        
+            file1_lines = [
+                    line for line in f1
+                    if line
+                    ]
+
+
+    with open(output_path, "r", encoding="utf-8") as f2:
+    
+        file2_lines = [
+                line for line in f2
+                if line
+                ]
+        
+    print(f"Skapar en fullständig rapport genom att matcha {f2} mot {f1}")
+    
+    susp_ips = {line.strip() for line in file1_lines if line.strip()}
+    diff = list(differ.compare(file1_lines, file2_lines))
+    
+    print(f"Matchningar som kommer att jämföras mot: {susp_ips} som finns noterat i {f1}")
+    
+    
+    with open(report, "w", encoding="utf-8") as f:
+        f.write("\n".join(report_lines))
+    
+    return diff
+
+
+
 ## 03. Oäkerhet
 --------------------------------------------
 
