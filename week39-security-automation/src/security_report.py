@@ -365,6 +365,21 @@ def compare_files(output_path, total_lines, ip_count, data_folder):
         .isin(suspicious_ips)
     )
     
+    ip_count = (
+        report_data["ip_address"]
+        .astype(str)
+        .str.strip()
+    )
+    
+    ip_count = (
+        ip_count[
+            ip_count.notna()
+            & ip_count.ne("")
+        ]
+        .value_counts()
+        .sort_index()
+    )
+    
     unique_ips = (
             report_data["ip_address"]
             .replace("", pd.NA)
@@ -420,7 +435,7 @@ def compare_files(output_path, total_lines, ip_count, data_folder):
         "* IP ADDRESSER, FREKVENS",
         "---------------------------------------",
         "",
-        ip_count.to_string(),
+        ip_count.to_string(header=False),
         "",
         "* IOC-TRÄFFAR",
         "---------------------------------------",
@@ -447,24 +462,19 @@ def compare_files(output_path, total_lines, ip_count, data_folder):
         "---------------------------------------",
     ])
     
-    failed_logins = ([
+    events = (
         report_data["event"]
+        .astype(str)
+        .str.strip()
         .str.casefold()
-        .eq("failed login")
-        .sum()
-    ])
+    )
 
-    denied_events = ([
-        report_data["event"]
-        .str.upper()
-        .eq("DENY")
-        .sum()
-        ])
-    
-    
+    failed_login = events.eq("failed login").sum()
+    denied_events = events.eq("deny").sum()
+        
     report_lines.extend([
             "",
-            f"Antal misslyckade inloggningar: {failed_logins}",
+            f"Antal misslyckade inloggningar: {failed_login}",
             f"Antal DENY-händelser: {denied_events}",
             "",
             "* SLUTSATS & BEGRÄNSNINGAR",

@@ -30,11 +30,10 @@ Antal rader utan IP-Addresser: 1
 * IP ADDRESSER, FREKVENS
 ---------------------------------------
 
-ip_address
-203.0.113.15     14
 192.0.2.25        3
-203.0.113.99      3
 198.51.100.44     2
+203.0.113.15     14
+203.0.113.99      3
 
 * IOC-TRÄFFAR
 ---------------------------------------
@@ -62,8 +61,8 @@ IP: 203.0.113.99 | Frekvens: 3 | Händelse: DROP | Användare:  | Status:  | Kä
 * RÄKNADE MÖNSTER
 ---------------------------------------
 
-Antal misslyckade inloggningar: [np.int64(11)]
-Antal DENY-händelser: [np.int64(2)]
+Antal misslyckade inloggningar: 11
+Antal DENY-händelser: 2
 
 * SLUTSATS & BEGRÄNSNINGAR
 ---------------------------------------
