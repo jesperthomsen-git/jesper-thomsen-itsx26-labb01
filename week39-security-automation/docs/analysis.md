@@ -209,6 +209,9 @@ Fungerade inte på grund av att summeringen genom Diff import fungerade inte som
     return diff
 
 
+Testfall malformed line
+identifiera ip mot IOC
+Hitta mönster genom matching av IOC och IP addresser
 
 ## 03. Oäkerhet
 --------------------------------------------

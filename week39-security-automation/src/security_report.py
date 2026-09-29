@@ -15,7 +15,7 @@
 #[X] Programmet kan köras från dokumenterad projektrot.
 #[X] Indata öppnas för läsning och originalfilerna ändras inte.
 #[X] Minst två datakällor behandlas.
-#[X]] Minst ett mönster räknas eller sammanställs.
+#[X] Minst ett mönster räknas eller sammanställs.
 #[X] IOC-listan läses och används för medlemskontroll.
 #[X] Felaktiga eller ofullständiga rader hanteras explicit.
 #[X] Rapporten skapas i output/ och kan återskapas med samma indata.
@@ -29,11 +29,11 @@
 #[X] IOC-jämförelse och minst ett räknat mönster finns.
 #[X] Felaktig data hanteras och redovisas.
 #[X] Rapportfilen genereras i output/.
-#☐ analysis.md innehåller observation, slutsats, osäkerhet, alternativ förklaring och säkerhetsbetydelse.
-#☐ Minst tre testfall är dokumenterade.
+#[X] analysis.md innehåller observation, slutsats, osäkerhet, alternativ förklaring och säkerhetsbetydelse.
+#[X] Minst tre testfall är dokumenterade.
 #☐ AI-användning är redovisad och verifierad.
-#☐ Repositoryt innehåller meningsfull commit-historik.
-#☐ Canvas-inlämningen länkar direkt till rätt leverans.
+#[X] Repositoryt innehåller meningsfull commit-historik.
+#[X] Canvas-inlämningen länkar direkt till rätt leverans.
 
 
 import csv #importerar moduler för att skapa csv filer

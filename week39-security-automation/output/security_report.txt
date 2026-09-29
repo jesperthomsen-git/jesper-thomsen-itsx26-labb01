@@ -75,3 +75,13 @@ IP-addresser kan vara utdelade, förfalskade genom spoofing eller återanvända
 
 Analysen har byggs upp genom data extrahering, textmatching och regex för att säkerställa faktuell data.
 Fält som inte följer med eller saknas helt följer inte förväntat format och kommer därför saknas i resultatet
+
+Programmets storlek och mängden kod som jag har behövt att lära mig i denna uppgiften har varit tufft.
+Genom att fortsätta med planen med att skapa ett program som kunde sammanställa information för att sedan hantera detta genom
+att kalla på informationen som kolumnerna har sparat gör att det känns värt tiden och att det finns stor utvecklingspotential för skriptet.
+Det som jag har har begränsningar med är att jag inte har kunnat använda mig av olika compare, difference eller matchning av strängar genom .startswith()
+Vilket har gjort att jag har behövt att använda mer tid på att hitta lösningar på pandas hemsida och stackoverflow samt flertal videos med hur man kan manipulera csv.
+Begränsningarna som jag kan se i detta skriptet även om det har en gedigen ryggrad är att den inte är särskilt flexibel innanför skriptet.
+Det är därför jag tog hjälp av Jupyter Notebook för at lära mig hur man kan manipulera csv filen utan att direkt ändra i filen.
+Via Jupyter kan man enkelt bläddra och sortera effektivt efter det man söker efter och finns extra information i CSV filen som jag inte har tagit med i min rapport.
+Vänligen ta en stund att titta på den om du får tid över
