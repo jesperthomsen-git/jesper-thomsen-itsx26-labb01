@@ -371,5 +371,5 @@ osäkerhet och säkerhetsbetydelse.
 
 --------------------------------------------
  ## EXTERNA LÄNKAR
- 
-[^1] https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.isin.html#pandas.DataFrame.isin
+
+[^1]: https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.isin.html#pandas.DataFrame.isin
