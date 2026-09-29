@@ -1,33 +1,4 @@
-
-## Syfte
---------------------------------------------
-
-Syftet med detta program är att skapa en automatisering utav dataextrahering och sedan skapa en konsis rapport som matchar IOC filen som matas in. 
-
-Indata som matas in i programmet är inte nödvändigtvis
-
-## Datasetval
---------------------------------------------
-
-I mitt program har jag då valt att använda mig utav "Dataset B: Advanced" som jag skapade ett ramverk mot.
-
-## Pythonversion
---------------------------------------------
-
-Programmet körs genom Python verison 3.14.7.
-
-## körinstruktion
---------------------------------------------
-
-Körinstruktion har definerats via funktioner för att skapa en översikt som både skapar läsvänlighet men också gör att programmets kod blir överskådligt.
-
-Programmets körinstruktion är strukturerat som följande: 
-* Extrahering av data från designerad folder.
-* Data samlas i en CSV databank.
-* Datan extraheras från databanken till skriftlig rapport.
-
-
-## projektstruktur
+# projektstruktur
 --------------------------------------------
 
 Projektstrukturen ser ut som följande
@@ -50,7 +21,36 @@ week39-security-automation/<p>
 
 Följande filer som har kommentarer är filer som har lagts till för att skapa en säker miljö för databashantering samt att [security_report.csv](src/security_report.csv) är databasen som skapas efter var körning som samlar all information värt att samla in från ./data mapppen.
 
-## testning
+
+# Syfte
+--------------------------------------------
+
+Syftet med detta program är att skapa en automatisering utav dataextrahering och sedan skapa en konsis rapport som matchar IOC filen som matas in. 
+
+Indata som matas in i programmet är inte nödvändigtvis
+
+### Datasetval
+--------------------------------------------
+
+I mitt program har jag då valt att använda mig utav "Dataset B: Advanced" som jag skapade ett ramverk mot.
+
+#### Pythonversion
+--------------------------------------------
+
+Programmet körs genom Python verison 3.14.7.
+
+### körinstruktion
+--------------------------------------------
+
+Körinstruktion har definerats via funktioner för att skapa en översikt som både skapar läsvänlighet men också gör att programmets kod blir överskådligt.
+
+Programmets körinstruktion är strukturerat som följande: 
+* Extrahering av data från designerad folder.
+* Data samlas i en CSV databank.
+* Datan extraheras från databanken till skriftlig rapport.
+
+
+### testning
 --------------------------------------------
 
 Genom att utföra specifika testfall där skriptet kan visa svagheter har gjort att programmet i sig har blivit robust. Testfall som exempel har varit att kontrollera tomma linjer, linjer som har skapats på fel sätt eller extraherats fel och fått då fel data inskrivet i loggen samt att input kan verifieras och matchas mot IOC listan. 
@@ -74,5 +74,3 @@ Vänligen ta en stund att titta på [security_report.csv](output/security_report
 
 ## AI-redovisning.
 --------------------------------------------
-
-Genererad resultatrapport med datakällor, antal, minst en konkret observation och minst en begränsning.
