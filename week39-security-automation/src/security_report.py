@@ -21,7 +21,7 @@
 #
 #                         Definition of Done
 #[X] Rätt dataset och analyserade filer anges.
-#☐ Programmet körs enligt README.
+#[X] Programmet körs enligt README.
 #[X] Originaldata är oförändrad.
 #[X] Minst två datakällor analyseras.
 #[X] IOC-jämförelse och minst ett räknat mönster finns.
@@ -29,7 +29,7 @@
 #[X] Rapportfilen genereras i output/.
 #[X] analysis.md innehåller observation, slutsats, osäkerhet, alternativ förklaring och säkerhetsbetydelse.
 #[X] Minst tre testfall är dokumenterade.
-#☐ AI-användning är redovisad och verifierad.
+#[X] AI-användning är redovisad och verifierad.
 #[X] Repositoryt innehåller meningsfull commit-historik.
 #[X] Canvas-inlämningen länkar direkt till rätt leverans.
 
