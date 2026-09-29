@@ -475,7 +475,8 @@ def compare_files(output_path, total_lines, ip_count, data_folder):
         "",
     
         ]
-    
+    #*****************************************************************************************************
+    #                                 AI GENERERAD KOD SOM ÄR INRUTAD
     #Skapar ytterligare matchad data mot specifika kolumner innan jag fortsäller rapporten
     if matched_data.empty:
         report_lines.append(f"Inga IP-Addresser matchade {Security_ioc}")
@@ -489,6 +490,8 @@ def compare_files(output_path, total_lines, ip_count, data_folder):
                 f"Status: {row.get("status_code", "")} | "
                 f"Källa: {row.get("source_file", "")}"
             )
+    #*****************************************************************************************************        
+    
     #.exten ser till att lägga till ytterligare information i en variabel genom att kalla på den igen.
     report_lines.extend([
         "",

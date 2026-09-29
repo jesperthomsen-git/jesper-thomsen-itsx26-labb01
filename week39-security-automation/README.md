@@ -75,3 +75,53 @@ Vänligen ta en stund att titta på [security_report.csv](output/security_report
 
 ## AI-redovisning.
 --------------------------------------------
+AI Användning:
+
+Verktyget som användes var Chat GPT 5.6 Luna genom DuckDuckGo
+AI har använts för att kunna skapa en bit av rapporten där helheten av databasen samlas på ett ställe och tar endast delar av eller moment av orginaldatan för att skapa en helhetsbild som håller det kortfattat men aktuellt. 
+
+Koden som jag fick från AI var följande, denna har ändrats och orginalet är nedan tillsammans med prompt:
+
+    if matched_data.empty:
+            report_lines.append(
+                f"Inga IP-adresser matchade {Security_ioc}."
+            )
+        else:
+            for _, row in matched_data.iterrows():
+                report_lines.append(
+                    f"IP: {row.get('ip_address', '')} | "
+                    f"Frekvens: {row.get('ip_frequency', '')} | "
+                    f"Händelse: {row.get('event', '')} | "
+                    f"Användare: {row.get('user', '')} | "
+                    f"Status: {row.get('status_code', '')} | "
+                    f"Källa: {row.get('source_file', '')}"
+                )
+
+Denna kod har jag inte rört eller manipulerat förutom att lägga till fler kolumner som jag ville ta med i rapporten, detta var en enkel copy & paste och ändrade sedan namnen så dessa matchade namnen på kolumnerna som existerar i databasen. Det ända jag har ändrat var variabeln som if kallar mot var därefter: matched_data, samt IOC location som är: Security_ioc.
+
+Prompt: Jag har ett python program som genererar ett csv dokument som extraherar data från loggfiler, jag behöver kunna skapa en rapport där jag hämtar alla kolumner samtidigt till ett text dokument som till exempel IP-Addresser.
+
+Svar: Här är ett exempel på kod som du kan använda:
+
+    f"IP: {row.get('ip_address', '')} | "
+    f"Frekvens: {row.get('column2', '')} | "
+    f"Händelse: {row.get('column3', '')} | "
+    f"Användare: {row.get('column4', '')} | "
+
+Dessa rader kommer att ge syntaxfel eftersom du använder dubbla citattecken både utanför och inuti f-strängen:
+
+Använd enkla citattecken inuti i stället:
+
+    f"IP: {row.get('ip_address', '')} | "
+    f"Frekvens: {row.get('column2', '')} | "
+    f"Händelse: {row.get('column3', '')} | "
+    f"Användare: {row.get('column4', '')} | "
+
+Denna kod avvägde jag att ta med i min kod då denna passade bra för att få en översikt av vilka matchningar som träffar vart enligt IOC listan. Koden är enkel att förstå och mycket av koden som genererades var mestadels layout. Jag visste inte att row.get fanns och kunde ha varit något som jag kunde ha använt mig utav tidigare i programmet för att kunna kalla eller extrahera datan.
+
+    f"IP: {row.get('ip_address', '')} | "
+    
+    #f skriver formaterade strings som gör att man kan kalla på variabler i {}
+    #"IP" är vanlig print output
+    #{row.get()} extraherar data direkt från en specifik kolumn
+    #resterande är layout.

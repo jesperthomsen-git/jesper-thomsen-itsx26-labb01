@@ -118,7 +118,9 @@ Genom att kunna kalla på "ip_address" kolumnen i databanken genom att skapa en 
         ascending=True
     )
 
-Denna inspiration hittades på Pandas hemsida under pandas.dataframe.isin() [^1]
+Denna inspiration hittades på Pandas hemsida under pandas.dataframe.isin() [^1] <p>
+Genom matchningen kunde jag då få utdata som ser ut såhär i rapporten:<p>
+![alt text](screenshots/ReportIOCMatch.png)
 
 
 
@@ -159,29 +161,41 @@ Tanken var att matcha logfilerna mot ioc dokumentet först för att kunna skapa 
 
 
 ### 02.3 Hitta mönster genom matching av IOC och IP addresser
+--------------------------------------------
 
 Att hitta mönster genom att kunna extrahera data som beskrivet i 02.2.a) Normalfall så blir datan konsis och inget man kan alternera på efter att databasen har extraherat allt från data/. Att ha skapat ett filtrerings system som kontrollerar IOC listan oavsett hur stor den är visar flexibiliteten av programmet även om kodningen i sig är ganska hårdkodad. 
 
-### 02.4 
+### 02.4 Jämför programmets resultat med ett manuellt räknat kontrollvärde
+--------------------------------------------
 
 Jag förstod inte helt vad menades med "Jämför programmets resultat med ett manuellt räknat kontrollvärde." men det jag testade var att både att ändra vad för sorts data som fanns i Auth.log för att se att relevansen av indexeringen kunde hantera datan.
 
 Första delen var att testa att bara malformed line fanns i auth.log och då hittade regex denna linje och importerade den, det jag kan göra i framtiden är att skapa en regex för att filtrera ut linjer som inte passar in i data extraheringen.
 
+![alt text](screenshots/malformedline.png)<p>
 
-### 02.5 
+Därefter gjorde jag att auth.log var döpt till auth.log.test som visat på bilden nedan:<p>
+![alt text](screenshots/wrongfileend.png)<p>
 
-Dokumentera eventuella hoppade rader i rapport eller analys:
+Det som jag tänkte skulle hända var att den skulle kunna hitta filen då det fanns en .log i filens namn men detta gav mig ett tomt resultat. 
+Jag tänkte att koden nedan skulle kunna hitta det oavsett:
 
-Då all data samlas i databasen och genom filtrering kommer inga tomma rader med i utvärderingen.
+    log_files = [
+        file for file in folder.rglob("*.log")
+        if file.is_file()
+        ]
 
+När namnet var auth.log.test kunde inte datan extraheras och det syntes både i databasen men också i slut rapporten:<p>
+Exempel 1:<p>
+![alt text](screenshots/databasehandlewrongextension.png) <p>
+Exempel 2:<p>
+![alt text](screenshots/reportshowingdata.png)<p>
 
-Guideline för 0.2 Testing & verifiering <p>
-    • ☐ Minst ett test ska ha ett känt positivt utfall.<p>
-    • ☐ Minst ett test ska ge noll träffar.<p>
-    • ☐ Minst ett test ska innehålla ett formatfel eller saknat fält.<p>
-    • ☐ Jämför programmets resultat med ett manuellt räknat kontrollvärde.<p>
-    • ☐ Dokumentera eventuella hoppade rader i rapport eller analys.
+### 02.5 Dokumentera  hoppade rader i rapport eller analys
+--------------------------------------------
+
+Då all data samlas i databasen och genom filtrering kommer inga tomma rader med i utvärderingen. Finns tyvärr inget mer att tillägga i detta avsnitt.
+
 
 
 ## Bedömningspremiss
