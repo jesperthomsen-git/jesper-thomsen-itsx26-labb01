@@ -16,8 +16,9 @@ week39-security-automation/<p>
 ├── output/<p>
 │   └── security_report.txt<p>
 │   └── security_report.csv #Fil som skapas genom data extrahering i programmet, agerar som databas. <p>
-└── docs/<p>
-    └── analysis.md<p>
+├── docs/<p>
+│   └── analysis.md<p>
+│   └── /screenshots<p> <---- bilder läggs till under analysens gång. <p>
 
 Följande filer som har kommentarer är filer som har lagts till för att skapa en säker miljö för databashantering samt att [security_report.csv](src/security_report.csv) är databasen som skapas efter var körning som samlar all information värt att samla in från ./data mapppen.
 

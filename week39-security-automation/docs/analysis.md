@@ -168,6 +168,7 @@ Jag förstod inte helt vad menades med "Jämför programmets resultat med ett ma
 
 Första delen var att testa att bara malformed line fanns i auth.log och då hittade regex denna linje och importerade den, det jag kan göra i framtiden är att skapa en regex för att filtrera ut linjer som inte passar in i data extraheringen.
 
+
 ### 02.5 
 
 Dokumentera eventuella hoppade rader i rapport eller analys:
