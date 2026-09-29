@@ -118,7 +118,7 @@ Genom att kunna kalla på "ip_address" kolumnen i databanken genom att skapa en 
         ascending=True
     )
 
-Denna inspiration hittades på Pandas hemsida under pandas.dataframe.isin() [^1] 
+Denna inspiration hittades på Pandas hemsida under pandas.dataframe.isin() [^1]
 
 
 #### 02.2.b) Felfall
@@ -371,5 +371,5 @@ osäkerhet och säkerhetsbetydelse.
 
 --------------------------------------------
  ## EXTERNA LÄNKAR
-
+ 
 [^1] https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.isin.html#pandas.DataFrame.isin
