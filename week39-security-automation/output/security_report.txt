@@ -9,59 +9,48 @@
 * CSV Fil: week39-security-automation\output\security_report.csv
 * IOC Fil: week39-security-automation\data\suspicious_ips.txt
 
-Antal filer som har extraherats: 3, antal har sedan extraherats till security_report.csv.
+Antal filer som har extraherats: 2, antal har sedan extraherats till security_report.csv.
 
 INFO: Formatfel eller tomma linjer hoppas över på grund av Regex filtrering.
 
 * SAMMANSTÄLLNING
 ---------------------------------------
 
-Totalt extraherade rader från CSV: 23
-Totalt antal rader har extraherats: 23
+Totalt extraherade rader från CSV: 10
+Totalt antal rader har extraherats: 10
 
 
 IP Addresser och IOC-Matching: 
 Antal unika observerade IP-Addresser: 4
 Antal unika misstänkta IP-Addresser från IOC Lista: 3
 
-Antal IOC träffar som matchar 19
-Antal rader utan IP-Addresser: 1
+Antal IOC träffar som matchar 8
+Antal rader utan IP-Addresser: 0
 
 * IP ADDRESSER, FREKVENS
 ---------------------------------------
 
-192.0.2.25        3
-198.51.100.44     2
-203.0.113.15     14
-203.0.113.99      3
+192.0.2.25       2
+198.51.100.44    2
+203.0.113.15     4
+203.0.113.99     2
 
 * IOC-TRÄFFAR
 ---------------------------------------
 
 IP: 198.51.100.44 | Frekvens: 2 | Händelse:  | Användare:  | Status: 404 | Källa: week39-security-automation\data\access.log
 IP: 198.51.100.44 | Frekvens: 2 | Händelse:  | Användare:  | Status: 404 | Källa: week39-security-automation\data\access.log
-IP: 203.0.113.15 | Frekvens: 14 | Händelse:  | Användare:  | Status: 401 | Källa: week39-security-automation\data\access.log
-IP: 203.0.113.15 | Frekvens: 14 | Händelse:  | Användare:  | Status: 401 | Källa: week39-security-automation\data\access.log
-IP: 203.0.113.15 | Frekvens: 14 | Händelse: Failed login | Användare: admin | Status:  | Källa: week39-security-automation\data\auth.log
-IP: 203.0.113.15 | Frekvens: 14 | Händelse: Failed login | Användare: admin | Status:  | Källa: week39-security-automation\data\auth.log
-IP: 203.0.113.15 | Frekvens: 14 | Händelse: Failed login | Användare: admin | Status:  | Källa: week39-security-automation\data\auth.log
-IP: 203.0.113.15 | Frekvens: 14 | Händelse: Failed login | Användare: admin | Status:  | Källa: week39-security-automation\data\auth.log
-IP: 203.0.113.15 | Frekvens: 14 | Händelse: Failed login | Användare: admin | Status:  | Källa: week39-security-automation\data\auth.log
-IP: 203.0.113.15 | Frekvens: 14 | Händelse: Failed login | Användare: admin | Status:  | Källa: week39-security-automation\data\auth.log
-IP: 203.0.113.15 | Frekvens: 14 | Händelse: Failed login | Användare: admin | Status:  | Källa: week39-security-automation\data\auth.log
-IP: 203.0.113.15 | Frekvens: 14 | Händelse: Failed login | Användare: admin | Status:  | Källa: week39-security-automation\data\auth.log
-IP: 203.0.113.15 | Frekvens: 14 | Händelse: Failed login | Användare: admin | Status:  | Källa: week39-security-automation\data\auth.log
-IP: 203.0.113.15 | Frekvens: 14 | Händelse: Failed login | Användare: admin | Status:  | Källa: week39-security-automation\data\auth.log
-IP: 203.0.113.15 | Frekvens: 14 | Händelse: DENY | Användare:  | Status:  | Källa: week39-security-automation\data\firewall.log
-IP: 203.0.113.15 | Frekvens: 14 | Händelse: DENY | Användare:  | Status:  | Källa: week39-security-automation\data\firewall.log
-IP: 203.0.113.99 | Frekvens: 3 | Händelse:  | Användare:  | Status: 500 | Källa: week39-security-automation\data\access.log
-IP: 203.0.113.99 | Frekvens: 3 | Händelse: Failed login | Användare: root | Status:  | Källa: week39-security-automation\data\auth.log
-IP: 203.0.113.99 | Frekvens: 3 | Händelse: DROP | Användare:  | Status:  | Källa: week39-security-automation\data\firewall.log
+IP: 203.0.113.15 | Frekvens: 4 | Händelse:  | Användare:  | Status: 401 | Källa: week39-security-automation\data\access.log
+IP: 203.0.113.15 | Frekvens: 4 | Händelse:  | Användare:  | Status: 401 | Källa: week39-security-automation\data\access.log
+IP: 203.0.113.15 | Frekvens: 4 | Händelse: DENY | Användare:  | Status:  | Källa: week39-security-automation\data\firewall.log
+IP: 203.0.113.15 | Frekvens: 4 | Händelse: DENY | Användare:  | Status:  | Källa: week39-security-automation\data\firewall.log
+IP: 203.0.113.99 | Frekvens: 2 | Händelse:  | Användare:  | Status: 500 | Källa: week39-security-automation\data\access.log
+IP: 203.0.113.99 | Frekvens: 2 | Händelse: DROP | Användare:  | Status:  | Källa: week39-security-automation\data\firewall.log
 
 * RÄKNADE MÖNSTER
 ---------------------------------------
 
-Antal misslyckade inloggningar: 11
+Antal misslyckade inloggningar: 0
 Antal DENY-händelser: 2
 
 * SLUTSATS & BEGRÄNSNINGAR

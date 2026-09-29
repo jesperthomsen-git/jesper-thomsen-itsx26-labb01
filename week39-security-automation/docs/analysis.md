@@ -100,7 +100,7 @@ Momentet att försöka matcha IP addresserna mot IOC var nog en av momenten jag 
 #### 02.2.a) Normalfall
 --------------------------------------------
 
-Genom att kunna kalla på "ip_address" kolumnen i databanken genom att skapa en tom kolumn utan data så kan man använda report_data som en tunnel mellan databasen och rapporten.
+Genom att kunna kalla på "ip_address" kolumnen i databanken genom att skapa en tom kolumn utan data så kan man använda report_data som en tunnel mellan databasen och rapporten. Detta gjorde det möjligt att kunna bygga på programmets utdata flöde med andra variabler som följer efter rad 436.
 
     #sample kod tagen från rad 387
     report_data["IOC_match"] = (
@@ -119,6 +119,7 @@ Genom att kunna kalla på "ip_address" kolumnen i databanken genom att skapa en 
     )
 
 Denna inspiration hittades på Pandas hemsida under pandas.dataframe.isin() [^1]
+
 
 
 #### 02.2.b) Felfall
@@ -152,20 +153,27 @@ En sample kod som inte fungerade på grund av att summeringen genom Diff import 
     with open(report, "w", encoding="utf-8") as f:
         f.write("\n".join(report_lines))
 
-Tanken var att matcha logfilerna mot ioc dokumentet först för att kunna skapa snabba matchningar men då jag använder en databas behövdes andra åtgärder där jag behövde kalla ut datan genom kolumner.
+Tanken var att matcha logfilerna mot ioc dokumentet först för att kunna skapa snabba matchningar men då jag använder en databas behövdes andra åtgärder där jag behövde kalla ut datan genom kolumner. När jag hade denna koden och försökte köra det så blev resultatet av testen att jag inte fick någon data överfört all från databasen även om IP addresserna hittades och räknades ut.
 
 (Notering: while loopen var inte medtagen av misstag och kan inte hitta koden som ändrades. Sample koden ovan var huvud koden för att kunna skapa matching mellan fil 1 och fil 2 genom diff variabeln.)
 
 
-Hitta mönster genom matching av IOC och IP addresser
+### 02.3 Hitta mönster genom matching av IOC och IP addresser
+
+Att hitta mönster genom att kunna extrahera data som beskrivet i 02.2.a) Normalfall så blir datan konsis och inget man kan alternera på efter att databasen har extraherat allt från data/. Att ha skapat ett filtrerings system som kontrollerar IOC listan oavsett hur stor den är visar flexibiliteten av programmet även om kodningen i sig är ganska hårdkodad. 
 
 
+### 02.4 
 
+Dokumentera eventuella hoppade rader i rapport eller analys:
 
-    • ☐ Minst ett test ska ha ett känt positivt utfall.
-    • ☐ Minst ett test ska ge noll träffar.
-    • ☐ Minst ett test ska innehålla ett formatfel eller saknat fält.
-    • ☐ Jämför programmets resultat med ett manuellt räknat kontrollvärde.
+Då all data samlas i databasen och genom filtrering kommer inga tomma rader med i utvärderingen.
+
+Guideline för 0.2 Testing & verifiering <p>
+    • ☐ Minst ett test ska ha ett känt positivt utfall.<p>
+    • ☐ Minst ett test ska ge noll träffar.<p>
+    • ☐ Minst ett test ska innehålla ett formatfel eller saknat fält.<p>
+    • ☐ Jämför programmets resultat med ett manuellt räknat kontrollvärde.<p>
     • ☐ Dokumentera eventuella hoppade rader i rapport eller analys.
 
 
