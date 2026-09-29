@@ -224,3 +224,7 @@ Hitta mönster genom matching av IOC och IP addresser
 
 ## 03. Slutsats
 --------------------------------------------
+ genom pandas men kan också tvingas in i databaser genom pd.NA för att inte skapa data som kan vara felaktig.Denna har då filtrerats bort
+
+ Även om malformed line visas tydligt i Jupyter Notebook så är detta inget som visas eller kan extraheras till text rapporten.
+ #slutsats, osäkerhet och säkerhetsbetydelse.

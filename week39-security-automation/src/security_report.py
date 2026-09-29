@@ -1,5 +1,3 @@
-
-
 #                         DITT UPPDRAG
 # Läs minst två av kursens datakällor.
 # Identifiera och räkna minst ett säkerhetsrelevant mönster.
@@ -9,8 +7,8 @@
 # Skriv en reproducerbar rapport till output/security_report.txt.
 # Analysera minst en observation med slutsats, osäkerhet och säkerhetsbetydelse.
 # Dokumentera hur programmet körs, testas och avgränsas.
-
-
+#
+#
 #                         FUNKTIONSKRAV
 #[X] Programmet kan köras från dokumenterad projektrot.
 #[X] Indata öppnas för läsning och originalfilerna ändras inte.
@@ -20,7 +18,7 @@
 #[X] Felaktiga eller ofullständiga rader hanteras explicit.
 #[X] Rapporten skapas i output/ och kan återskapas med samma indata.
 #[X] Resultatet sorteras eller presenteras på ett stabilt och begripligt sätt.
-
+#
 #                         Definition of Done
 #[X] Rätt dataset och analyserade filer anges.
 #☐ Programmet körs enligt README.
@@ -43,7 +41,7 @@ import os #samma som ovan
 import subprocess #För att installera pandas om det inte finns på systemet #beta
 import sys #För att installera pandas om det inte finns på systemet #beta
 import numpy as np #för att kunna hantera summeringar längre ner när det kommer till matchningar inom arrays
-import difflib as dl
+import difflib as dl #behövs inte i mitt program längre och är en legacy import som användes för att matcha arrays mot IOC
 
 folder = Path("week39-security-automation/data")
 output_path = "week39-security-automation/output/security_report.csv"
@@ -52,6 +50,8 @@ output_path = "week39-security-automation/output/security_report.csv"
 
 print("Kontrollerar om pandas biblioteket är installerat, vänligen vänta.")
 
+#Skapar ett stabilt test som kontrollerar om du har pandas installerat som bibliotek, om den inte hittar pandas så importeras subprocess och sys för att kunne skapa ett kommando
+#som force installerar pandas genom koden [sys.executable, "-m", "pip", "install", "--upgrade", "--force-install", "pandas"]. Denna variant av kod hittades på ett forum som heter stack overflow och har sedan återanvänts för detta syfte.
 try:        
     print("Försöker att importera Pandas")
     import pandas as pd
@@ -80,7 +80,8 @@ def load_indicators(folder): #berättar vart filen finns
 
     print("Kontrollerar filer i /data finns för uppgiften")
     folder = Path(folder)
-    dataframes = []    
+    #"dataframes" är termen som pandas använder sig utav i många av deras variabler och något som har hjälpt mig att kunna koppla deras material och exempler till detta program 
+    dataframes = [] 
     total_lines = 0
     
     log_files = [
@@ -107,7 +108,10 @@ def load_indicators(folder): #berättar vart filen finns
                 print(f"{file} har {file_lines} linjer som har lästs in.")
             total_lines += file_lines
 
-        except Exception as error:
+#Att göra tries istället för ifs känns som en stadigare resurs då du har möjlighet att få ordentliga statuskoder som berättar vad som är fel
+#Detta är något jag kommer använda mig utav i majoriteten av mitt program.
+
+        except Exception as error: 
             print(f"Kunde inte läsa {file}: {error}") 
     
     print(
@@ -126,6 +130,11 @@ def analyse_logs(log_files):
     print("Kompilerar loggar till en security_report.CSV fil")
     
     #Skapat regex för att kunne filtrera för att skapa en grund för bättre matching av kolumner
+    #
+    #I denna del har jag haft väldigt mycket problem och den del jag förmodligen har använt mest tid i.
+    #När in-datan extraheras så kom alla rader in på en rad.
+    #Dessa variabler filtrerar indata genom regex kod för att kontrollera indata är relevant och sedan fyller in data i förbestämda kolumner nedan.
+    
     date_time = (
         r"(?P<date>20\d{2}-\d{2}-\d{2})"
         r"(?P<time>T\d{2}:\d{2}:\d{2})"
@@ -152,11 +161,13 @@ def analyse_logs(log_files):
     
     log_file = log_files.reset_index(drop=True).copy()
     
-    #filtrerar hela min dataframe genom filter och inte bara log_entry som jag kommenterade ovan
+    #filtrerar hela min dataframe genom regex filter och inte bara log_files som jag kommenterade ovan
     #filtered_logs = log_files.loc[combined_filter].copy() Denna kod behövs inte längre med är grunden för mitt kombinerade kommando för advancerad filtrering.
+    #koden ovan gav mig en grun att arbeta på och kommer reflektera på detta i min analys för felfall.
     
     
-    csv_formatting = pd.concat( #sammanställer regex från strings som matchades innan tillsammans med andra strings som blir extraherade genom pd.concat
+    #sammanställer regex från strings som matchades innan tillsammans med andra strings som blir extraherade genom pd.concat
+    csv_formatting = pd.concat( 
         [
             log_file["log_entry"].str.extract(
                 date_time,
@@ -192,6 +203,8 @@ def analyse_logs(log_files):
     csv_formatting["log_entry"] = log_file["log_entry"]
     csv_formatting["source_file"] = log_file["source_file"]
     
+    
+    #Skapandet utav layout för CSV dokumentet och kommer användas framöver för att kalla på specifika kolumner för data extrahering.
     csv_formatting = csv_formatting [
         [
             "source_file",
@@ -208,9 +221,15 @@ def analyse_logs(log_files):
         
     ]
     
-    
+    #ip_count är en variabel som kallar på kolumnen "ip_address" som en referens.
+    #.value_counts() har varit första gången jag har använt mig utav räknesätt i python, numpys .sum() är en annan funktion jag kommer använda mycket i framtida kod.  
     ip_count =  csv_formatting["ip_address"].value_counts(dropna=True)
     
+    
+    #En try funktion som kontrollerar om "ip_frequency" och "TOT_IOC" redan finns fördefinerat eller inte, då ignoreras denna try och ignorerar fel
+    #Första tröskeln var att försöka lägga till nya kolumner i mitt program och är evidens att programmet i sig är både robust men skör vid vissa aspekter.
+    #Som att försöka lägga till fler kolumner efter Regex och fördefinerade kolumner var satta.
+    #Försök var gjorde att implementera dessa men genom att använda Jupyter som en säker miljö så lyckades jag få fram denna kod som inspirerats från både Pandas.pydata.org och youtube videos.
     try:
         csv_formatting = csv_formatting.drop( #ignorerar fel eller om dessa redan existerar
         columns=["ip_frequency", "TOT_IOC"],
@@ -261,6 +280,8 @@ def analyse_logs(log_files):
     "TOT_IOC"
     ] += 3
     #ser ganska märkligt ut..
+    #När man kollar på hur vissa människor indenterar så ser deras kod väldigt märkligt ut men ser detta som en övning i sig
+    #att kunna skapa bra struktur både för mig själv men också för andra som försöker förstå min kod.
     
     csv_formatting.sort_values(
         "TOT_IOC",
@@ -268,8 +289,8 @@ def analyse_logs(log_files):
         inplace=True
     ) 
     
-    
-    csv_formatting.reset_index( #skapar en reset från föregående kolumner så allt nollställs fall i fall.
+    #skapar en reset från föregående kolumner så allt nollställs fall i fall.
+    csv_formatting.reset_index( 
         drop=True,
         inplace=True
     )   
@@ -293,19 +314,19 @@ def analyse_logs(log_files):
     return csv_formatting, ip_count
     
 def write_report(analyse, output_path):
-
+#En simpel kontroll som ser till att variabeln analys är fullständig, annars stoppar programmet och du får då ett felmeddelande. 
+#i framtida version skulle jag hellre vilja använda mig utav try: iställer för en if även om logiken egentligen är den samma i grunden.
     print("Kontrollerar om det finns data att skriva ner")
     
     if analyse.empty:
             print("Det finns inga resultat att skriva ner för tillfället..")
             return
     
-    
-    
     analyse.to_csv(output_path, index=False)
     print(f"Resultatet av fångsten har skrivits ner till {output_path}")
 
 def valid_lines(line):
+    #Kontrollerar om vissa linjer finns som till exempel malformed och lines dycker upp. Detta var en av testfallen jag skapade för att se till att tomma linjer eller just en malformed line inte dyker upp i csv databasen 
     line = line.strip()
     if not line:
         return False
@@ -323,6 +344,8 @@ def valid_lines(line):
 
 
 def compare_files(output_path, total_lines, ip_count, data_folder):
+    
+    #dessa linjer som används genom pathlib är inte något jag har jobbat med innan och fick många fel tillbaka om saker inte var definerade rätt.
     suspicious_path = Path("week39-security-automation/data")
     security_compiled_path = Path(output_path)
     data_folder = Path(suspicious_path)
@@ -330,11 +353,12 @@ def compare_files(output_path, total_lines, ip_count, data_folder):
     Security_ioc = data_folder / "suspicious_ips.txt"
     Security_compiled = security_compiled_path
     
+    #Force skapar en security report
     report_path = security_compiled_path.with_name(
         "security_report.txt"
     )
     
-    #Litet test så att filerna kan hittas genom ny kod jag hittade från Pathlib
+    #Litet test så att filerna kan hittas genom ny kod jag hittade från Pathlib, om inte den hittar filen får jag ett ordentligt status meddelande
     try: 
         report_data = pd.read_csv(
             Security_compiled,
@@ -346,7 +370,7 @@ def compare_files(output_path, total_lines, ip_count, data_folder):
         print(f"Hittar inte CSV filen {Security_compiled} som behövs för att kunna sammanställa en rapport")
         return
 
-
+#Här börjar sammanställningen utan den skriftliga rapporten genom try som innan för att kunna lokalisera rätt filer, annars får jag en error
     try:
         with Security_ioc.open("r", encoding="utf-8") as file:
             suspicious_ips = {
@@ -365,12 +389,21 @@ def compare_files(output_path, total_lines, ip_count, data_folder):
         .isin(suspicious_ips)
     )
     
+    #ip_count blir tillkallad som jag skapade innan med .value_count() på rad 226.
+    #då ip_count var skapad innanför en funktion behövde jag tillkalla den genom att nämna den i return kommandot.
+    #
+    #om man skriver print("ip_count") som testades på rad 298 så kan man se i terminal loggen att dtype:int64
+    #IP-Addresserna tvingade jag att bli konverterade till int tidigare i programmet för att kunna räkna dem på rätt sätt
+    #
+    #för att kunna återkalla "ip_address" kolumnen behöver jag se till att dessa blir återkallade som strängar.
     ip_count = (
         report_data["ip_address"]
         .astype(str)
         .str.strip()
     )
-    
+    #Ser till att tomma strings, pd.na samt tomma kolumn fält inte tas med
+    #pd.na är automatiskt lagt till när det inte finns något att fylla ut, detta tas upp i analys
+    #sammanställer och extraherar data genom variabler som report_data fångar på rad 387
     ip_count = (
         ip_count[
             ip_count.notna()
@@ -443,6 +476,7 @@ def compare_files(output_path, total_lines, ip_count, data_folder):
     
         ]
     
+    #Skapar ytterligare matchad data mot specifika kolumner innan jag fortsäller rapporten
     if matched_data.empty:
         report_lines.append(f"Inga IP-Addresser matchade {Security_ioc}")
     else:
@@ -455,7 +489,7 @@ def compare_files(output_path, total_lines, ip_count, data_folder):
                 f"Status: {row.get("status_code", "")} | "
                 f"Källa: {row.get("source_file", "")}"
             )
-
+    #.exten ser till att lägga till ytterligare information i en variabel genom att kalla på den igen.
     report_lines.extend([
         "",
         "* RÄKNADE MÖNSTER",
@@ -468,10 +502,11 @@ def compare_files(output_path, total_lines, ip_count, data_folder):
         .str.strip()
         .str.casefold()
     )
-
+    #skapar ints från hur många gånger den kan hitta specifika strängar i CSV dokumentet
     failed_login = events.eq("failed login").sum()
     denied_events = events.eq("deny").sum()
-        
+    
+    #Sammanställning utav rapporten som påbörjades på rad 440
     report_lines.extend([
             "",
             f"Antal misslyckade inloggningar: {failed_login}",
@@ -509,9 +544,10 @@ def compare_files(output_path, total_lines, ip_count, data_folder):
                 "Vänligen ta en stund att titta på den om du får tid över"
             ),
     
-#slutsats, osäkerhet och säkerhetsbetydelse.
+#slutsats, osäkerhet och säkerhetsbetydelse kommer tas i analysen
+
     ])
-    
+
     with report_path.open("w", encoding="utf-8") as file:        
         file.write("\n".join(report_lines))
     print(f"Rapporten har blivit skapat: {report_path}")
@@ -519,7 +555,8 @@ def compare_files(output_path, total_lines, ip_count, data_folder):
 def main_frame():
     
     output_folder = Path("week39-security-automation/output")
-    output_folder.mkdir( #skapar en output mapp om den inte finns
+    #skapar en output mapp om den inte finns
+    output_folder.mkdir( 
         parents=True, 
         exist_ok=True
         ) 
@@ -535,10 +572,4 @@ def main_frame():
         data_folder=folder
     )
 
-    
 main_frame()
-
-    
-
-
-

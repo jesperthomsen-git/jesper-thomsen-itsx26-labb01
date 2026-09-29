@@ -4,6 +4,8 @@
 
 Syftet med detta program är att skapa en automatisering utav dataextrahering och sedan skapa en konsis rapport som matchar IOC filen som matas in. 
 
+Indata som matas in i programmet är inte nödvändigtvis
+
 ## Datasetval
 --------------------------------------------
 
@@ -51,9 +53,23 @@ Följande filer som har kommentarer är filer som har lagts till för att skapa 
 ## testning
 --------------------------------------------
 
+Genom att utföra specifika testfall där skriptet kan visa svagheter har gjort att programmet i sig har blivit robust. Testfall som exempel har varit att kontrollera tomma linjer, linjer som har skapats på fel sätt eller extraherats fel och fått då fel data inskrivet i loggen samt att input kan verifieras och matchas mot IOC listan. 
+
 
 ## kända begränsningar 
 --------------------------------------------
+
+Begränsningar kommer visa liknelser som i slut rapporten.
+
+Begränsningarna som jag kan se i detta program även om det har en gedigen ryggrad är att den inte är särskilt flexibel innanför skriptet.
+Då detta program är kodad för att fungera mot windows och mot denna repo struktur kan inte detta program fungera utanför SDP mappen. Programmet är skriven för SDP och när frågan om den är körbar på OCI eller andra linux system är detta självjkart en faktor jag har tänkt på för vidare utväckling.
+
+Då databasen i sig är textbaserat med kolumnfält så tar jag hjälp av Jupyter Notebook för at lära mig hur man kan extrahera data eller manipulera csv filen utan att radera eller ändra i filens data.
+Via Jupyter kan man enkelt bläddra och sortera effektivt efter det man söker efter och finns extra information i CSV filen som jag inte har tagit med i min rapport som uträkning av total IOC som kan indikera potentiella aktiviteter. Det som behöver understrykas är att den inte indikerar en attack men mer
+skapa en översikt om vad som behöver dikteras vart och vilka beslut som man behöver ta i framtiden.
+
+Vänligen ta en stund att titta på [security_report.csv](output/security_report.csv) filen om du får tid över för att se prioritering genom poängbaserat system samt vilken risk klass den anser vissa stadier av poäng visar.
+
 
 
 ## AI-redovisning.
