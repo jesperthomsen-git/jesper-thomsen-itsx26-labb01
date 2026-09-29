@@ -9,15 +9,15 @@
 * CSV Fil: week39-security-automation\output\security_report.csv
 * IOC Fil: week39-security-automation\data\suspicious_ips.txt
 
-Antal filer som har extraherats: 2, antal har sedan extraherats till security_report.csv.
+Antal filer som har extraherats: 3, antal har sedan extraherats till security_report.csv.
 
 INFO: Formatfel eller tomma linjer hoppas över på grund av Regex filtrering.
 
 * SAMMANSTÄLLNING
 ---------------------------------------
 
-Totalt extraherade rader från CSV: 10
-Totalt antal rader har extraherats: 10
+Totalt extraherade rader från CSV: 11
+Totalt antal rader har extraherats: 11
 
 
 IP Addresser och IOC-Matching: 
@@ -25,7 +25,7 @@ Antal unika observerade IP-Addresser: 4
 Antal unika misstänkta IP-Addresser från IOC Lista: 3
 
 Antal IOC träffar som matchar 8
-Antal rader utan IP-Addresser: 0
+Antal rader utan IP-Addresser: 1
 
 * IP ADDRESSER, FREKVENS
 ---------------------------------------

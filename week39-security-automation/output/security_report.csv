@@ -5,7 +5,8 @@ week39-security-automation\data\firewall.log,2026-09-24,T10:05:05,203.0.113.15,4
 week39-security-automation\data\firewall.log,2026-09-24,T10:05:00,203.0.113.15,4,,DENY,,,2026-09-24T10:05:00Z DENY src=203.0.113.15 dst=10.0.0.10 port=22,4,Medel risk
 week39-security-automation\data\access.log,2026-09-24,T10:01:10,198.51.100.44,2,,,404,GET,2026-09-24T10:01:10Z src=198.51.100.44 method=GET path=/admin status=404,1,Medel risk
 week39-security-automation\data\access.log,2026-09-24,T10:01:20,198.51.100.44,2,,,404,GET,2026-09-24T10:01:20Z src=198.51.100.44 method=GET path=/backup status=404,1,Medel risk
-week39-security-automation\data\access.log,2026-09-24,T10:03:00,203.0.113.99,2,,,500,GET,2026-09-24T10:03:00Z src=203.0.113.99 method=GET path=/api status=500,1,Medel risk
 week39-security-automation\data\access.log,2026-09-24,T10:02:00,192.0.2.25,2,,,200,GET,2026-09-24T10:02:00Z src=192.0.2.25 method=GET path=/index.html status=200,1,Medel risk
 week39-security-automation\data\firewall.log,2026-09-24,T10:05:10,203.0.113.99,2,,DROP,,,2026-09-24T10:05:10Z DROP src=203.0.113.99 dst=10.0.0.10 port=3389,1,Medel risk
+week39-security-automation\data\access.log,2026-09-24,T10:03:00,203.0.113.99,2,,,500,GET,2026-09-24T10:03:00Z src=203.0.113.99 method=GET path=/api status=500,1,Medel risk
 week39-security-automation\data\firewall.log,2026-09-24,T10:05:15,192.0.2.25,2,,ALLOW,,,2026-09-24T10:05:15Z ALLOW src=192.0.2.25 dst=10.0.0.10 port=443,1,Medel risk
+week39-security-automation\data\auth.log,,,,0,,,,,Malformed line,0,Medel risk

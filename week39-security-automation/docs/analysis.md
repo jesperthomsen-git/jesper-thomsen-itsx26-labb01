@@ -162,12 +162,18 @@ Tanken var att matcha logfilerna mot ioc dokumentet först för att kunna skapa 
 
 Att hitta mönster genom att kunna extrahera data som beskrivet i 02.2.a) Normalfall så blir datan konsis och inget man kan alternera på efter att databasen har extraherat allt från data/. Att ha skapat ett filtrerings system som kontrollerar IOC listan oavsett hur stor den är visar flexibiliteten av programmet även om kodningen i sig är ganska hårdkodad. 
 
-
 ### 02.4 
+
+Jag förstod inte helt vad menades med "Jämför programmets resultat med ett manuellt räknat kontrollvärde." men det jag testade var att både att ändra vad för sorts data som fanns i Auth.log för att se att relevansen av indexeringen kunde hantera datan.
+
+Första delen var att testa att bara malformed line fanns i auth.log och då hittade regex denna linje och importerade den, det jag kan göra i framtiden är att skapa en regex för att filtrera ut linjer som inte passar in i data extraheringen.
+
+### 02.5 
 
 Dokumentera eventuella hoppade rader i rapport eller analys:
 
 Då all data samlas i databasen och genom filtrering kommer inga tomma rader med i utvärderingen.
+
 
 Guideline för 0.2 Testing & verifiering <p>
     • ☐ Minst ett test ska ha ett känt positivt utfall.<p>
