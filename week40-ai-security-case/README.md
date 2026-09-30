@@ -1,0 +1,1 @@
+Endast relevanta tabeller, diagram, konfigurationsreferenser, logg-/trafikexempel eller verifieringsmetodik.

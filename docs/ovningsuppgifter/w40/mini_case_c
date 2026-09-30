@@ -1,0 +1,33 @@
+## Tillgångar och dataflöden
+
+- Vilka resurser assistenten har tillgång till CIS 3, CIS 6 ?
+- Vem som har tillgång till att ladda upp dokument till assistenten CIS 6?
+- Least privilege CIS 6? 
+- Certifiering, MFA CIS 6?
+
+## Antaganden
+
+- Någon har matat assistenten med dokument innehållande prompt injection instruktioner
+- Assistenten hämtar dokument från en lokal punkt/data center/server
+- Assistenen har inte tillgång till vissa typer av känsliga dokument
+- Assistenten har förmodligen internetåtkomst
+
+## Händelsesteg
+
+- Ett dokument laddas upp till en asset som AI har access till
+- Ett dokument har hittats som innehåller instruktioner för att påverka AIs output
+- (Antaget steg) Ain läser dokumentet
+- (antaget steg) Ains output påverkas av instruktionerna I dokumentet
+- Personen som använder AI märker att resultatet av ai användningen inte ger förväntat resultat
+
+## C - I - A
+
+### C – Känslig information (CIS 16), (CIS 3)
+### I – Ai rättigheter. Personal och ai  (least rights) (CIS 3)
+### A – AIs funktion limiteras på grund av prompt injection, vem har tillgång till AI (CIS 6)
+
+
+CIS 3 [ CIS 3: Data Protection ]- Känslig information kan exponeras, delas eller användas fel.
+CIS 6: [Access Control Management] - Behörighet, minsta privilegium och stark verifiering begränsar konsekvensen.
+CIS 16: [Application Software Security] - AI-funktioner i applikationer behöver säker design, test och robust input/output-hantering.
+
