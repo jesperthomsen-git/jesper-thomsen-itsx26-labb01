@@ -18,6 +18,18 @@ Högst fem prioriterade åtgärder med beroenden.
 Två målgruppsanpassade perspektiv samt engelsk sammanfattning.
 Kritisk AI-granskning, källor och fördjupad muntlig förberedelse.
 
+ | OMRÅDE | KRITERIUM FÖR G |
+|---|---|
+| Fakta och avgränsning | Givna fakta, antaganden och osäkerheter skiljs åt. |
+| Tillgångar och händelsekedja | Relevanta tillgångar identifieras och händelsekedjan är begriplig. |
+| CIA- och riskanalys | Konsekvenser är casespecifika och risk bedöms med en rimlig motivering. |
+| CIS Controls | CIS 6, 8 och 14 kopplas till konkreta och relevanta åtgärder.|
+| Verifiering | Studenten beskriver hur de viktigaste åtgärderna kan kontrolleras.|
+| Teknisk förståelse | Minst en relevant teknisk koppling till tidigare kursmoment görs. |
+| Dokumentation | Rapporten är strukturerad, källbelagd och skiljer evidens från slutsats. |
+| Kommunikation | Svensk och engelsk sammanfattning är begriplig och målgruppsanpassad. |
+| AI och självständighet | AI-användning redovisas och studenten kan förklara samt verifiera resultatet. |
+| --- Bedömningsgräns --- | Case A är avgränsat för bedömning upp till G. Ett mer omfattande svar inom Case A ger inte automatiskt VG, eftersom Case A inte kräver den komplexitet och självständiga kontrollprioritering som behövs för VG-underlag. |
 
 | OMRÅDE | KRITERIUM FÖR VG |
 |---|---|
@@ -33,48 +45,6 @@ Kritisk AI-granskning, källor och fördjupad muntlig förberedelse.
 | AI och självständighet | Studenten identifierar brister i AI-stöd, verifierar centrala påståenden och motiverar egna korrigeringar. |
  --- VG-nivå --- | För VG ska samtliga G-krav vara uppfyllda. Därutöver ska arbetet visa särskilt hög kvalitet enligt kriterierna nedan. |
 
- | OMRÅDE | KRITERIUM FÖR G |
-|---|---|
-| Fakta och avgränsning | Givna fakta, antaganden och osäkerheter skiljs åt. |
-| Tillgångar och händelsekedja | Relevanta tillgångar identifieras och händelsekedjan är begriplig. |
-| CIA- och riskanalys | Konsekvenser är casespecifika och risk bedöms med en rimlig motivering. |
-| CIS Controls | CIS 6, 8 och 14 kopplas till konkreta och relevanta åtgärder.|
-| Verifiering | Studenten beskriver hur de viktigaste åtgärderna kan kontrolleras.|
-| Teknisk förståelse | Minst en relevant teknisk koppling till tidigare kursmoment görs. |
-| Dokumentation | Rapporten är strukturerad, källbelagd och skiljer evidens från slutsats. |
-| Kommunikation | Svensk och engelsk sammanfattning är begriplig och målgruppsanpassad. |
-| AI och självständighet | AI-användning redovisas och studenten kan förklara samt verifiera resultatet. |
-| --- Bedömningsgräns --- | Case A är avgränsat för bedömning upp till G. Ett mer omfattande svar inom Case A ger inte automatiskt VG, eftersom Case A inte kräver den komplexitet och självständiga kontrollprioritering som behövs för VG-underlag. |
-
-
-## Case B: Prompt injection i vårdrelaterat AI-system, sikte VG
-
-### Scenario
-En vårdorganisation använder en intern AI-assistent för att sammanfatta rutindokument och stödja personalens informationssökning. Assistenten får behandla dokument från flera interna källor. Efter att ett externt dokument laddats upp börjar assistenten lämna svar som innehåller information som inte tycks höra till det uppladdade dokumentet. Dokumentet innehåller dessutom dold eller svårupptäckt text som instruerar assistenten att ignorera tidigare instruktioner. Det är ännu inte fastställt om känsliga uppgifter faktiskt har exponerats. Organisationen saknar en fullständig bild av assistentens åtkomsträttigheter, loggning och dokumentflöden.
-
-
-### Givna fakta
-    • AI-assistenten sammanfattar dokument.
-    • Dokument kommer från flera källor.
-    • Ett externt dokument har laddats upp.
-    • Dokumentet innehåller avvikande instruktioner.
-    • Assistentens output har förändrats.
-    • Behörigheter och loggning är inte fullständigt kartlagda.
-    • Det finns ingen bekräftad dataexponering.
-    • Orsakssambandet är ännu inte verifierat.
-
-### Uppgift för Case B
-    17. Separera fakta, hypoteser, antaganden och saknad information.
-    18. Identifiera informations-, system-, identitets- och processberoenden.
-    19. Beskriv en händelsekedja i fem till sju steg.
-    20. Analysera CIA-konsekvenser och motivera den mest kritiska dimensionen.
-    21. Bedöm sannolikhet, konsekvens, upptäckbarhet och residualrisk.
-    22. Välj tre till fem kontroller från listan nedan. Motivera både val och minst två bortval.
-    23. Föreslå högst fem prioriterade åtgärder och beskriv beroenden mellan dem.
-    24. Ange verifieringsmetod, ansvarstyp och relevant evidens för huvudåtgärderna.
-    25. Diskutera minst två alternativa förklaringar och vilken evidens som kan skilja dem åt.
-    26. Kommunicera separat till teknisk respektive verksamhetsnära målgrupp.
-    27. Redovisa och kritiskt granska AI-stöd och externa källor.
 
 ### Kontroller att välja mellan i Case B
 
@@ -88,13 +58,107 @@ En vårdorganisation använder en intern AI-assistent för att sammanfatta rutin
 | CIS 16: Application Software | Security	Säker design, test samt hantering av betrodd och obetrodd input. |
 | CIS 17: Incident Response Management | Utredning, eskalering, evidens och hantering av möjlig dataexponering. |
 
+### Uppgift för Case B
+
+    17. Separera fakta, hypoteser, antaganden och saknad information.
+    18. Identifiera informations-, system-, identitets- och processberoenden.
+    19. Beskriv en händelsekedja i fem till sju steg.
+    20. Analysera CIA-konsekvenser och motivera den mest kritiska dimensionen.
+    21. Bedöm sannolikhet, konsekvens, upptäckbarhet och residualrisk.
+    22. Välj tre till fem kontroller från listan nedan. Motivera både val och minst två bortval.
+    23. Föreslå högst fem prioriterade åtgärder och beskriv beroenden mellan dem.
+    24. Ange verifieringsmetod, ansvarstyp och relevant evidens för huvudåtgärderna.
+    25. Diskutera minst två alternativa förklaringar och vilken evidens som kan skilja dem åt.
+    26. Kommunicera separat till teknisk respektive verksamhetsnära målgrupp.
+    27. Redovisa och kritiskt granska AI-stöd och externa källor.
 
 
 ## 1. Executive summary	- 150-250 ord på svenska: risk, högsta prioritet och central osäkerhet.
+ 
+
+## 2 scope
+
+I analysens syfte kommer denna analys primärt att fokusera på utökandet av vetskapen inom varför och hur dessa attacker äger rum för att kunna förminska attackerna med ett sikte på 60% reducerade attacker mot föregående kalenderår i kommun X.
+
+### projektomfattningen [^1]
+---
+
+* Projektförklaring: Region X har ökade attacker mot deras vårdrelaterade AI system
+* Analysens syfte: Öka nuvarande vetskap inom data injektion för att kunna motverka attacker mot vårdrelaterade AI system
+  * Sekundärt syfte: Att föreslå proportionerliga, prioriterade och verifierbara åtgärder mot attacker.
+  * Övrigt syfte: Kunna koppla analysen till teknisk förståelse från utbildningen. 
+  * Definerade syften: Identifiera informations-, system-, identitets- och processberoenden. Bedöm sannolikhet, konsekvens, upptäckbarhet och residualrisk.
+  
+* Beställare: Vården Region X
+* Begränsningar av analysen: Analysen kommer att fokusera primärt på vad data injektion är, analys av riskfaktorer kopplingar till CIS controls & CIA triaden
+* Data källor: Analysen kommer primärt att använda sig utav fakta, hypoteser, antaganden och kunskapsluckor. Antaganden, hypoteser och saknad information kommer att tydligt markeras i analys
+* Leveranser: 
+  * Individuell rapport
+  * Tekniska bilagor som samlas i evidens
+  * Engelsk sammanfattning: Threat, affected asset, main impact, top control och key limitation.
+  * Kommunicera separat till teknisk respektive verksamhetsnära målgrupp.
+Detaljerad rapport framställs som sedan sammanfattas i en kort presentation till stakeholder
+
+## 2. Observation
+
+En vårdorganisation använder en intern AI-assistent för att s.
+Assistenten får behandla dokument från flera interna källor.
+Efter att ett externt dokument laddats upp börjar assistenten lämna svar som innehåller information som inte tycks höra till det uppladdade dokumentet.
+Dokumentet innehåller dessutom dold eller svårupptäckt text som instruerar assistenten att ignorera tidigare instruktioner.
+Det är ännu inte fastställt om känsliga uppgifter faktiskt har exponerats.
+Organisationen saknar en fullständig bild av assistentens åtkomsträttigheter, loggning och dokumentflöden.
+
+vården i region X har information tilldelats för analys. I Informationen som observerats står det att vårdorganisationen använder sig utav ett internt AI system i form av en assistent som avlastar vården genom sammanfattning utav rutindokument och agerar som stöd för personalens informationssökning. Assistenten i fråga har möjlighet till att behandla dokument från flera interna källor.
+
+Genom information från vården har AI-assistenten börjat agera annorlunda i form av ändrad output efter en en händelse som inte kan fastlås ännu då grunden till orsakssambandet ännu ej är verifierad. I observationen finns det ytterligare information att vården har upptäckt att ett dokument har laddats upp före denna tidpunkt där AI-assistenten började agera utanför dess ramverk. Information från vården påpekar att assistenten lämnar svar som innehåller information som inte tycks höra till det uppladade dokumentet i fråga.
+
+Dokumentet som blev upphittad som är ankyten till denna observation innehåller information som beskrivs vara i form av dold eller svårupptäckt text som instruerar assistenten att ignorera tidigare instruktioner. Vården har vid observationens tid ej fastställt om känsliga uppgifter har exponerats. Som tilläggande information som avslutande av den faktiska observationen är att organisationen saknar en fullständig bild av assistentens åtkomsträttigheter, loggning samt dokumentflöden.  
+     
+
+
+### Fakta 
+
+    • AI-assistenten sammanfattar dokument.
+    • Dokument kommer från flera källor.
+    • Ett externt dokument har laddats upp.
+    • Dokumentet innehåller avvikande instruktioner.
+    • Assistentens output har förändrats.
+    • Behörigheter och loggning är inte fullständigt kartlagda.
+    • Det finns ingen bekräftad dataexponering.
+    • Orsakssambandet är ännu inte verifierat.
+
+#### Givet underlag
+
+
+### hypoteser
+
+#### antaganden
+
+### kunskapsluckor och avgränsning.
 
 
 
-## 2. Fakta, hypoteser och scope -	Givet underlag, antaganden, kunskapsluckor och avgränsning.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -138,3 +202,6 @@ En vårdorganisation använder en intern AI-assistent för att sammanfatta rutin
 
 
 
+# EXTERNA LÄNKAR
+---
+[^1]: https://www.flyriver.com/g/how-to-define-the-scope-of-an-analysis?auth=1790780277825
