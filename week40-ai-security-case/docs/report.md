@@ -80,7 +80,7 @@ Kritisk AI-granskning, källor och fördjupad muntlig förberedelse.
 
 I analysens syfte kommer denna analys primärt att fokusera på utökandet av vetskapen inom varför och hur dessa attacker äger rum för att kunna förminska attackerna med ett sikte på 60% reducerade attacker mot föregående kalenderår i kommun X.
 
-### projektomfattningen [v][^1]
+### projektomfattningen [^1]
 ---
 
 * Projektförklaring: Region X har ökade attacker mot deras vårdrelaterade AI system
@@ -125,21 +125,28 @@ Fakta som har mottagits för analysen är följande:
 All information som har lämnats från Region X kommer att tas i beaktning och återanvändas som underlag för framställning utav analysen och kommer vara grunden till hur denna analys blir strukturerad.
 
 #### antaganden
-Antaganden som kan dras som följer den röda tråden genom denna analysen kan vara att det var en indirekt injicering [^3] där en prompt kan ha funnits på dokumentet som kan ha varit medvetet placerad eller om personen i fråga som laddade upp dokumentet till assistenten inte var medveten om att detta dokument innehöll denna prompt från början då det dokument organisationen hittade besrkrevs ha dold eller svårupptäckt text. Det som antagas är att texten som fanns på dokumentent kunde då vara så liten text eller vit text som kan vara osynligt för blotta ögat men något som assistenten lyckas att extrahera från dokumentet. 
+Antaganden som kan dras som följer den röda tråden genom denna analysen kan vara att det var en indirekt injicering [^3] där en prompt kan ha funnits på dokumentet som då kan ha varit medvetet placerad eller om personen i fråga som laddade upp dokumentet till assistenten inte var medveten om att detta dokument innehöll denna prompt från början. Då det dokument organisationen hittade besrkrevs ha dold eller svårupptäckt text kan det som antagas vara att texten som fanns på dokumentent vara så liten text eller vit text som kan vara osynligt för blotta ögat men något som assistenten lyckas att extrahera från dokumentet oavsett. 
 
-Om det då skulle vara så att personen vad omedveten om denna information när detta skedde kan man Det som har instruerat assistenten att agera på ett specifikt sätt i detta fall att "ignorera tidigare instruktioner.  
+Om det då skulle vara så att personen var omedveten om denna information när detta skedde kan man se det som en oskyldig handling men då är frågan, vem eller hur hamnade dokumentet där? 
+
+Då dokumentet specifikt har instruerat assistenten att agera på ett specifikt sätt i detta fall att "ignorera tidigare instruktioner. 
 
 ### kunskapsluckor och avgränsning.
 Frågor som dyker upp medans analysen är i sin tidiga utvecklingsfas kan uttryckas som diffusa men allt kan dras till en punkt. Huvud ämnet handlar om prompt injection och hur man kan motarbeta detta på ett effektivt sätt. Fågorna som fångas upp som anses obesvarade är; Hur skapas en prompt injection? Hur kan man reducera attackerna? Finns det något skyddsnät eller riktlinjer som man kan följa? 
 
 Hur kan injicering av text i form av inmatning av dokument möjliggöra att AI-assistenten skapar ett avvikande beteende? [^2] <p>
 
-
 ### hypoteser
 
 Preliminär hypotes
 Om man vill kunna dra slutsatser om vad som sker när en AI blir utsatt för en attack som den hos Vården i Region X så behöver vi granska och utgå från datan som är insamlad från organisationen. Utifrån datan som har granskats kan man göra en analys och skapa exempel som baseras på hypotesen.
 
+
+Exempel 1:
+
+Exempel på den indirekta attacken kan ha skett genom ett mail som personalen har behövt att skriva ut. En möjlig förklaring som baseras på ett antagande är att en email kan ha levererats till Vårdens officiella inkorg och då haft en email address som ser autentisk ut och får då personalen att skriva ut detta material.
+
+Exempel 2:
 
 
 
@@ -148,7 +155,7 @@ Om man vill kunna dra slutsatser om vad som sker när en AI blir utsatt för en 
 ”Det kan tolkas som att …”
 ”I kontrast till …”
 ”Detta förstärker bilden av …”
-”En möjlig förklaring är …”
+” …”
 ”Det blir särskilt tydligt när …”
 
 
