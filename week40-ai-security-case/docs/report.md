@@ -80,7 +80,7 @@ Kritisk AI-granskning, källor och fördjupad muntlig förberedelse.
 
 I analysens syfte kommer denna analys primärt att fokusera på utökandet av vetskapen inom varför och hur dessa attacker äger rum för att kunna förminska attackerna med ett sikte på 60% reducerade attacker mot föregående kalenderår i kommun X.
 
-### projektomfattningen [^1]
+### projektomfattningen [v][^1]
 ---
 
 * Projektförklaring: Region X har ökade attacker mot deras vårdrelaterade AI system
@@ -101,64 +101,72 @@ Detaljerad rapport framställs som sedan sammanfattas i en kort presentation til
 
 ## 2. Observation
 
-En vårdorganisation använder en intern AI-assistent för att s.
-Assistenten får behandla dokument från flera interna källor.
-Efter att ett externt dokument laddats upp börjar assistenten lämna svar som innehåller information som inte tycks höra till det uppladdade dokumentet.
-Dokumentet innehåller dessutom dold eller svårupptäckt text som instruerar assistenten att ignorera tidigare instruktioner.
-Det är ännu inte fastställt om känsliga uppgifter faktiskt har exponerats.
-Organisationen saknar en fullständig bild av assistentens åtkomsträttigheter, loggning och dokumentflöden.
-
-vården i region X har information tilldelats för analys. I Informationen som observerats står det att vårdorganisationen använder sig utav ett internt AI system i form av en assistent som avlastar vården genom sammanfattning utav rutindokument och agerar som stöd för personalens informationssökning. Assistenten i fråga har möjlighet till att behandla dokument från flera interna källor.
+Från vården i region X har information tilldelats för analys. I Informationen som observerats står det att vårdorganisationen använder sig utav ett internt AI system i form av en assistent som avlastar vården genom sammanfattning utav rutindokument och agerar som stöd för personalens informationssökning. Assistenten i fråga har möjlighet och har tillstånd till att behandla dokument från flera interna källor.
 
 Genom information från vården har AI-assistenten börjat agera annorlunda i form av ändrad output efter en en händelse som inte kan fastlås ännu då grunden till orsakssambandet ännu ej är verifierad. I observationen finns det ytterligare information att vården har upptäckt att ett dokument har laddats upp före denna tidpunkt där AI-assistenten började agera utanför dess ramverk. Information från vården påpekar att assistenten lämnar svar som innehåller information som inte tycks höra till det uppladade dokumentet i fråga.
 
-Dokumentet som blev upphittad som är ankyten till denna observation innehåller information som beskrivs vara i form av dold eller svårupptäckt text som instruerar assistenten att ignorera tidigare instruktioner. Vården har vid observationens tid ej fastställt om känsliga uppgifter har exponerats. Som tilläggande information som avslutande av den faktiska observationen är att organisationen saknar en fullständig bild av assistentens åtkomsträttigheter, loggning samt dokumentflöden.  
-     
+Dokumentet som blev upphittad som är ankyten till denna observation innehåller information som beskrivs vara i form av dold eller svårupptäckt text som instruerar assistenten att ignorera tidigare instruktioner. Vården har vid observationens tid ej fastställt om känsliga uppgifter har exponerats. Som tilläggande information som avslutande av den faktiska observationen är att organisationen saknar en fullständig bild av assistentens åtkomsträttigheter, loggning samt dokumentflöden.   
 
 
 ### Fakta 
 
-    • AI-assistenten sammanfattar dokument.
-    • Dokument kommer från flera källor.
-    • Ett externt dokument har laddats upp.
-    • Dokumentet innehåller avvikande instruktioner.
-    • Assistentens output har förändrats.
-    • Behörigheter och loggning är inte fullständigt kartlagda.
-    • Det finns ingen bekräftad dataexponering.
-    • Orsakssambandet är ännu inte verifierat.
+Fakta som har mottagits för analysen är följande:
+* AI-assistenten sammanfattar dokument.
+* Dokument kommer från flera källor.
+* Ett externt dokument har laddats upp.
+* Dokumentet innehåller avvikande instruktioner.
+* Assistentens output har förändrats.
+* Behörigheter och loggning är inte fullständigt kartlagda.
+* Det finns ingen bekräftad dataexponering.
+* Orsakssambandet är ännu inte verifierat.
 
 #### Givet underlag
+
+All information som har lämnats från Region X kommer att tas i beaktning och återanvändas som underlag för framställning utav analysen och kommer vara grunden till hur denna analys blir strukturerad.
+
+#### antaganden
+Antaganden som kan dras som följer den röda tråden genom denna analysen kan vara att det var en indirekt injicering [^3] där en prompt kan ha funnits på dokumentet som kan ha varit medvetet placerad eller om personen i fråga som laddade upp dokumentet till assistenten inte var medveten om att detta dokument innehöll denna prompt från början då det dokument organisationen hittade besrkrevs ha dold eller svårupptäckt text. Det som antagas är att texten som fanns på dokumentent kunde då vara så liten text eller vit text som kan vara osynligt för blotta ögat men något som assistenten lyckas att extrahera från dokumentet. 
+
+Om det då skulle vara så att personen vad omedveten om denna information när detta skedde kan man Det som har instruerat assistenten att agera på ett specifikt sätt i detta fall att "ignorera tidigare instruktioner.  
+
+### kunskapsluckor och avgränsning.
+Frågor som dyker upp medans analysen är i sin tidiga utvecklingsfas kan uttryckas som diffusa men allt kan dras till en punkt. Huvud ämnet handlar om prompt injection och hur man kan motarbeta detta på ett effektivt sätt. Fågorna som fångas upp som anses obesvarade är; Hur skapas en prompt injection? Hur kan man reducera attackerna? Finns det något skyddsnät eller riktlinjer som man kan följa? 
+
+Hur kan injicering av text i form av inmatning av dokument möjliggöra att AI-assistenten skapar ett avvikande beteende? [^2] <p>
 
 
 ### hypoteser
 
-#### antaganden
-
-### kunskapsluckor och avgränsning.
-
+Preliminär hypotes
+Om man vill kunna dra slutsatser om vad som sker när en AI blir utsatt för en attack som den hos Vården i Region X så behöver vi granska och utgå från datan som är insamlad från organisationen. Utifrån datan som har granskats kan man göra en analys och skapa exempel som baseras på hypotesen.
 
 
 
 
 
+”Detta tyder på att …”
+”Det kan tolkas som att …”
+”I kontrast till …”
+”Detta förstärker bilden av …”
+”En möjlig förklaring är …”
+”Det blir särskilt tydligt när …”
 
 
 
+En enkel slutkontroll kan se ut så här:
+
+    Har varje stycke en tydlig poäng?
+    Finns det minst ett belägg som stöder varje större påstående?
+    Förklarar jag varför belägget är viktigt?
+    Håller jag mig till uppgiftens fråga?
+    Finns det onödiga upprepningar eller svepande formuleringar?
 
 
+En enkel tumregel är att analysera med tre frågor i bakhuvudet:
 
-
-
-
-
-
-
-
-
-
-
-
-
+    Vad ser jag?
+    Vad innebär det?
+    Hur vet jag det?
 
 
 
@@ -202,6 +210,8 @@ Dokumentet som blev upphittad som är ankyten till denna observation innehåller
 
 
 
-# EXTERNA LÄNKAR
+# EXTERNA-LÄNKAR
 ---
-[^1]: https://www.flyriver.com/g/how-to-define-the-scope-of-an-analysis?auth=1790780277825
+[^1]: [Define the scope](./references.md#EXTERNA-LÄNKAR) <br>
+[^2]: [Att skriva en analys](./references.md#EXTERNA-LÄNKAR) <br> 
+[^3]: [Indirect instructions](./references.md#EXTERNA-LÄNKAR)  
