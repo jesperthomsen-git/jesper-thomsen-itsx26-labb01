@@ -3,9 +3,8 @@
 
 1: [Define the scope](./report.md#EXTERNA-LÄNKAR): https://www.flyriver.com/g/how-to-define-the-scope-of-an-analysis?auth=1790780277825 <br>
 2: [Att skriva en analys](./report.md#EXTERNA-LÄNKAR): https://storaordboken.se/hur-skriver-man-en-analys-guide-for-skarpa-resonemang <br>
-3: [Indirect instructions](./report.md#EXTERNA-LÄNKAR): https://www.ibm.com/docs/en/watsonx/saas?topic=atlas-indirect-instructions-attack <br>
-
-
+3: ["What Is a Prompt Injection Attack?"](./report.md#EXTERNA-LÄNKAR): https://www.ibm.com/docs/en/watsonx/saas?topic=atlas-indirect-instructions-attack IBM. 2024-03-21<br>
+4: Gorelick, Evan (7 October 2025) ["Recruiters Use A.I. to Scan Résumés. Applicants Are Trying to Trick It"](./report.md#EXTERNA-LÄNKAR): https://www.nytimes.com/2025/10/07/business/ai-chatbot-prompts-resumes.html The New York Times<br>
 
 
 
