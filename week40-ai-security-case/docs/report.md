@@ -105,7 +105,7 @@ Från vården i region X har information tilldelats för analys. I Informationen
 
 Genom information från vården har AI-assistenten börjat agera annorlunda i form av ändrad output efter en en händelse som inte kan fastlås ännu då grunden till orsakssambandet ännu ej är verifierad. I observationen finns det ytterligare information att vården har upptäckt att ett dokument har laddats upp före denna tidpunkt där AI-assistenten började agera utanför dess ramverk. Information från vården påpekar att assistenten lämnar svar som innehåller information som inte tycks höra till det uppladade dokumentet i fråga.
 
-Dokumentet som blev upphittad som är ankyten till denna observation innehåller information som beskrivs vara i form av dold eller svårupptäckt text som instruerar assistenten att ignorera tidigare instruktioner. Vården har vid observationens tid ej fastställt om känsliga uppgifter har exponerats. Som tilläggande information som avslutande av den faktiska observationen är att organisationen saknar en fullständig bild av assistentens åtkomsträttigheter, loggning samt dokumentflöden.   
+Dokumentet som blev upphittad som är ankyten till denna observation innehåller information som beskrivs vara i form av dold eller svårupptäckt text som instruerar assistenten att ignorera tidigare instruktioner. Vården har vid observationens tid ej fastställt om känsliga uppgifter har exponerats. Som tilläggande information som avslutande av den faktiska observationen är att organisationen saknar en fullständig bild av assistentens åtkomsträttigheter, loggning samt dokumentflöden. 
 
 
 ### Fakta 
@@ -142,19 +142,17 @@ Preliminär hypotes
 Om man vill kunna dra slutsatser om vad som sker när en AI blir utsatt för en attack som den hos Vården i Region X så behöver vi granska och utgå från datan som är insamlad från organisationen. Utifrån datan som har granskats kan man göra en analys och skapa exempel som baseras på hypotesen.
 
 
-Exempel 1:
+Exempel:
 
 Exempel på den indirekta attacken kan ha skett genom ett mail som personalen har behövt att skriva ut. En möjlig förklaring som baseras på ett antagande är att en email kan ha levererats till Vårdens officiella inkorg och då haft en email address som ser autentisk ut och får då personalen att skriva ut detta material.
 
-Exempel 2:
-
-
-
+Exempel 2: Enligt organisationen fick vi denna förklaring beskrivet: "Efter att ett externt dokument laddats upp börjar assistenten lämna svar som innehåller information som inte tycks höra till det uppladdade dokumentet." Det kan tyda på att outputen började ändras direkt efter uppladdning. Då det har inte blivit verifierat att någon form av data exponering har skett kan det tolkas att om det var medvetet att personen som laddade upp dokumentet var ute efter något specifikt.
 
 ”Detta tyder på att …”
 ”Det kan tolkas som att …”
 ”I kontrast till …”
 ”Detta förstärker bilden av …”
+Det kan tolkas som att
 ” …”
 ”Det blir särskilt tydligt när …”
 
@@ -178,10 +176,20 @@ En enkel tumregel är att analysera med tre frågor i bakhuvudet:
 
 
 ## 3. Tillgångar och beroenden - Information, system, identiteter, processer och förtroende.
+Då vi analyserar en händelse där AI:n har börjat att ge output som inte har efterfrågats behöver vi skapa lista över vad som kan anses som källor och information.
 
+#### Information: Information kan kopplas till dokument som blir inmatade till assistenten
+#### System: Assistenten är en av huvud delarna i analysen där den kör på sitt egna program för att fungera. Vilken OS eller hur den opererar är nuvarande okänt. 
+#### Identiteter: Identiteter som dyker upp ofta är Region X, AI assistenten, vården som organisation samt personen som är okänd i dagsläget som matade in dokumentet till assistenten.
+#### processer: I samdand med analysen så läggs det upp att assistenten tar emot dokument från interna källor, oklart om detta är runt om i vården i Region X, också oklart om detta samlas i en data bank eller om assistenten finns på flera områden runt om på vården för enklare tillgång. Också oklart om dokumenten och informationsbehandlingen skickas mellan assistenterna.
+#### Förtroende: Region har gett oss uppdraget att skapa en analys i utbildningssyfte för framtida arbetssätt samt att kunna skapa en plan mote framtida attacker av detta slag. Region förlitar sig också på att assistenten använder datan som inmatas på ett sätt som instruerats och inte som den gör i dagsläget.
+
+
+#### För att AI assistenten ska kunna fungera är den beroende av någon form av koppling till internet eller LAN för att kunna extrahera data från input genom olika interna källor. Då detta ej är fakta och fortfarande oklart hur assistenten opererar behöver denna information ses som möligt beroende. Då det inte finns bevis eller fakta om hur, kan assistenten lika väl köras lokalt på en plats, eller flera utan koppling eller dialog med varandra. Om den körs lokalt är ström det ända som den är beroende av.
 
 
 ## 4. Händelsekedja och alternativa förklaringar - Fem till sju steg samt minst två alternativa förklaringar.
+
 
 
 
