@@ -190,8 +190,38 @@ Då vi analyserar en händelse där AI:n har börjat att ge output som inte har 
 
 ## 4. Händelsekedja och alternativa förklaringar - Fem till sju steg samt minst två alternativa förklaringar.
 
+En händelsekeja som kan ha skett har haft en viss förklaring genom exemplerna men för att kunna skapa en hypotetisk händelsekedja kan vi använda oss utav.
 
+Baserat på exempel 1: 
 
+```mermaid
+flowchart TB
+    email(("Email"))
+    writeout(("Skrivs ut"))
+    ai[("AI")]
+    inject(("Injicering"))
+    quest(("Utdata"))
+    
+    
+    descr1["Email blir mottaget"]
+    descr2["Email skrivs ut som dokument"]
+    descr3["Dokumentet matas in till AI"]
+    descr4["AI-Assistenten blir injicerad"]
+    descr5["Assistenten lämnar svar som innehåller dylig information"]
+    
+    email --> writeout
+    writeout --> ai
+    ai --> inject
+    inject --> quest
+    
+    descr1 --> email
+    descr2 --> writeout
+    descr3 --> ai
+    descr4 --> inject
+    descr5 --> quest
+```
+
+Hur och varför just vården
 
 ## 5. CIA- och fördjupad riskanalys	- Sannolikhet, konsekvens, upptäckbarhet, befintliga kontroller, osäkerhet och residualrisk.
 
