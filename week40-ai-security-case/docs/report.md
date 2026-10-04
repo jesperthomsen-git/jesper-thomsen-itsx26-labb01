@@ -74,7 +74,12 @@ Kritisk AI-granskning, källor och fördjupad muntlig förberedelse.
 
 
 ## 1. Executive summary	- 150-250 ord på svenska: risk, högsta prioritet och central osäkerhet.
- 
+This analysis is made to create an understanding of prompt injections take place and how to deploy countermeasures in a cost-effective and efficient way through routines and a set of rules. Research into prompt injection will be necesseray to be able to create an understanding to reduce the risk of further attacks. The goal of this analysis is to reduce and remove at least 60% of future attacks. 
+
+In the sections to come, we create a scope where we zoom into the issue at hand, observe root cause and facts received from Region X. Hypothesis with examples to create depth and understanding of the task at hand and how to tackle these through best practices.
+
+Counting routines, informing about key points of vulnerability where hardening is essential to create a foundation for the assistant.
+
 
 ## 2 scope
 
@@ -322,11 +327,18 @@ Där andra prompter lyckats slippa undan har man möjlighet att filtrera detta m
 
 Det finns säkert andra möjliga lösningar till samma fråga men att starta någonstans och sedan utveckla miljön där detta inte sker igen är grunden till varför denna analys är skapad.
 
-
-# 10 FYLL I ENGLISH SECURITY SUMMARY
-
-
 ## 11. AI- och källredovisning - Kritisk granskning, fel, korrigeringar och källor.
+---
+Ai 
+
+[^1]: [Define the scope](./references.md#11) <br>
+[^2]: [Att skriva en analys](./references.md#EXTERNA-LÄNKAR) <br> 
+[^3]: ["What Is a Prompt Injection Attack?"](./references.md#EXTERNA-LÄNKAR)  
+[^4]: ["Recruiters Use A.I. to Scan Résumés. Applicants Are Trying to Trick It"](./references.md#EXTERNA-LÄNKAR) <br>
+[^5]: ["OpenAI and Hugging Face partner to address security incident during model evaluation"](./references.md#EXTERNA-LÄNKAR) <br>
+[^6]: ["What are large language models"](./references.md#EXTERNA-LÄNKAR) <br>
+[^7]: ["Exercise caution when building off LLMs"](./references.md#EXTERNA-LÄNKAR)<br>
+[^8]: ["OWASP Top 10:2025"](./references.md#EXTERNA-LÄNKAR) <br>
 
 
 
@@ -335,12 +347,3 @@ Det finns säkert andra möjliga lösningar till samma fråga men att starta nå
 
 
 # EXTERNA-LÄNKAR
----
-[^1]: [Define the scope](./references.md#EXTERNA-LÄNKAR) <br>
-[^2]: [Att skriva en analys](./references.md#EXTERNA-LÄNKAR) <br> 
-[^3]: ["What Is a Prompt Injection Attack?"](./references.md#EXTERNA-LÄNKAR)  
-[^4]: ["Recruiters Use A.I. to Scan Résumés. Applicants Are Trying to Trick It"](./references.md#EXTERNA-LÄNKAR) <br>
-[^5]: ["OpenAI and Hugging Face partner to address security incident during model evaluation"](./references.md#EXTERNA-LÄNKAR) <br>
-[^6]: ["What are large language models"](./references.md#EXTERNA-LÄNKAR) <br>
-[^7]: ["Exercise caution when building off LLMs"](./references.md#EXTERNA-LÄNKAR)<br>
-[^8]: ["OWASP Top 10:2025"](./references.md#EXTERNA-LÄNKAR) <br>

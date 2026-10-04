@@ -1,1 +1,4 @@
 ## 10. English Security - Summary	100-150 ord.
+This analysis is requested from the Healthcare organisation from Region X. Research into the matter has shown vulnerabilities within the environment. The vulnerabilities that were found are where CIS controls have not taken place and are not part of routine. Hardening as well as logging, tracing and the possibility to create evidence is pivotal to keep the system functional and without attacks. In this observation an in-depth CIA has been created, reflecting base issues.
+
+To summarise, CIS 3, 6, 8, 16 and 17 need to be applied to create a secure front for future development. To be able to create a safe environment CIS controls and further development towards safe API such as ORMs models and the use of positive-server-side input to make sure that filtering of prompts gets caught before being processed. 
