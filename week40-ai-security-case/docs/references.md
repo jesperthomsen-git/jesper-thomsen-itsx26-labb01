@@ -6,7 +6,16 @@
 3: ["What Is a Prompt Injection Attack?"](./report.md#EXTERNA-LÄNKAR): https://www.ibm.com/docs/en/watsonx/saas?topic=atlas-indirect-instructions-attack IBM. 2024-03-21<br>
 4: Gorelick, Evan (7 October 2025) ["Recruiters Use A.I. to Scan Résumés. Applicants Are Trying to Trick It"](./report.md#EXTERNA-LÄNKAR): https://www.nytimes.com/2025/10/07/business/ai-chatbot-prompts-resumes.html The New York Times<br>
 5: ["OpenAI and Hugging Face partner to address security incident during model evaluation"](./report.md#EXTERNA-LÄNKAR): https://openai.com/index/hugging-face-model-evaluation-security-incident/ July 21, 2026.<br>
-6:  "Exercise caution when building off LLMs". U.K. National Cyber Security Centre. 30 August 2023. Retrieved 5 March 2025.
+6: ["What are large language models"](https://www.ibm.com/think/topics/large-language-models)<br>
+7: ["Exercise caution when building off LLMs"](https://www.ncsc.gov.uk/blog-post/exercise-caution-building-off-llms) U.K. National Cyber Security Centre. 30 August 2023.<br>
+8: ["OWASP Top 10:2025"](https://top10.owasp.org/2025/A05_2025-Injection/)<br>
+
+
+
+
+
+
+
 
 ## INFORMATION
 ### TEXT TAGEN FRÅN:

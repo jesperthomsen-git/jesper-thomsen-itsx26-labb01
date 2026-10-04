@@ -296,23 +296,31 @@ Evidensen kan sedan användas för att framställa en egen analys där man samma
 
 ### Teknisk
 
-Osäkerheten som skapats de senaste åren tills nu har skapat mycket oro, allt från osäkerheten om chansen om kapaciteten för medvetenhet inom AI till hur AI kan ta sig ut från sin säkra sandbox och attackera andra robotar för att hitta svar på det den inte vet. [^5] Då detta var under ett kontrollerat test är det inte säkert att detta inte kommer ske i framtiden utanför säkra ramar. 
+Osäkerheten som skapats de senaste åren tills nu har skapat mycket oro, allt från osäkerheten om chansen om kapaciteten för medvetenhet inom AI någonsin kommer att hända till hur AI kan ta sig ut från sin säkra sandbox och attackera andra robotar för att hitta svar på det den inte vet. [^5] Då detta var under ett kontrollerat test är det inte säkert att detta inte kommer ske i framtiden utanför säkra ramar. 
 
 Prompt injicering är fortfarande relativt nytt inom AI och många avdelningar har inte utbildningen eller vetskapen som krävs för att säkert använda sig utav AI på ett kontrollerat sätt. Region X's vårdavdelning är en av flera stora organisationer som har blivit påverkade av specifikt attacker mot AI där chat prompter, fil uppladdningar eller hemsidor kan skapa stora problem där AI inte kan särskilja om prompten innehåller bas information från användaren eller instructioner från utvecklaren. [^3] 
 
+Men hur motverkar man en prompt injicering på ett säkert och kontrollerat sätt? Prompt injicering har nu skapat stora säkerhetsrisker och specifikt inom LLM [^6] miljöer. Då det har kommit fram att miljöer som använder sig av LLM har uppmärksammat en svaghet att kunna skilja på om datan som matas in är från användaren eller inte. Då området är fortfarande under forskning så kan man fortfarande skapa motverkande medel för att vissa av dessa svagheter blir exploiterade även om man inte har lyckats skapa träffsäkra resultat i dagsläget. [^7]
 
+Det som behöver tas i beaktning är att även om man inte kan skydda sig helt mot injicering kan man använda sig av olika tekniker som OWASP [^8] skriver i deras officiella guideline mot injicerings som till exempel att använda sig utav säker API som använder modeller som Object Relational Mapping Tools(ORMs). Även om man använder sig av denna modell så skriver OWASP att det inte är helt garanterat att det skyddar dig mot allt; "Even when parameterized, stored procedures can still introduce SQL injection" [^8] I kontrast till olika modeller som kan använda finns andra alternativ om man inte har möjlighet till att använda sig av specifika modeller som vidare exempel; Positiv server input validering för att se till att prompter som går mot AI-assistenten fångas upp i ett nät som då går igenom filter innan AI:n följer vidare instruktioner. Även om detta inte heller är en garanterad lösning har man möjlighet att minska attack ytan ytterligare genom hardeningen genom CIS kontrollerna och dessa exempel kan man minimera risken exponentiellet.
 
-mönster, samband, orsaker, effekter och möjliga tolkningar. 
+Där andra residuella dynamiska efterfrågningar som lyckats slippa undan har man möjlighet att filtrera detta med specifika "om" faktorer som ser till att kända prompter som kan matas in blir nekade.
 
-Vad ser jag?
-Vad innebär det?
-Hur vet jag det?
+Det finns säkert andra möjliga lösningar till samma fråga men att starta någonstans och sedan utveckla miljön där detta inte sker igen är grunden till varför denna analys är skapad.
 
 ### verksamhets-/ledningsanpassad
 
+Osäkerheten som skapats de senaste åren tills nu har skapat mycket oro, allt från osäkerheten om chansen om kapaciteten för medvetenhet inom AI någonsin kommer att hända till hur AI kan ta sig ut från sin säkra sandbox och attackera andra robotar för att hitta svar på det den inte vet. [^5] Då detta var under ett kontrollerat test är det inte säkert att detta inte kommer ske i framtiden utanför säkra ramar. 
 
+Prompt injicering är fortfarande relativt nytt inom AI och många avdelningar har inte utbildningen eller vetskapen som krävs för att säkert använda sig utav AI på ett kontrollerat sätt. Region X's vårdavdelning är en av flera stora organisationer som har blivit påverkade av specifikt attacker mot AI där chat prompter, fil uppladdningar eller hemsidor kan skapa stora problem där AI inte kan särskilja om prompten innehåller bas information från användaren eller instructioner från utvecklaren. [^3] 
 
+Men hur motverkar man en prompt injicering på ett säkert och kontrollerat sätt? Prompt injicering har nu skapat stora säkerhetsrisker och specifikt inom Large Language Models(LLM) [^6] miljöer. Då det har kommit fram att miljöer som använder sig av LLM har uppmärksammat en svaghet att kunna skilja på om datan som matas in är från användaren eller inte. Då området är fortfarande under forskning så kan man fortfarande skapa motverkande medel för att vissa av dessa svagheter blir exploiterade även om man inte har lyckats skapa träffsäkra resultat i dagsläget. [^7]
 
+Det som behöver uppmärksammas är att även om man inte kan skydda sig helt mot attacker kan man använda sig av olika tekniker som OWASP [^8] skriver i deras officiella guideline mot injicerings som till exempel att använda sig av säker Application Programming Interface(API) som använder modeller som inte är lika känsliga mot attacker. API är en koppling mellan ens dator och i detta fall Assistenten. Även om man använder sig av denna modell så skriver OWASP att det inte är helt garanterat att det skyddar dig mot allt; "Even when parameterized, stored procedures can still introduce SQL injection" [^8] I kontrast till olika modeller som kan använda finns andra alternativ som kan öka säkerheten som att skapa ett spindelnät på serverns sida för att kunna fånga upp prompter som anses skadliga. Även om detta inte heller är en garanterad lösning har man möjlighet att minska chansen ytterligare genom bestämda kontroller och rutiner som är rekommenderade att följa och dessa exempel kan man minimera risken exponentiellet.
+
+Där andra prompter lyckats slippa undan har man möjlighet att filtrera detta med specifika faktorer som ser till att kända prompter blir nekade.
+
+Det finns säkert andra möjliga lösningar till samma fråga men att starta någonstans och sedan utveckla miljön där detta inte sker igen är grunden till varför denna analys är skapad.
 
 
 # 10 FYLL I ENGLISH SECURITY SUMMARY
@@ -332,6 +340,7 @@ Hur vet jag det?
 [^2]: [Att skriva en analys](./references.md#EXTERNA-LÄNKAR) <br> 
 [^3]: ["What Is a Prompt Injection Attack?"](./references.md#EXTERNA-LÄNKAR)  
 [^4]: ["Recruiters Use A.I. to Scan Résumés. Applicants Are Trying to Trick It"](./references.md#EXTERNA-LÄNKAR) <br>
-[^5]: ["OpenAI and Hugging Face partner to address security incident during model evaluation"](./references.md#EXTERNA-LÄNKAR) 
-
-
+[^5]: ["OpenAI and Hugging Face partner to address security incident during model evaluation"](./references.md#EXTERNA-LÄNKAR) <br>
+[^6]: ["What are large language models"](./references.md#EXTERNA-LÄNKAR) <br>
+[^7]: ["Exercise caution when building off LLMs"](./references.md#EXTERNA-LÄNKAR)<br>
+[^8]: ["OWASP Top 10:2025"](./references.md#EXTERNA-LÄNKAR) <br>
