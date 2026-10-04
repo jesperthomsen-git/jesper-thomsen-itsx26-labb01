@@ -203,7 +203,6 @@ def analyse_logs(log_files):
     csv_formatting["log_entry"] = log_file["log_entry"]
     csv_formatting["source_file"] = log_file["source_file"]
     
-    
     #Skapandet utav layout för CSV dokumentet och kommer användas framöver för att kalla på specifika kolumner för data extrahering.
     csv_formatting = csv_formatting [
         [
@@ -299,12 +298,13 @@ def analyse_logs(log_files):
     
     print("SKAPAR FULLSTÄNDIG RAPPORT I CSV FILEN MED SUMMERING, VÄNLIGEN VÄNTA\n")
     
+    #Lamnda funktion som kontrollerar om score är högre än 10, om score blir högre än 10 får den en hög risk "Tag" i CSV filen.
     summary_values = (
         csv_formatting["TOT_IOC"]
         .apply(lambda score: "Hög risk" if score >= 10 else "Medel risk")
     )
     
-    
+    #ett försök att skapa en kolumn som summerar en rapport i början. Detta blev sedan ändrat till skriftlig rapport instället så jag kan använda recalls och aktivt använda CSV som en databas istället.
     csv_formatting.insert(
         loc=len(csv_formatting.columns),
         column="-----_SCORE_-----",
@@ -436,7 +436,7 @@ def compare_files(output_path, total_lines, ip_count, data_folder):
     )
     
     number_of_lines = report_data["source_file"].nunique()
-    
+    #Report lines är rapporten som skapas i textfilen som skapar en sammanställning från databasen.
     report_lines = [
         "***************************************",
         "*       ITSX26 SECURITY REPORT        *",
@@ -555,6 +555,8 @@ def compare_files(output_path, total_lines, ip_count, data_folder):
         file.write("\n".join(report_lines))
     print(f"Rapporten har blivit skapat: {report_path}")
 
+
+#Main frame kallar på alla funktioner som skapades förut
 def main_frame():
     
     output_folder = Path("week39-security-automation/output")

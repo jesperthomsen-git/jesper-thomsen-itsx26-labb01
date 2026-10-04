@@ -389,7 +389,7 @@ Då det är viktigt att poängtera att datan inte är fastslådd och att detta b
 
 Även om observationen skapar en helhetsbild av fångsten så är den inte avgörande data. Detta i sig kan skapa osäkerhet genom att programmet kan oundvikligt indikera att en person är misstänkt för en attack vilket jag såg till att detta blev skrivet i rapporten som påminnelse. 
 
-Programmet i fråga kan inte återskapa, fånga en specifik incident eller en attack som till exempel Wireshark kan, detta program analyserar data från fångst genom tredje parts applikationer som skapar loggarna 
+Programmet i fråga kan inte återskapa, fånga en specifik incident eller en attack som till exempel Wireshark kan, detta program analyserar data från fångst genom tredje parts applikationer som skapar loggarna.
 
 ## 07. Alternativ förklaring: Vilka andra rimliga orsaker kan ge samma mönster? 
 
