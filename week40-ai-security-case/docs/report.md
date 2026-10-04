@@ -246,22 +246,24 @@ En annan alternativ hypotetisk förklaring för hur incidenten kunde ha skett sk
 
 | Observation | Påverkan på CIA | Riskbeskrivning | Föreslagen åtgärd | Prioritet |
 |---|---|---|---|---|
-|  Prompt injection | Konfidentialitet, intigritet| Assistentens output har förändrats, Det finns ingen bekräftad dataexponering, Orsakssambandet är ännu inte verifierat. | Kontroll av exponering genom loggar, assistentens rättigheter,  |  |
-
-
+|  Prompt injection | Konfidentialitet, intigritet| Assistentens output har förändrats, Det finns ingen bekräftad dataexponering, Orsakssambandet är ännu inte verifierat. | Kontroll av exponering genom loggar, assistentens rättigheter, verifiering av orsakssambandet | Hög |
 
 #### Sannolikhet 
+Sannolikheten att känslig data som personuppgifter, användardata, ekonomisk information samt journaler kan ha läckts ut eller redigerats då assistentens huvuduppgift är att hantera rutindokument och stödja personalens informationssökning. Detta förstärker bilden av hur mycket datan som möjligtvis matas in som kan ha blivit exponerats genom utdatan som den levererar. Region X nämner att outputen har förändrats men det är ej tydligt på vilket sätt eller vad assistenten ger ut för data. 
 
 #### konsekvens
+Om kartläggning ej skapas för hur man kan förminska attackerna på vården och i detta fall följer föreslagen åtgärd kan detta skapa stora konsekvenser som både kan påverka människors liv men också vårdens rykte och tillit.
 
 #### upptäckbarhet 
+Genom att kontrollera loggar på miljöerna som assistenten har tillgång till kan man skapa uteslutanden. I kontrast till att endast leta efter vad som exponeras när det sker genom utdata så kan man enklare se mönster vart assistenten kan ha varit och antagligen ändrat filer som ett exempel.
 
 #### befintliga kontroller
+Enligt information som har mottagits från Region X har organisationen inte kartlagt behörigheter och loggning innan händelsen tagit plats.
 
 #### osäkerhet och residualrisk
+Genom information som har analyserats tills nu så kan det inte fastslås att assistenten faktiskt ändrar data som är uppladdade samt om exponering har skett. Vi vet heller inte om assistenten har ändrat rättigheter, ändrat lösenord eller skickat information till något eller något. 
 
-
-
+Även om föreslagen åtgärd blir gjord så kommer det alltid att finnas en risk att detta uppkommer igen vilket är det som behöver komma till ljus. Om information eller annan data har blivit ändrat kommer detta fortfarande att påverka människor, data blivit ändrat och då detta är oklart så är det inte tydligt om det finns en återställnings funktion eller en form av backup som kan återskapas till innan händelsen tog plats. 
 
 ## 6. CIS-mappning och bortval	- Tre till fem valda kontroller och minst två motiverade bortval.
 
