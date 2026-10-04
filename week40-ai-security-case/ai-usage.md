@@ -12,4 +12,4 @@ Dokumentera varje gång du använder AI som stöd i labben.
 
 ## Egen reflektion
 
-Beskriv en situation där AI var hjälpsamt och en situation där du behövde vara extra kritisk.
+I denna rapport har jag inte haft behovet att använda mig utav AI.

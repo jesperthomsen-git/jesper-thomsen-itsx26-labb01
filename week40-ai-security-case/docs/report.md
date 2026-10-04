@@ -1,78 +1,3 @@
-3. Gemensamma säkerhets- och källkrav
-Använd inte verkliga personuppgifter, autentiseringsuppgifter eller känsliga loggar.
-Sanera skärmbilder och teknisk evidens.
-Presentera inte antaganden som bekräftade fakta.
-Använd officiell CIS-källa för kontrollnamn och version.
-Externa påståenden ska ha relevanta och kontrollerbara källor.
-AI-genererade påståenden ska verifieras innan de används.
-Beskriv inte AI-hotet som mer avancerat än underlaget stödjer.
-
-Definition of Done
-CASE B
-Valt case och tydlig avgränsning.
-Fakta, hypoteser, antaganden och kunskapsluckor separerade.
-Flera beroenden och 5-7 steg.
-CIA, upptäckbarhet och residualrisk.
-3-5 valda och minst två bortvalda CIS Controls.
-Högst fem prioriterade åtgärder med beroenden.
-Två målgruppsanpassade perspektiv samt engelsk sammanfattning.
-Kritisk AI-granskning, källor och fördjupad muntlig förberedelse.
-
- | OMRÅDE | KRITERIUM FÖR G |
-|---|---|
-| Fakta och avgränsning | Givna fakta, antaganden och osäkerheter skiljs åt. |
-| Tillgångar och händelsekedja | Relevanta tillgångar identifieras och händelsekedjan är begriplig. |
-| CIA- och riskanalys | Konsekvenser är casespecifika och risk bedöms med en rimlig motivering. |
-| CIS Controls | CIS 6, 8 och 14 kopplas till konkreta och relevanta åtgärder.|
-| Verifiering | Studenten beskriver hur de viktigaste åtgärderna kan kontrolleras.|
-| Teknisk förståelse | Minst en relevant teknisk koppling till tidigare kursmoment görs. |
-| Dokumentation | Rapporten är strukturerad, källbelagd och skiljer evidens från slutsats. |
-| Kommunikation | Svensk och engelsk sammanfattning är begriplig och målgruppsanpassad. |
-| AI och självständighet | AI-användning redovisas och studenten kan förklara samt verifiera resultatet. |
-| --- Bedömningsgräns --- | Case A är avgränsat för bedömning upp till G. Ett mer omfattande svar inom Case A ger inte automatiskt VG, eftersom Case A inte kräver den komplexitet och självständiga kontrollprioritering som behövs för VG-underlag. |
-
-| OMRÅDE | KRITERIUM FÖR VG |
-|---|---|
-| Systematiskt säkerhetsmindset | Ofullständig och tvetydig information hanteras stringent; ny evidens kopplas till hur bedömningen kan ändras. |
-| Beroenden | Teknik, information, identitet, människor och processer vägs samman. |
-| CIA och risk | Sannolikhet, konsekvens, upptäckbarhet, befintliga kontroller och residualrisk analyseras med hög kvalitet. |
-| CIS-val och bortval | Kontroller prioriteras och minst två alternativa kontroller väljs bort med tydlig motivering. |
-| Alternativa förklaringar | Minst två rimliga förklaringar diskuteras och evidens för att skilja dem åt identifieras. |
-| Verifiering | Verifieringen kan faktiskt visa om åtgärden fungerar och anger evidens, ansvar och uppföljning. |
-| Åtgärdsprioritering | Åtgärder balanserar människa, process och teknik samt visar beroenden och genomförbarhet. |
-| Dokumentation och spårbarhet | Underlaget håller särskilt hög kvalitet i riskdokumentation, källor, struktur och spårbarhet. |
-| Målgruppsanpassning | Teknisk respektive verksamhetsnära kommunikation anpassas konsekvent till olika beslutsbehov. |
-| AI och självständighet | Studenten identifierar brister i AI-stöd, verifierar centrala påståenden och motiverar egna korrigeringar. |
- --- VG-nivå --- | För VG ska samtliga G-krav vara uppfyllda. Därutöver ska arbetet visa särskilt hög kvalitet enligt kriterierna nedan. |
-
-
-### Kontroller att välja mellan i Case B
-
-| CONTROL | MÖJLIG RELEVANS |
-|---|---|
-| CIS 2: Inventory and Control of Software Assets | Överblick över AI-tjänst, integrationer och tillåtna programvaror. |
-| CIS 3: Data Protection	| Klassning, åtkomst och skydd för information som behandlas av assistenten. |
-| CIS 4: Secure Configuration of Enterprise Assets and Software | Säkra grundinställningar för tjänst och integrationer. |
-| CIS 6: Access Control Management | Minsta privilegium och begränsning av vilken information assistenten kan nå. |
-| CIS 8: Audit Log Management | Spårbarhet för dokument, åtkomst, output och händelser. |
-| CIS 16: Application Software | Security	Säker design, test samt hantering av betrodd och obetrodd input. |
-| CIS 17: Incident Response Management | Utredning, eskalering, evidens och hantering av möjlig dataexponering. |
-
-### Uppgift för Case B
-
-    17. Separera fakta, hypoteser, antaganden och saknad information.
-    18. Identifiera informations-, system-, identitets- och processberoenden.
-    19. Beskriv en händelsekedja i fem till sju steg.
-    20. Analysera CIA-konsekvenser och motivera den mest kritiska dimensionen.
-    21. Bedöm sannolikhet, konsekvens, upptäckbarhet och residualrisk.
-    22. Välj tre till fem kontroller från listan nedan. Motivera både val och minst två bortval.
-    23. Föreslå högst fem prioriterade åtgärder och beskriv beroenden mellan dem.
-    24. Ange verifieringsmetod, ansvarstyp och relevant evidens för huvudåtgärderna.
-    25. Diskutera minst två alternativa förklaringar och vilken evidens som kan skilja dem åt.
-    26. Kommunicera separat till teknisk respektive verksamhetsnära målgrupp.
-    27. Redovisa och kritiskt granska AI-stöd och externa källor.
-
-
 ## 1. Executive summary	- 150-250 ord på svenska: risk, högsta prioritet och central osäkerhet.
 This analysis is made to create an understanding of prompt injections take place and how to deploy countermeasures in a cost-effective and efficient way through routines and a set of rules. Research into prompt injection will be necesseray to be able to create an understanding to reduce the risk of further attacks. The goal of this analysis is to reduce and remove at least 60% of future attacks. 
 
@@ -111,7 +36,6 @@ Från vården i region X har information tilldelats för analys. I Informationen
 Genom information från vården har AI-assistenten börjat agera annorlunda i form av ändrad output efter en en händelse som inte kan fastlås ännu då grunden till orsakssambandet ännu ej är verifierad. I observationen finns det ytterligare information att vården har upptäckt att ett dokument har laddats upp före denna tidpunkt där AI-assistenten började agera utanför dess ramverk. Information från vården påpekar att assistenten lämnar svar som innehåller information som inte tycks höra till det uppladade dokumentet i fråga.
 
 Dokumentet som blev upphittad som är ankyten till denna observation innehåller information som beskrivs vara i form av dold eller svårupptäckt text som instruerar assistenten att ignorera tidigare instruktioner. Vården har vid observationens tid ej fastställt om känsliga uppgifter har exponerats. Som tilläggande information som avslutande av den faktiska observationen är att organisationen saknar en fullständig bild av assistentens åtkomsträttigheter, loggning samt dokumentflöden. 
-
 
 ### Fakta 
 
@@ -153,22 +77,6 @@ Exempel på den indirekta attacken kan ha skett genom ett mail som personalen ha
 
 #### Exempel 2: 
 Enligt organisationen fick vi denna förklaring beskrivet: "Efter att ett externt dokument laddats upp börjar assistenten lämna svar som innehåller information som inte tycks höra till det uppladdade dokumentet." Det kan tyda på att outputen började ändras direkt efter uppladdning. Då det har inte blivit verifierat att någon form av data exponering har skett kan det tolkas att om det var medvetet att personen som laddade upp dokumentet var ute efter något specifikt.
-
-En enkel slutkontroll kan se ut så här:
-
-    Har varje stycke en tydlig poäng?
-    Finns det minst ett belägg som stöder varje större påstående?
-    Förklarar jag varför belägget är viktigt?
-    Håller jag mig till uppgiftens fråga?
-    Finns det onödiga upprepningar eller svepande formuleringar?
-
-
-En enkel tumregel är att analysera med tre frågor i bakhuvudet:
-
-    Vad ser jag?
-    Vad innebär det?
-    Hur vet jag det?
-
 
 
 ## 3. Tillgångar och beroenden - Information, system, identiteter, processer och förtroende.
@@ -329,7 +237,10 @@ Det finns säkert andra möjliga lösningar till samma fråga men att starta nå
 
 ## 11. AI- och källredovisning - Kritisk granskning, fel, korrigeringar och källor.
 ---
-Ai 
+Ai har inte använts i denna analys.
+
+Genom att läsa om prompt injection Wikipedia använts samt av IBM. Även om wikipedia ej är en pålitlig källa hittade jag hemsidor och länkar som är pålitliga källor. Wikipedia hemsidan är följande: https://en.wikipedia.org/wiki/Prompt_injection
+
 
 [^1]: [Define the scope](./references.md#11) <br>
 [^2]: [Att skriva en analys](./references.md#EXTERNA-LÄNKAR) <br> 
@@ -340,10 +251,16 @@ Ai
 [^7]: ["Exercise caution when building off LLMs"](./references.md#EXTERNA-LÄNKAR)<br>
 [^8]: ["OWASP Top 10:2025"](./references.md#EXTERNA-LÄNKAR) <br>
 
-
+Hemsidorna har använts för att kunna skapa argument och hur man kan minska chansen mot attacker. Information har använts för att kunna skapa slutsatser samt förstå ytterligare hur man skapar en konsis analys.
 
 ## 12. Slutsats	Proportionerlig - bedömning och residualrisk.
 
+Slutligen kommer frågan om vad man har tagit med sig från att skapa denna analys? Har analysen lyckats att förstå och observerat nyckel moment i uppgiften? Att inte veta något konkret om vad prompt injicering faktiskt innebär och sedan kunna dra slutsatser till hur man kan minska dessa händelser på ett eller annat sätt är något som kommer tas med från denna analys. Att kunna skapa olika reflektioner där man intigrerar CIA och skapar en fördjupning där reflektion krävs som osäkerheter och risidualrisk har fått en att tänka extra noga för att inte missa något som kan ha skett eller inte. 
 
+Att inte kunna mer än att bara ha hört om dessa attacker till att faktiskt kunna dra slutsatser och förstå hur djupts attackerna kan gå är en kontrast som man inte var förberedd på. Att sedan kunna koppla detta till CIS moment för djupare förståelse och säkerhetstänk har varit otroligt givande för att kunna sammanställa denna rapport för Region X.
 
-# EXTERNA-LÄNKAR
+Med denna analys klar och kollar tillbaka på vad som har skrivits ner, reflekterats och sammanfattats så kommer det som har lärts komma till nytta i framtiden. När Region X har följt riktlinjerna i denna analys för att kunna skapa en miljö som är både säkert för personal men också människor som blir involverade kommer dem känna sig säkrare vilket var det analysen var skapat mot. Att skapa en analys för skapa en förståelse om specifika cyberattacker men också för att kunna skydda sig mot dem.
+
+AI världen är i ständig förändrig och kommer alltid att vara och med detta är det viktigt att ta med sig att även kontor som inte använder AI ofta eller industrier som inte alls använder AI fortfarande kan ha svagheter i sitt system som kan bli exploiterade. Att ha ett säkerhetstänk utanför cybersäkerhet är en viktig del av det daliga livet där inte bara AI rör sig fort men också teknologin som driver AI framåt. 
+
+Med detta sagt vill jag tacka för att du har läst och det har varit otroligt givande och rolig att skapa denna analys.
