@@ -149,19 +149,6 @@ Exempel på den indirekta attacken kan ha skett genom ett mail som personalen ha
 #### Exempel 2: 
 Enligt organisationen fick vi denna förklaring beskrivet: "Efter att ett externt dokument laddats upp börjar assistenten lämna svar som innehåller information som inte tycks höra till det uppladdade dokumentet." Det kan tyda på att outputen började ändras direkt efter uppladdning. Då det har inte blivit verifierat att någon form av data exponering har skett kan det tolkas att om det var medvetet att personen som laddade upp dokumentet var ute efter något specifikt.
 
-
-EXEMPEL PÅ ANALYS KOPPLINGAR 
----
-”Detta tyder på att …”
-”Det kan tolkas som att …”
-”I kontrast till …”
-”Detta förstärker bilden av …”
-Det kan tolkas som att
-” …”
-”Det blir särskilt tydligt när …”
-
-
-
 En enkel slutkontroll kan se ut så här:
 
     Har varje stycke en tydlig poäng?
@@ -258,7 +245,7 @@ Om kartläggning ej skapas för hur man kan förminska attackerna på vården oc
 Genom att kontrollera loggar på miljöerna som assistenten har tillgång till kan man skapa uteslutanden. I kontrast till att endast leta efter vad som exponeras när det sker genom utdata så kan man enklare se mönster vart assistenten kan ha varit och antagligen ändrat filer som ett exempel.
 
 #### befintliga kontroller
-Enligt information som har mottagits från Region X har organisationen inte kartlagt behörigheter och loggning innan händelsen tagit plats.
+Enligt information som har mottagits från Region X har organisationen inte kartlagt behörigheter och loggning innan händelsen tagit plats. Enligt antaganden och baserad på fakta som mottagits så har dem endast CIS 2 under kontroll. Det blir särskilt tydligt när man drar paralleller till upptäckbarheten, redan befintliga kontroller samt ovetandet om exponering samt rättigheter hos assistenten.
 
 #### osäkerhet och residualrisk
 Genom information som har analyserats tills nu så kan det inte fastslås att assistenten faktiskt ändrar data som är uppladdade samt om exponering har skett. Vi vet heller inte om assistenten har ändrat rättigheter, ändrat lösenord eller skickat information till något eller något. 
@@ -267,21 +254,65 @@ Genom information som har analyserats tills nu så kan det inte fastslås att as
 
 ## 6. CIS-mappning och bortval	- Tre till fem valda kontroller och minst två motiverade bortval.
 
-| Säkerhetsåtgärd | Relevans för CIS Controls | Varför är kontrollen relevant? | Evidens i labben |
+För att kunna skapa en överblick om vad som behövs enligt CIA fördjupningen behöver vi lägga till lämpliga kontroller som ser till att attack ytan minskas, rättigheter kontrolleras, justeras eller läggs till och förståelsen om vad prompt injicering är. 
+
+Enligt CIA fördjupningen föreslås dessa kontroller för att kunna säkerställa en grund att kunna bygga upp en säker miljö som kan minska chansen att detta sker igen. Huvudsakligen att förminska attackerna som efterliknar händelsen som ledde till denna analys.
+
+CIS kontroller som föreslås är följande:
+
+| CIS |Säkerhetsåtgärd | Relevans för CIS Controls | Varför är kontrollen relevant? |
 |---|---|---|---|
-| Exempel: kontrollera konfigurationsfil | Säker konfiguration | Minskar risk för osäkra standardinställningar | `scripts/basic_config_check.py` |
-|  |  |  |  |
-|  |  |  |  |
+| CIS 3 | Reglering för information som hanteras av assistenten | Klassning, åtkomst och skydd | Minskar risk för exponering av känslig information|
+| CIS 6 | Skapelse av rättigheter och previlegier | Begränsar åtkomst av information av högre klassnings grad | Skapar säker grund då detta är en osäker front för tillfället |
+| CIS 8 | Möjlighet att kunna spåra loggar och dokument | Spårar åtkomst av filer, output och händelser | Grund för spårbarhet är en stapel för CIS 3 |
+| CIS 16 | Återskapning av säkerhetsrutiner på kod ninå | Möjlighet för att filtrera och reducera attack yta genom filtrering | Relevant säkerhet som filtrering mot specifika prompter för att reducera prompt attacker |
+| CIS 17 | Att utreda, skapa evidens för eskalering | Utredning krävs för att säkerställa om filer har blivit exponerat | Utredning krävs som uppföljning för attacken och för framtida händelser |
+
+
+Enligt analysen så visas det att skapa en överblick utav assistenten och dess integrationer inte känns som en prioritet i denna analys och resurser kan läggas på att skapa en säker grund för att kunna motverka framtida attacker. CIS 2 anses då inte som en kontroll som är nödvändigt. Genom att belysa CIS 4 så går CIS 4 och CIS 2 hand i hand i detta sammanhang genom att skapa överblick av assistenten och  dess integrationer medans CIS 4 skapar en säker grund för dettta.
+
 
 ## 7. Prioriterad förbättringsplan -Högst fem åtgärder, beroenden, ansvarstyp och verifiering.
+Att se tillbaka till förra delen där CIS kontroller diskuteras så behöver vi skapa prioritering utav vilka kontroller som behöver att utövas först och främst.
+Genom att vi ska kunna validera hur händelsen har påverkat organisationen och för att säkerställa att inget har läckts eller exponerats behövs kontrollen om utredning CIS 17 att komma först i listan. 
 
+Genom att sedan lägga resurser på att återskapa assistenten från grunden där vi kan använda os av CIS 16 för att kunna filtrera olika prompter säkerställer en mindre attack yta. Genom att säkra grunden med filtrering som ett expempel och har lagt upp rutiner för utredning och evidens insamling kan man därefter börja skapa rättigheter genom CIS 6 som är grunden. 
 
+Genom att kunna skapa en rutin som följer CIS 17 och förstärkt attack ytan bör CIS 8 kontrollerna tas i akt för att kunna följa upp när framtida attacker sker där vi skapar spårbarhet till filer som ett exempel eller loggar som kan visa evidense om filmanipulering.
+
+Att kunna skapa en rutin för att kontrollera spårbarhet för dokument är en kontroll som behöver att implimenteras som en rutin men utan att kunna reglera vilken information som assistenten har tillgång till kan det ske avvikelser eller händelser som är svårare att kontrollera. Ett exempel som finns är att assistenten kan komma åt tusentals filer då assistenten hanterar dokument från flera interna källor. Genom CIS 3 kan man skapa regler för att kunna reglera vilken information som är tillgänglig för assistenten och samtidigt kunna kontrollera användaren. Ett enkelt system är att man kan använda sig utav är NFC kort som man kan blippa mot maskinen som identifiering för att se till att rätt dokument tillåts att läsas av rätt personal. Med detta kan man enklare kunna verifiera vilka segment och användare som har använt sig utav assistenten och när, vilka filer som bler påverkade för att kunna skapa en utvärdering.
 
 ## 8. Teknisk verifieringsplan	- Vilken evidens som behöver samlas och hur den tolkas.
+Att kunna skapa en stark grund där alla fem kontrollerna och dess rutiner fungerar i symbios är en viktig del av processen för att förminska attackerna mot Region X. Genom att skapa grunden som nämnts i föregående avsnitt i analysen om CIS och dess åtgärder är förmodligen CIS 17 den viktigaste aspekten av alla kontroller då information som blev tilldelad visade på stora säkerhetsbrister när det kom till rapportering och incidentbehandling. Inga rutiner fanns om att kunna skapa least rights, spårbarhet på filer och utan att kunna verifiera om filer har exponerats är ett stort problem i sig som behöver tas itu med omedelbart för att kunna skydda sig mot framtida attacker men också kunna enklare se och spåra ändringar eller mönster i systemet som man inte kan se i dagsläget.
+
+De största delarna av evidensen som kan samlas in kommer direkt från loggar av filer i framtiden men också om man kan skapa rutiner för att kontrollera nätverks för attackerare denna vägen om det skulle vara att assistenten faktiskt har tillgång till internet. 
+
+Evidensplan för denna händelse är att kunna samla information som till exempel chat loggar om detta sparas någonstans, vilka filer som blev manipulerade, vem blev påverkade och vilket dokument som användes vid attacken för att kunna säkerställa vad prompten faktiskt ber assistenten om. 
+
+Evidensen kan sedan användas för att framställa en egen analys där man sammanställer faktan som samlats in, sedan genom CIS 17 systematiskt gå i genom detta och eskalera till Region X om det hittas ett mönster inom organisationen. 
+
+
+## 9. Analys
+
+### Teknisk
+
+Osäkerheten som skapats de senaste åren tills nu har skapat mycket oro, allt från osäkerheten om chansen om kapaciteten för medvetenhet inom AI till hur AI kan ta sig ut från sin säkra sandbox och attackera andra robotar för att hitta svar på det den inte vet. [^5] Då detta var under ett kontrollerat test är det inte säkert att detta inte kommer ske i framtiden utanför säkra ramar. 
+
+Prompt injicering är fortfarande relativt nytt inom AI och många avdelningar har inte utbildningen eller vetskapen som krävs för att säkert använda sig utav AI på ett kontrollerat sätt. Region X's vårdavdelning är en av flera stora organisationer som har blivit påverkade av specifikt attacker mot AI där chat prompter, fil uppladdningar eller hemsidor kan skapa stora problem där AI inte kan särskilja om prompten innehåller bas information från användaren eller instructioner från utvecklaren. [^3] 
 
 
 
-## 9. Två målgrupper - Teknisk analys samt verksamhets-/ledningsanpassad rekommendation.
+mönster, samband, orsaker, effekter och möjliga tolkningar. 
+
+Vad ser jag?
+Vad innebär det?
+Hur vet jag det?
+
+### verksamhets-/ledningsanpassad
+
+
+
+
 
 
 # 10 FYLL I ENGLISH SECURITY SUMMARY
@@ -295,11 +326,12 @@ Genom information som har analyserats tills nu så kan det inte fastslås att as
 
 
 
-
-
 # EXTERNA-LÄNKAR
 ---
 [^1]: [Define the scope](./references.md#EXTERNA-LÄNKAR) <br>
 [^2]: [Att skriva en analys](./references.md#EXTERNA-LÄNKAR) <br> 
 [^3]: ["What Is a Prompt Injection Attack?"](./references.md#EXTERNA-LÄNKAR)  
-[^4]: ["Recruiters Use A.I. to Scan Résumés. Applicants Are Trying to Trick It"](./references.md#EXTERNA-LÄNKAR)
+[^4]: ["Recruiters Use A.I. to Scan Résumés. Applicants Are Trying to Trick It"](./references.md#EXTERNA-LÄNKAR) <br>
+[^5]: ["OpenAI and Hugging Face partner to address security incident during model evaluation"](./references.md#EXTERNA-LÄNKAR) 
+
+
